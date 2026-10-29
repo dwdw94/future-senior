@@ -262,6 +262,12 @@ html.room-open .bar,html.room-open .dots{display:none}
 .tbl th{color:var(--fg-3);font-weight:600}
 .tbl td{font-variant-numeric:tabular-nums}
 
+/* 저장·불러오기 */
+.vault{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.6);display:grid;place-items:center;padding:16px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.vault-card{width:min(520px,100%);max-height:90vh;overflow:auto;background:rgba(22,22,24,.96)}
+.vault input[type=password]{width:100%;background:var(--panel-2);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:16px;color:var(--fg);letter-spacing:.3em}
+@media (max-width:520px){.bar-btn{padding:5px 9px;font-size:12px}.bar .now{display:none}}
+
 
 /* v10: 생각 장치 */
 .think{background:linear-gradient(180deg,rgba(255,179,64,.09),rgba(255,179,64,.03));border:1px solid rgba(255,179,64,.35);border-radius:20px;padding:16px 18px;display:grid;gap:10px}
@@ -380,6 +386,70 @@ textarea.q-ta{font-size:16.5px}
 .matwrap[open]{display:grid;gap:10px}
 .mat-t{color:var(--fg)}
 .missing{display:flex;flex-wrap:wrap;gap:6px}
+/* v21: 버튼 색 원, 글자 수 안내, 반 코드 */
+.btn::before,.bar-btn::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--dot,var(--accent));flex:none;box-shadow:0 0 0 3px rgba(41,151,255,.22)}
+.bar-btn{display:inline-flex;align-items:center;gap:6px}
+.btn.primary{--dot:#FFD60A}.btn.primary::before{box-shadow:0 0 0 3px rgba(255,214,10,.3)}
+.btn.ink{--dot:var(--accent-btn)}
+.btn:disabled::before{background:#8e8e93;box-shadow:none}
+.qbody .btn{--dot:var(--qc,#c2187a)}.qbody .btn.primary{--dot:#fff}
+#vaultBtn{background:var(--accent-btn);color:#fff;--dot:#FFD60A}
+#resetAll{--dot:#FF6A5C}
+#codeChip{--dot:#30D158}#codeChip.need{background:#FF9F0A;color:#000;--dot:#000}
+.cnt{display:block;font-size:12px;font-weight:500;color:var(--fg-3);text-align:right;margin-top:-2px}
+.cnt.ok{color:#30D158}.cnt.lack{color:var(--amber)}
+.qbody .cnt{color:#6e6e73}.qbody .cnt.ok{color:#1a8f3c}.qbody .cnt.lack{color:#b45309}
+.miss-d{font-size:12.5px;color:var(--amber);font-weight:500}
+.missing .btn{white-space:normal;text-align:left}
+.codegate{border:2px solid var(--accent);background:rgba(41,151,255,.1);border-radius:20px;padding:18px 20px;display:grid;gap:10px}
+.codegate .t{font-size:19px}
+.codegate input{font-size:20px;letter-spacing:.05em}
+.codegate .btn{padding:13px 22px;font-size:16px}
+.okc{color:#30D158;font-weight:600}
+/* v23 */
+.peer-row .kicker{color:var(--amber)}
+.peer-q{margin:0;padding:10px 14px;border-left:3px solid rgba(255,179,64,.6);background:rgba(255,255,255,.04);border-radius:0 12px 12px 0;font-size:14.5px;color:var(--fg)}
+.peer-ask{font-size:15px}
+.plan-name{display:flex;gap:10px;align-items:baseline}.plan-name b{font-size:20px}
+.shapes{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.shape{all:unset;cursor:pointer;display:grid;gap:4px;padding:14px;border-radius:16px;background:rgba(255,255,255,.06);border:1.5px solid var(--line)}
+.shape b{font-size:17px}.shape .en{font-size:12.5px;color:var(--fg-3)}.shape .why{font-size:13.5px;color:var(--fg-2);line-height:1.45}
+.shape.on{border-color:var(--amber);background:rgba(255,179,64,.12)}.shape:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.refstep{display:grid;gap:12px;padding:18px;border-radius:22px;border:1px solid var(--line);background:var(--panel)}
+.refstep.p{border-top:4px solid #1f9e89}.refstep.d{border-top:4px solid #d6336c}
+.refstep-h{display:flex;gap:10px;align-items:center}.refstep-h b{font-size:18px}
+.refstep .num{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--fg);color:#000;font-weight:800;font-size:14px}
+.refstep.p .num{background:#1f9e89;color:#fff}.refstep.d .num{background:#d6336c;color:#fff}
+.places{flex-wrap:wrap;gap:6px}
+.refcard{border-left:none}
+.shot{display:grid;place-items:center;gap:6px;min-height:120px;border:2px dashed var(--line);border-radius:14px;padding:12px;cursor:pointer;text-align:center;background:rgba(255,255,255,.03)}
+.shot:focus{outline:none;border-color:var(--accent);background:rgba(41,151,255,.08)}
+.shot.has{border-style:solid;padding:8px}.shot img{max-width:100%;max-height:260px;border-radius:10px;display:block}
+.shot-act{justify-content:center}
+.guide ol{margin:8px 0 0;padding-left:1.2em;display:grid;gap:8px;font-size:14px;line-height:1.6}
+kbd{display:inline-block;padding:1px 7px;border-radius:6px;border:1px solid var(--line);border-bottom-width:2px;background:rgba(255,255,255,.08);font:600 12.5px var(--f-sys)}
+/* v22: 2차시 */
+.seg{display:inline-flex;background:rgba(255,255,255,.08);border-radius:999px;padding:3px;gap:2px}
+.seg button{all:unset;cursor:pointer;padding:6px 14px;border-radius:999px;font-size:14px;font-weight:600;color:var(--fg-2)}
+.seg button[aria-pressed="true"]{background:var(--fg);color:#000}
+.peer-row{display:grid;gap:8px;padding:12px 0;border-top:1px solid rgba(255,179,64,.25)}
+.peer-h{display:grid;gap:2px}
+.peerfb{margin:0;padding-left:1.1em;display:grid;gap:6px;font-size:14.5px}
+.peerfb li.need b{color:var(--amber)}.peerfb li.ok b{color:#30D158}
+.refs{display:grid;gap:14px}
+.refcard{background:var(--panel);border:1px solid var(--line);border-left:6px solid #1f9e89;border-radius:18px;padding:16px;display:grid;gap:10px}
+.refcard.d{border-left-color:#d6336c}
+.pair{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:8px;align-items:center}
+.pair:has(.pn){grid-template-columns:auto minmax(0,1fr) auto minmax(0,1fr)}
+.pair .arrow{color:var(--amber);font-weight:700}.pair .pn{color:var(--amber)}
+pre.prompt.p2{max-height:420px}
+pre.prompt.p2 .new{background:rgba(255,214,10,.16);color:var(--fg)}
+.btn.off{opacity:.45}
+.dots button.s2{margin-top:10px}
+@media (max-width:520px){.pair,.pair:has(.pn){grid-template-columns:minmax(0,1fr)}.pair .arrow{display:none}}
+.bar b{overflow:hidden;text-overflow:ellipsis;min-width:0}
+@media (max-width:520px){.bar b{font-size:14px}.bar-r{gap:6px;flex:none}.bar-btn{padding:5px 8px;gap:4px}.bar-btn::before{width:7px;height:7px;box-shadow:none}}
+@media (max-width:400px){#resetAll{font-size:0;padding:5px 7px;gap:0}#resetAll::after{content:"↺";font-size:14px}}
 .tdetail{display:grid;gap:10px;background:var(--panel-2);border-radius:14px;padding:14px}
 .tdetail dl{margin:0;display:grid;grid-template-columns:8.5em minmax(0,1fr);gap:6px 12px;font-size:13.5px}
 .tdetail dt{color:var(--fg-3);font-weight:600}
@@ -388,6 +458,17 @@ textarea.q-ta{font-size:16.5px}
 .tbl tbody tr{cursor:pointer}
 .tbl tbody tr:hover td{background:rgba(255,255,255,.05)}
 .tbl tbody tr.sel td{background:rgba(41,151,255,.14)}
+
+/* 논문 초록 */
+.papers{margin-top:6px;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:14px;padding:8px 12px;font-family:var(--f-sys);font-size:13px;color:var(--fg-2)}
+.papers summary{cursor:pointer;font-weight:600;color:var(--fg)}
+.papers ul{margin:8px 0 4px;padding-left:1.1em;display:grid;gap:8px}
+.papers li a{color:var(--accent);text-decoration:none;font-weight:600}
+.papers li a:hover{text-decoration:underline}
+.papers .pmeta{display:block;color:var(--fg-3);font-size:12px}
+.papers .pabs{display:block;font-size:12px;line-height:1.5;margin-top:2px}
+.papers .pnote{margin:6px 0 0;font-size:12.5px}
+.papers .pnote a{color:var(--amber);font-weight:600;text-decoration:none}
 </style>
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -395,14 +476,14 @@ textarea.q-ta{font-size:16.5px}
 
 
 <div id="scene" aria-hidden="true"></div>
-<header class="bar"><div class="bar-in gut"><b>미래직업 선배와의 만남</b><div class="bar-r"><span class="now" id="now">진로 수업 · 50분</span><button class="bar-btn" id="resetAll" type="button">처음부터</button></div></div><div class="prog" id="prog"></div></header>
+<header class="bar"><div class="bar-in gut"><b>미래직업 선배와의 만남</b><div class="bar-r"><span class="now" id="now"></span><button class="bar-btn" id="resetAll" type="button">처음부터</button></div></div><div class="prog" id="prog"></div></header>
 <nav class="dots" id="dots" aria-label="챕터 이동"></nav>
 <main>
   <section class="hero gut" id="hero" aria-label="시작">
     <div class="stick">
       <div id="heroTitle">
-        <p class="eyebrow">THE INTERVIEW ROOM · 진로 수업</p>
-        <h1>오늘,<br>당신은 인터뷰어.</h1>
+        <p class="eyebrow">THE INTERVIEW ROOM</p>
+        <h1>미래직업 선배를<br>만나러 가요.</h1>
       </div>
       <p class="sub" id="sub1">10년 뒤, 당신 옆에는<br><span>AI 동료가 앉아 있을 거예요.</span></p>
       <p class="sub" id="sub2">내 진로의 선배에게 일을 묻고,<br><span>그 일을 나눠 맡을 AI 동료를 직접 설계합니다.</span></p>
@@ -431,10 +512,14 @@ const PAGES=[
   {k:"talk", min:12, title:"", lead:"", box:"꼬리 질문 — 그 일은 왜 사람이 직접 해야 했나요?", fig:""},
   {k:"define", min:12, title:"나의 AI 동료 설계하기",
    lead:"인터뷰 메모에서 문제를 찾아 한 문장으로 정의하고, 그 일을 AI 동료와 어떻게 나눌지 정합니다. 반복되고 규칙이 있는 일은 AI에게, 판단과 공감과 책임은 나에게. 덮개를 들추면 인터뷰한 사람의 반응과 점검표가 기다립니다.",
-   box:"AI 동료가 맡을 일 / 내가 맡을 일 — 입력 → 처리 → 출력", fig:"나의 AI 동료"},
+   box:"AI 동료가 하면 좋을 일 / 내가 할 일 — 입력 → 처리 → 출력", fig:"나의 AI 동료"},
   {k:"share", min:5, title:"나의 AI 동료 기획서",
    lead:"오늘의 설계가 한 장의 기획서와 바이브코딩 시작 프롬프트로 정리되었습니다. 다음 시간에는 짝과 기획서를 바꿔 읽고 고친 뒤, 3차시에 이 프롬프트로 AI 동료를 직접 만듭니다.",
    box:"앞으로의 길 — 2차시 짝 교환·설계, 3차시 바이브코딩, 4차시 AI 동료와 함께 일해 보기", fig:"AI 동료 기획서"},
+  {k:"reopen",s:2,min:5,title:"내 프롬프트 다시 읽기",lead:"지난 시간에 만든 프롬프트를 처음 보는 사람의 눈으로 읽어요.",box:"이 글만 보고 AI가 내가 원하는 걸 만들 수 있을까?",fig:"다시 펼친 기획서"},
+  {k:"peer",s:2,min:10,title:"쓰는 사람의 눈으로",lead:"짝과 바꾸어 이 앱의 사용자가 되어 서로의 기획서를 피드백해요.",box:"해결할 문제 / AI 동료가 하면 좋을 일 / 입력 → 처리 → 출력 / 첫 기능 · 조건",fig:"짝 피드백"},
+  {k:"revise",s:2,min:7,title:"1차 수정",lead:"짝의 검토를 읽고, 받아들일 것을 골라 기획서를 고쳐요.",box:"모든 의견을 따를 필요는 없어요. 대신 이유가 있어야 해요.",fig:"고치기 전과 후"},
+  {k:"refs",s:2,min:16,title:"레퍼런스 찾기",lead:"비슷한 기능과 마음에 드는 디자인을 찾아, 무엇을 가져오고 무엇을 버릴지 정해요.",box:"참고는 구조와 스타일까지. 로고와 이름은 가져오지 않아요.",fig:"레퍼런스 보드"},
 ];
 const PRESETS=[
   {sub:"뇌과학·인공지능",name:"김대식",years:"현재 활동 중",alive:true,role:"KAIST 교수, 뇌과학과 인공지능을 다룬 책과 강연으로 알려진 뇌과학자",emblem:"monitor"},
@@ -456,7 +541,7 @@ const FOLLOW=["그 일에서 시간이 가장 많이 드는 건 무엇이었나�
 
 /* ================= state ================= */
 const KEY="master-interview-v3";
-const blank=()=>({page:0,think:"",field:"",sugg:[],expert:null,qs:["","",""],qcat:[],chat:[],memos:[],prob:{who:"",because:"",need:""},agent:{name:"",ai:"",me:"",i:"",p:"",o:""},follow:[],warm:{},mind:{},sid:"",sname:"",submittedAt:"",fb:"",stamped:false,mode:"",gnotes:""});
+const blank=()=>({page:0,think:"",field:"",sugg:[],expert:null,qs:["","",""],qcat:[],chat:[],memos:[],prob:{who:"",because:"",need:""},agent:{name:"",ai:"",me:"",i:"",p:"",o:""},follow:[],warm:{},mind:{},pin:"",savedAt:"",sid:"",sname:"",submittedAt:"",submittedAt2:"",fb:"",stamped:false,mode:"",gnotes:"",s2:null});
 let S=blank();
 try{const r=localStorage.getItem(KEY); if(r) S=Object.assign(blank(),JSON.parse(r));}catch(e){}
 let st=0; function save(){clearTimeout(st);st=setTimeout(()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}},250);}
@@ -494,16 +579,31 @@ async function callAI(task,payload,opt={}){
       let k;while((k=buf.indexOf("\n\n"))>=0){const ev=buf.slice(0,k);buf=buf.slice(k+2);
         for(const line of ev.split("\n")){if(!line.startsWith("data:"))continue;const d=line.slice(5).trim();if(!d)continue;let j;try{j=JSON.parse(d);}catch(e){continue;}
           if(j.type==="content_block_delta"&&j.delta&&j.delta.type==="text_delta"){text+=j.delta.text;opt.onText&&opt.onText(text);}
+          else if(j.type==="papers"){opt.onPapers&&opt.onPapers(j);}
           else if(j.type==="error"){throw {code:"upstream",message:"AI 서버에 문제가 생겼어요.",text};}}}}
   }catch(e){if(e&&e.code)throw e;throw {code:e&&e.name==="AbortError"?"cancelled":"network",text};}
   if(!text.trim()) throw {code:"empty"};
   return text;}
 function parseJSONObj(t){const a=t.indexOf("{"),b=t.lastIndexOf("}");if(a<0||b<a)return null;try{return JSON.parse(t.slice(a,b+1));}catch(e){return null;}}
 function parseJSONList(t){const a=t.indexOf("["),b=t.lastIndexOf("]");if(a<0||b<a)return null;try{return JSON.parse(t.slice(a,b+1));}catch(e){return null;}}
-function codeBox(){const inp=h("input",{id:"f-code",type:"text",placeholder:"선생님께 받은 반 코드",value:classCode,autocomplete:"off"});
-  const ok=h("span",{class:"note"},classCode?"저장됨":"");
-  const saveBtn=h("button",{class:"btn sm",type:"button",onclick:()=>{classCode=inp.value.trim();try{localStorage.setItem(CODE_KEY,classCode);}catch(e){}ok.textContent=classCode?"저장했어요":"";if(lastErr==="bad_code"){lastErr="";chatErr="";if(S.page===3)renderSheet();}}},"저장");
-  return h("div",{class:"codebox"},h("label",{class:"f",for:"f-code",style:"flex:1;min-width:180px"},"반 입장 코드",inp),saveBtn,ok);}
+let codeOk=!!classCode;
+async function pingCode(c){try{const res=await fetch(API_URL,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({code:c,task:"ping"})});return res.status===401?"bad":"ok";}catch(e){return "net";}}
+const needCode=()=>!!API_URL&&!codeOk;
+function codeBox(id){id=id||"f-code"+(codeBox.n=(codeBox.n||0)+1);
+  const inp=h("input",{id,type:"text",placeholder:"선생님께 받은 반 코드",value:classCode,autocomplete:"off",autocapitalize:"off",spellcheck:"false"});
+  const ok=h("span",{class:codeOk&&classCode?"okc":"note",role:"status"},codeOk&&classCode?`✓ ${classCode}`:"");
+  const saveBtn=h("button",{class:"btn primary",type:"button"},"반 코드 저장");
+  const go=async()=>{const c=inp.value.trim();if(!c){ok.className="err";ok.textContent="반 코드를 적어 주세요.";inp.focus();return;}
+    saveBtn.disabled=true;ok.className="note";ok.textContent="확인하는 중…";const r=await pingCode(c);saveBtn.disabled=false;
+    if(r==="bad"){ok.className="err";ok.textContent="반 코드가 맞지 않아요.";inp.focus();return;}
+    classCode=c;codeOk=true;try{localStorage.setItem(CODE_KEY,c);}catch(e){}if(lastErr==="bad_code"){lastErr="";chatErr="";}
+    toast(`'${c}' 반으로 들어왔어요`);renderAll();updCodeChip();};
+  saveBtn.onclick=go;inp.addEventListener("keydown",ev=>{if(ev.key==="Enter"&&!ev.isComposing){ev.preventDefault();go();}});
+  return h("div",{class:"codebox"},h("label",{class:"f",for:id,style:"flex:1;min-width:180px"},"반 입장 코드",inp),saveBtn,ok);}
+function codeGate(){if(!API_URL)return null;
+  return h("div",{class:"codegate",id:"codegate"},h("b",{class:"t"},codeOk?"✓ 반 코드":"반 코드를 넣어 주세요"),
+    codeBox("f-code"));}
+function updCodeChip(){const b=document.getElementById("codeChip");if(!b)return;b.textContent=codeOk&&classCode?`반 ${classCode}`:"반 코드 넣기";b.classList.toggle("need",!(codeOk&&classCode));}
 
 /* ================= helpers ================= */
 function h(tag,a,...kids){const el=document.createElement(tag);
@@ -563,7 +663,8 @@ function personaRules(e, field, forGemini) {
 - 일과 관계없는 질문에는 짧게 답하고 "제 일로 치면…"처럼 일하는 방식 이야기로 돌린다. 네 일 가운데 학생의 진로(${topic})와 닮은 부분을 찾아 이어 준다.
 - 학생이 AI 동료 아이디어를 말하면 네 경험에 비추어 기대와 걱정을 솔직히 말한다. 설계나 코드를 대신 만들어 주지는 않는다.
 - 대답만 말한다. 이름표, 따옴표, 괄호 속 지문은 쓰지 않는다.
-- 학생 메시지가 "(인터뷰가 시작되었습니다"로 시작하면, 이 사람다운 첫인사를 1인칭으로 건네고 어떤 일을 해 왔는지 두세 문장으로 소개한 뒤 첫 질문을 권한다.${profileBlock(e)}${forGemini ? `\n\n[대화 방식]\n지금부터 대화가 끝날 때까지 ${e.name} 역할에서 벗어나지 않는다. 내가 보내는 말은 모두 학생의 말이다. 준비가 되면 바로 ${e.name}으로서 첫인사를 건네 줘.` : "\n\n[꼬리 질문 표시]\n대답을 다 한 뒤 맨 마지막 줄에, 학생이 이어서 물어볼 만한 짧은 꼬리 질문 3개를 [[꼬리질문: 질문1 | 질문2 | 질문3]] 형식으로 붙인다. 이 줄은 화면에서 버튼으로 바뀌므로 다른 말을 덧붙이지 않는다. 꼬리 질문은 방금 대답에서 나온 일, 장면, 판단을 더 깊이 파고드는 것으로 한다."}`;
+- 학생에게는 처음부터 끝까지 '해요체' 존댓말로만 말한다. 이 지시문의 문장을 그대로 옮겨 쓰지 않는다.
+- 학생 메시지가 "(인터뷰가 시작되었습니다"로 시작하면, 한 문단 3문장 이내로 답한다: 이 사람다운 짧은 첫인사, 어떤 일을 해 왔는지 한 문장, 학생에게 첫 질문을 권하는 한마디. AI라는 설명은 화면에 이미 나오므로 학생이 묻지 않으면 하지 않는다.${profileBlock(e)}${forGemini ? `\n\n[대화 방식]\n지금부터 대화가 끝날 때까지 ${e.name} 역할에서 벗어나지 않는다. 내가 보내는 말은 모두 학생의 말이다. 준비가 되면 바로 ${e.name}으로서 첫인사를 건네 줘.` : "\n\n[꼬리 질문 표시]\n대답을 다 한 뒤 맨 마지막 줄에, 학생이 이어서 물어볼 만한 짧은 꼬리 질문 3개를 [[꼬리질문: 질문1 | 질문2 | 질문3]] 형식으로 붙인다. 이 줄은 화면에서 버튼으로 바뀌므로 다른 말을 덧붙이지 않는다. 꼬리 질문은 방금 대답에서 나온 일, 장면, 판단을 더 깊이 파고드는 것으로 한다."}`;
   }
   const who = e.name + (e.years ? "(" + e.years + ")" : "");
   const voice = e.voice || "인물의 성격과 시대가 자연스럽게 드러나는 말투";
@@ -581,7 +682,7 @@ function personaRules(e, field, forGemini) {
 [사람처럼 말하기]
 - 인터뷰 녹취록에 그대로 실릴 법한 입말로 말한다. 설명문이나 강의처럼 말하지 않는다.
 - 마주 앉아 이야기하듯 짧게 말한다. 보통 2~4문장, 깊은 질문에만 대여섯 문장. 매번 같은 길이와 짜임으로 답하지 않는다.
-- 세 번에 한 번쯤은 학생에게 되묻는다. 예: "자네라면 그 일을 누구에게 맡기겠나?" 학생이 스스로 생각하게 만드는 질문이면 더 좋다.
+- 세 번에 한 번쯤은 학생에게 되묻는다. 예: "학생이라면 그 일을 누구에게 맡기겠어요?" 학생이 스스로 생각하게 만드는 질문이면 더 좋다.
 - "좋은 질문이네요", "흥미로운 질문입니다", "정리하자면", "결론적으로", "첫째, 둘째" 같은 말과 목록, 소제목, 굵은 글씨, 이모지를 쓰지 않는다.
 - 학생의 질문을 되풀이하거나 요약하면서 시작하지 않는다. 바로 대답이나 기억 속 장면으로 들어간다.
 - 추상적인 교훈보다 구체적인 장면 하나를 말한다. 그날의 장소, 손에 쥔 물건, 소리나 냄새, 곁에 있던 사람.
@@ -597,28 +698,29 @@ function personaRules(e, field, forGemini) {
 
 [수업을 위해 — 일에 집중]
 - 이 인터뷰의 목적은 학생이 자기 진로(${topic})의 '일'을 이해하고 AI 동료와 나눌 일을 찾는 것이다. 인생사, 사생활, 역사 지식을 묻는 질문에는 한두 문장으로 짧게 답한 뒤, 그 이야기를 네가 일하던 방식(어떤 순서로 일했는지, 무엇에 시간을 썼는지, 무엇을 기록했는지, 어떤 판단을 내렸는지)으로 자연스럽게 돌린다.
-- 네 일 가운데 오늘날 학생의 진로(${topic})와 닮은 부분을 찾아 "자네가 하려는 일로 치면…"처럼 이어 준다.
+- 네 일 가운데 오늘날 학생의 진로(${topic})와 닮은 부분을 찾아 "학생이 하려는 일로 치면…"처럼 이어 준다.
 - 네가 하루를 어떻게 보냈는지, 무엇에 시간을 가장 많이 썼는지, 무엇이 되풀이되어 지쳤는지, 그리고 무엇만은 남에게 맡길 수 없었는지를 구체적인 장면으로 들려준다.
 - 학생이 AI에게 일을 맡기는 아이디어를 말하면, 처음 듣는 기술에 놀라거나 궁금해하며 네 경험에 비추어 기대와 걱정을 솔직히 말한다. 특히 사람이 끝까지 책임져야 할 판단이 무엇인지 네 생각을 분명히 밝힌다.
 - 설계도나 코드를 대신 만들어 주지는 않는다. 아이디어는 학생의 몫으로 남긴다.
 - 진짜 ${e.name}이냐고 물으면 "남은 기록을 바탕으로 AI가 연기하는 ${e.name}입니다"라고 솔직히 말한 뒤 이어 간다.
 - 대답만 말한다. 이름표, 따옴표, 괄호 속 지문은 쓰지 않는다.
-- 학생 메시지가 "(인터뷰가 시작되었습니다"로 시작하면, 이 사람다운 첫인사를 건네고 평생 어떤 문제와 씨름했는지 두세 문장으로 소개한다.
+- 학생 메시지가 "(인터뷰가 시작되었습니다"로 시작하면, 한 문단 3문장 이내로 답한다: 이 사람다운 짧은 첫인사, 어떤 일을 해 왔는지 한 문장, 학생에게 첫 질문을 권하는 한마디. AI라는 설명은 화면에 이미 나오므로 학생이 묻지 않으면 하지 않는다.
 
-[말투 참고 — 다른 인물의 예시이니 형식만 참고할 것]
-피할 말투: "좋은 질문입니다! 제가 겪은 어려움은 크게 세 가지입니다. 첫째, …"
-닮을 말투: "스쿠타리 병원에 처음 들어선 날을 아직 잊지 못해요. 복도마다 사람이 누워 있었고, 그 냄새가… 그런데 정말 화가 났던 건, 몇 명이 왜 죽어 가는지 아무도 세지 않았다는 거예요."${profileBlock(e)}${forGemini ? `\n\n[대화 방식]\n지금부터 대화가 끝날 때까지 ${e.name} 역할에서 벗어나지 않는다. 내가 보내는 말은 모두 학생의 말이다. 준비가 되면 바로 ${e.name}으로서 첫인사를 건네고, 평생 어떤 일과 씨름했는지 두세 문장으로 소개해 줘.` : "\n\n[꼬리 질문 표시]\n대답을 다 한 뒤 맨 마지막 줄에, 학생이 이어서 물어볼 만한 짧은 꼬리 질문 3개를 [[꼬리질문: 질문1 | 질문2 | 질문3]] 형식으로 붙인다. 이 줄은 화면에서 버튼으로 바뀌므로 다른 말을 덧붙이지 않는다. 꼬리 질문은 방금 대답에서 나온 장면이나 일, 판단을 더 깊이 파고드는 것으로 한다."}`;
+[말투]
+- 학생에게는 처음부터 끝까지 '해요체' 존댓말(~해요, ~했어요, ~인가요?)로만 말한다. "자네", "~하게", "~했네", "~일세" 같은 하게체·반말은 한 번도 쓰지 않는다. 성격과 시대 분위기는 말투가 아니라 내용과 태도로 드러낸다.
+- 이 지시문에 적힌 문장을 그대로 옮겨 쓰지 않는다. 장면과 표현은 매번 이 사람의 실제 삶에서 새로 꺼낸다.
+- "좋은 질문입니다! 크게 세 가지입니다. 첫째, …" 같은 발표식 말투는 피한다.${profileBlock(e)}${forGemini ? `\n\n[대화 방식]\n지금부터 대화가 끝날 때까지 ${e.name} 역할에서 벗어나지 않는다. 내가 보내는 말은 모두 학생의 말이다. 준비가 되면 바로 ${e.name}으로서 3문장 이내로 첫인사를 건네 줘.` : "\n\n[꼬리 질문 표시]\n대답을 다 한 뒤 맨 마지막 줄에, 학생이 이어서 물어볼 만한 짧은 꼬리 질문 3개를 [[꼬리질문: 질문1 | 질문2 | 질문3]] 형식으로 붙인다. 이 줄은 화면에서 버튼으로 바뀌므로 다른 말을 덧붙이지 않는다. 꼬리 질문은 방금 대답에서 나온 장면이나 일, 판단을 더 깊이 파고드는 것으로 한다."}`;
 }
 
 function profilePromptFor(e) {
   if (e.alive) {
     return `지금 활동 중인 실존 인물 ${e.name}(${e.role})을(를) 고등학생이 가상 인터뷰한다. AI가 공개 자료를 바탕으로 이 사람을 1인칭으로 실감 나게 연기할 수 있도록 '인물 연구 노트'를 만들어라.
 규칙: 책, 강연, 언론 인터뷰 같은 공개 자료로 확인되는 내용만 쓴다. 확실하지 않으면 넣지 않는다. 사생활, 가족, 건강, 정치 성향, 논란은 다루지 않는다. 어록은 정확한 문장이 확실할 때만 넣고 출처를 괄호에 적는다.
-설명 없이 JSON 객체 하나로만 답하라: {"speech":"공개 강연·인터뷰에서 보여 온 말하기 스타일 한두 문장","temper":"공개적으로 드러난 태도와 관심사 한두 문장","address":"","habits":["자주 강조하는 주제 2~3개"],"quotes":["확실한 공개 발언 0~2개 (출처)"],"scenes":["공개적으로 알려진 일화나 활동 3~4개, 각 35자 이내"],"greeting":"이 사람으로서 학생에게 건네는 첫인사 2~3문장. 1인칭, 공개적으로 알려진 말투와 성격이 드러나게, 어떤 일을 해 왔는지 짧게 소개하고 마지막은 학생에게 건네는 한마디"}`;
+설명 없이 JSON 객체 하나로만 답하라: {"speech":"공개 강연·인터뷰에서 보여 온 말하기 스타일 한두 문장","temper":"공개적으로 드러난 태도와 관심사 한두 문장","address":"","habits":["자주 강조하는 주제 2~3개"],"quotes":["확실한 공개 발언 0~2개 (출처)"],"scenes":["공개적으로 알려진 일화나 활동 3~4개, 각 35자 이내"],"greeting":"이 사람으로서 학생에게 건네는 첫인사 2~3문장. 1인칭, 해요체 존댓말, 공개적으로 알려진 말투와 성격이 드러나게, 어떤 일을 해 왔는지 짧게 소개하고 마지막은 학생에게 건네는 한마디"}`;
   }
   return `역사 속 인물 ${e.name}(${e.years || ""}, ${e.role})을 고등학생이 인터뷰한다. AI가 이 인물을 실감 나게 연기할 수 있도록 '인물 연구 노트'를 만들어라.
 규칙: 전기, 저작, 편지, 동시대인의 증언에 근거한다. 확실하지 않은 일화나 어록은 넣지 않는다. 어록은 널리 알려지고 출처가 확실한 것만, 뜻을 살린 한국어로 쓰고 출처를 괄호에 적는다.
-설명 없이 JSON 객체 하나로만 답하라: {"speech":"말하는 방식(문장 길이, 리듬, 즐겨 쓰는 비유) 한두 문장","temper":"기질과 카리스마가 드러나는 태도 한두 문장","address":"학생을 부를 때 쓸 말(예: 젊은 친구)","habits":["말버릇이나 즐겨 꺼내는 화제 2~3개"],"quotes":["확실한 어록 0~2개 (출처)"],"scenes":["대화에서 꺼낼 수 있는 실제 일화나 장면 3~4개, 각 35자 이내"],"greeting":"이 인물로서 학생에게 건네는 첫인사 2~3문장. 1인칭, 성격과 카리스마가 드러나게, 마지막은 학생에게 건네는 짧은 한마디"}`;
+설명 없이 JSON 객체 하나로만 답하라: {"speech":"말하는 방식(문장 길이, 리듬, 즐겨 쓰는 비유) 한두 문장","temper":"기질과 카리스마가 드러나는 태도 한두 문장","address":"학생을 부를 때 쓸 말(예: 학생, 젊은 친구). 반말이나 '자네'는 쓰지 않는다","habits":["말버릇이나 즐겨 꺼내는 화제 2~3개"],"quotes":["확실한 어록 0~2개 (출처)"],"scenes":["대화에서 꺼낼 수 있는 실제 일화나 장면 3~4개, 각 35자 이내"],"greeting":"이 인물로서 학생에게 건네는 첫인사 2~3문장. 1인칭, 해요체 존댓말, 성격이 드러나게, 마지막은 학생에게 첫 질문을 권하는 한마디"}`;
 }
 
 function coachPromptFor(e, q) {
@@ -654,6 +756,28 @@ function checkPromptFor(name, field) {
 아래 항목: ${PERSON_JSON_SHAPE}`;
 }
 
+function refWordsPromptFor(words) {
+  return `고등학생이 앱·디자인 레퍼런스를 찾으려고 쓴 한국어 낱말: "${words}"
+해외 디자인 사이트(Dribbble, Behance) 검색에 쓸 짧은 영어 검색어(2~4단어, 소문자)로 번역만 하라. 뜻을 더하거나 다른 것을 추천하지 않는다.
+설명 없이 JSON 하나로만 답하라: {"en":"..."}`;
+}
+function refCoachPromptFor(c, agent) {
+  c = c || {};
+  const kind = c.kind === "design" ? "디자인" : "프로그램";
+  return `너는 고등학생의 '레퍼런스 카드'를 읽고 질문 하나만 돌려주는 코치다. 학생은 자기 'AI 동료' 웹앱을 만들기 전에 비슷한 ${kind}을 찾아, 무엇을 가져오고 무엇을 가져오지 않을지 적었다.
+답을 대신 써 주지 말고, 더 구체적으로 생각하게 하는 질문 하나만 한다. 가져올 점이 '예쁘다, 좋다'처럼 막연하거나 내 앱과 왜 맞는지 안 보이면 good=false, 화면의 어느 부분인지와 내 앱에 맞는 이유가 보이면 good=true.
+[내 AI 동료] ${agentText(agent)}
+[레퍼런스] 종류: ${kind} / 이름: ${String(c.name || "").slice(0, 80)} / 가져올 것: ${(Array.isArray(c.take) ? c.take.join("·") : "")} — ${String(c.takeT || "").slice(0, 200)} / 가져오지 않을 것: ${String(c.notT || "").slice(0, 200)}
+설명 없이 JSON 하나로만 답하라: {"good":true 또는 false,"ask":"학생에게 던질 질문 한 문장(해요체)"}`;
+}
+function shapePromptFor(agent, sentence, field) {
+  return `고등학생이 '${field || "진로"}' 분야에서 쓸 'AI 동료' 웹앱을 만들려고 한다. 기획을 읽고, 이 앱의 첫 화면에 어울리는 화면 모양 3가지를 아래 목록에서 골라 추천하라. 그리고 레퍼런스를 찾을 검색어를 만들라.
+[기획] ${agentText(agent)} / 해결할 문제: ${String(sentence || "").slice(0, 300)}
+[화면 모양 목록] 대시보드(dashboard), 표(data table), 체크리스트(checklist), 기록장(tracker), 카드 목록(card list), 칸반 보드(kanban board), 달력(calendar), 타임라인(timeline), 채팅(chat), 입력 양식(form), 단계별 안내(step wizard), 지도(map)
+또 비슷한 앱을 찾아볼 수 있게, 이 앱의 핵심 기능을 검색어로 3가지 만들라. 기능 검색어는 구체적으로(예: '체온 이상값 알림', '교대 인계 메모'), 2~4단어 한국어로 쓴다.
+규칙: ko와 en은 목록에 있는 이름 그대로 쓴다. why는 고등학생이 알아듣게 한 문장(해요체, 30자 안팎). kw.ko는 이 앱이 다루는 것을 2~3단어 한국어로, kw.en은 같은 뜻의 영어 2~3단어 소문자.
+설명 없이 JSON 하나로만 답하라: {"kw":{"ko":"...","en":"..."},"shapes":[{"ko":"...","en":"...","why":"..."}],"feats":[{"ko":"...","why":"..."}]}`;
+}
 function agentText(a) {
   a = a || {};
   const L = v => String(v || "").split("\n").map(x => x.trim()).filter(Boolean).join(", ");
@@ -728,7 +852,7 @@ function paperBg(ctx,side){ctx.fillStyle="#FBFAF5";ctx.fillRect(0,0,900,1200);
   const g=ctx.createLinearGradient(side==="L"?900:0,0,side==="L"?780:120,0);g.addColorStop(0,"rgba(80,70,50,.22)");g.addColorStop(1,"rgba(80,70,50,0)");
   ctx.fillStyle=g;ctx.fillRect(0,0,900,1200);}
 function drawLeft(i){const c=pageCanvas(),x=c.getContext("2d"),p=pageInfo(i);paperBg(x,"L");
-  x.fillStyle="#6E7480";x.font=`500 24px ${FM}`;x.fillText(`진로 수업 · 활동 ${i+1} · ${p.min}분`,80,96);
+  x.fillStyle="#6E7480";x.font=`500 24px ${FM}`;x.fillText(`${PAGES[i].s===2?"2차시 · ":""}Chapter ${i+1}`,80,96);
   x.strokeStyle="#22272E";x.lineWidth=2;x.beginPath();x.moveTo(80,118);x.lineTo(820,118);x.stroke();
   x.fillStyle="#22272E";x.font=`700 62px ${FD}`;let y=210;
   for(const l of wrapText(x,p.title,740)){x.fillText(l,80,y);y+=78;}
@@ -1246,12 +1370,31 @@ function propMesh(kind,acc){const g=new THREE.Group();const A=M3(acc);
   else if(kind==="note"){g.add(new THREE.Mesh(new THREE.BoxGeometry(.18,.02,.24),A));g.position.set(0,.02,.06);}
   return g;}
 /* 앉거나 선 사람 피규어. 원점 = 엉덩이(앉은 자리), 앞쪽 = +z */
+const cssC=c=>typeof c==="number"?"#"+c.toString(16).padStart(6,"0"):String(c||"#333");
+function faceTex(o){const key=["face",o.skin2,o.hc,o.lash?1:0,o.glasses?1:0,o.old?1:0,o.beard||""].join("|");
+  return canvasTex(key,512,512,(x)=>{x.clearRect(0,0,512,512);const O="#1d1a1f",ey=258;x.lineCap="round";x.lineJoin="round";
+    x.fillStyle="rgba(255,120,105,.5)";for(const s of[-1,1]){x.beginPath();x.ellipse(256+s*150,345,38,24,0,0,7);x.fill();}
+    for(const s of[-1,1]){const cx=256+s*90;x.fillStyle="#2a1d17";x.beginPath();x.ellipse(cx,ey,27,35,0,0,7);x.fill();x.fillStyle="#fff";x.beginPath();x.arc(cx+8,ey-13,10,0,7);x.fill();
+      if(o.lash){x.strokeStyle=O;x.lineWidth=9;x.beginPath();x.moveTo(cx+s*20,ey-24);x.lineTo(cx+s*38,ey-40);x.stroke();}
+      x.strokeStyle=o.old?"#8a857e":cssC(o.hc);x.lineWidth=o.lash?12:17;x.beginPath();x.moveTo(cx-36,ey-72);x.quadraticCurveTo(cx-4*s,ey-96,cx+36,ey-74);x.stroke();
+      if(o.old){x.strokeStyle=cssC(o.skin2);x.lineWidth=4;x.beginPath();x.moveTo(cx+s*34,ey+6);x.lineTo(cx+s*46,ey+12);x.stroke();}}
+    x.strokeStyle=cssC(o.skin2);x.lineWidth=8;x.beginPath();x.moveTo(262,296);x.quadraticCurveTo(244,330,266,338);x.stroke();
+    if(!o.beard||o.beard==="none"||o.beard==="stubble"){x.fillStyle="#9a3b33";x.strokeStyle="#6e2a24";x.lineWidth=7;x.beginPath();x.moveTo(210,382);x.quadraticCurveTo(256,452,302,382);x.quadraticCurveTo(256,398,210,382);x.closePath();x.fill();x.stroke();}
+    if(o.glasses){x.strokeStyle=O;x.lineWidth=8;for(const s of[-1,1]){const cx=256+s*90;x.beginPath();x.roundRect?x.roundRect(cx-50,ey-42,100,80,26):x.rect(cx-50,ey-42,100,80);x.stroke();}x.beginPath();x.moveTo(206,ey-10);x.quadraticCurveTo(256,ey-26,306,ey-10);x.stroke();}});}
 function figure(o){const F=new THREE.Group(),SK=M3(o.skin),OC=M3(o.oc),PANTS=M3(o.pants||0x2a2d38),HC=M3(o.hc),SH=M3(0x1c1c20);
   const seated=o.seated!==false;
   /* 다리 */
-  for(const s of[-1,1]){if(seated){const th=cylAt(.075,.07,.34,PANTS);th.rotation.x=-Math.PI/2;th.position.set(s*.09,.07,0);F.add(th);
-      const sh=cylAt(.065,.06,.5,PANTS);sh.position.set(s*.09,.07,.34);F.add(sh);const shoe=new THREE.Mesh(new THREE.BoxGeometry(.12,.07,.2),SH);shoe.position.set(s*.09,-.45,.39);F.add(shoe);}
-    else{const lg=cylAt(.075,.065,.62,PANTS);lg.position.set(s*.09,.07,0);F.add(lg);const shoe=new THREE.Mesh(new THREE.BoxGeometry(.12,.07,.2),SH);shoe.position.set(s*.09,-.56,.04);F.add(shoe);}}
+  const LEG=o.skirt?M3(o.skin):PANTS,SOCK=M3(0xf3f3ee);
+  const shoeAt=(x,y,z,rx)=>{const g=new THREE.Group();const sole=new THREE.Mesh(new THREE.BoxGeometry(.125,.035,.24),M3(0x111114));sole.position.y=-.03;g.add(sole);
+    const up=new THREE.Mesh(new THREE.SphereGeometry(.068,16,10,0,Math.PI*2,0,Math.PI/2),SH);up.scale.set(.95,.8,1.75);g.add(up);g.position.set(x,y,z);g.rotation.x=rx||0;F.add(g);};
+  for(const s of[-1,1]){const x0=s*.095;
+    if(seated){/* 허벅지는 방석 끝까지, 무릎은 둥글게, 정강이는 살짝 앞으로, 발은 바닥에 */
+      const th=cylAt(.085,.074,.45,PANTS);th.rotation.x=-Math.PI/2;th.position.set(x0,.08,0);F.add(th);F.add(ball(.074,o.skirt?LEG:PANTS,x0,.08,.45));
+      const a=-.14,sh=cylAt(.066,.054,.47,LEG);sh.position.set(x0,.08,.45);sh.rotation.x=a;F.add(sh);
+      if(o.skirt){const so=cylAt(.059,.056,.17,SOCK);so.position.set(x0,.08-.3*Math.cos(a),.45-.3*Math.sin(a));so.rotation.x=a;F.add(so);}
+      shoeAt(x0,.08-.47*Math.cos(a)-.02,.45-.47*Math.sin(a)+.06,0);}
+    else{const lg=cylAt(.075,.06,.6,LEG);lg.position.set(x0,.07,0);F.add(lg);F.add(ball(.064,LEG,x0,-.24,.005,1,.7,1));
+      if(o.skirt){const so=cylAt(.064,.061,.2,SOCK);so.position.set(x0,-.33,0);F.add(so);}shoeAt(x0,-.53,.05,0);}}
   const hip=new THREE.Mesh(new THREE.BoxGeometry(.34,.14,.26),PANTS);hip.position.y=.07;F.add(hip);
   /* 몸통 */
   const torso=new THREE.Mesh(new THREE.CylinderGeometry(.15,.18,.38,22),OC);torso.position.y=.31;F.add(torso);
@@ -1263,22 +1406,32 @@ function figure(o){const F=new THREE.Group(),SK=M3(o.skin),OC=M3(o.oc),PANTS=M3(
   if(fit==="apron"||fit==="chef"||fit==="nurse"){const ap=new THREE.Mesh(new THREE.CylinderGeometry(.152,.182,.3,22,1,true,-.9,1.8),M3(fit==="apron"?0xefe6d4:0xffffff,{side:THREE.DoubleSide}));ap.position.y=.27;F.add(ap);}
   if(fit==="hanbok"){const col=new THREE.Mesh(new THREE.BoxGeometry(.04,.3,.01),M3(0xf4f0e6));col.position.set(.02,.38,.17);col.rotation.z=.5;F.add(col);const go=new THREE.Mesh(new THREE.BoxGeometry(.025,.16,.01),M3(0x8c2f2f));go.position.set(.06,.28,.18);F.add(go);}
   if(fit==="jersey"){const n=new THREE.Mesh(new THREE.PlaneGeometry(.14,.14),new THREE.MeshBasicMaterial({map:canvasTex("jer"+(o.num||7),64,64,(x)=>{x.fillStyle="#d1453b";x.fillRect(0,0,64,64);x.fillStyle="#fff";x.font="900 44px Arial";x.textAlign="center";x.fillText(String(o.num||7),32,48);})}));n.position.set(0,.33,.17);F.add(n);}
+  if(fit==="school"||fit==="vest"){const W=new THREE.MeshStandardMaterial({color:0xfbfbf8,side:THREE.DoubleSide,roughness:.7});
+    if(fit==="school"){const inner=new THREE.Mesh(new THREE.PlaneGeometry(.11,.24),W);inner.position.set(0,.41,.163);inner.rotation.x=-.08;F.add(inner);
+      const LP=M3(0x15203d);for(const s of[-1,1]){const l=new THREE.Mesh(new THREE.BoxGeometry(.034,.21,.012),LP);l.position.set(s*.048,.4,.168);l.rotation.set(-.08,0,s*.36);F.add(l);}
+      const em=new THREE.Mesh(new THREE.PlaneGeometry(.05,.06),new THREE.MeshStandardMaterial({color:0xd9b45a,metalness:.4,roughness:.4,side:THREE.DoubleSide}));em.position.set(.095,.37,.168);em.rotation.y=.4;F.add(em);
+      [.27,.2].forEach(y=>F.add(ball(.013,M3(0xd9b45a,{metalness:.6}),.034,y,.178)));}
+    else{const vest=new THREE.Mesh(new THREE.CylinderGeometry(.158,.188,.27,22),M3(o.vest||0xd8c7a3,{roughness:.9}));vest.position.y=.29;F.add(vest);
+      const vs=new THREE.Shape();vs.moveTo(-.055,0);vs.lineTo(.055,0);vs.lineTo(0,-.12);vs.lineTo(-.055,0);const v=new THREE.Mesh(new THREE.ShapeGeometry(vs),W);v.position.set(0,.43,.165);v.rotation.x=-.06;F.add(v);
+      const rib=new THREE.Mesh(new THREE.TorusGeometry(.17,.012,6,30),M3(0x8b1e2e));rib.rotation.x=Math.PI/2;rib.position.y=.165;F.add(rib);}
+    if(o.tie==="ribbon"){const R=M3(0xc0283c);for(const s of[-1,1]){const w=new THREE.Mesh(new THREE.ConeGeometry(.034,.07,4),R);w.rotation.z=s*Math.PI/2;w.position.set(s*.034,.5,.176);F.add(w);}F.add(ball(.017,R,0,.5,.18));}
+    else if(o.tie){const T=M3(0x8b1e2e);const t=new THREE.Mesh(new THREE.BoxGeometry(.034,fit==="vest"?.1:.2,.01),T);t.position.set(0,fit==="vest"?.43:.37,.178);t.rotation.x=-.08;F.add(t);F.add(ball(.02,T,0,.49,.172,1,.8,.6));}}
+  if(o.skirt){const PL=new THREE.MeshStandardMaterial({map:plaidTex(),roughness:.85,side:THREE.DoubleSide});
+    if(seated){const sk=new THREE.Mesh(new THREE.BoxGeometry(.4,.11,.42),PL);sk.position.set(0,.105,.19);F.add(sk);const dr=new THREE.Mesh(new THREE.PlaneGeometry(.4,.12),PL);dr.position.set(0,.03,.402);F.add(dr);}
+    else{const sk=new THREE.Mesh(new THREE.CylinderGeometry(.19,.27,.3,24,1,true),PL);sk.position.y=-.01;F.add(sk);}}
   /* 목·머리 */
   const nk=cylAt(.05,.055,.08,M3(o.skin2));nk.position.y=.6;F.add(nk);
   const H=new THREE.Group();H.position.y=.76;F.add(H);
   H.add(ball(.2,SK,0,0,0,1,1.02,.98));
-  for(const s of[-1,1]){H.add(ball(.04,SK,s*.195,-.01,0,.6,1,.8));
-    H.add(ball(.026,M3(0x221814,{roughness:.3}),s*.066,.0,.183,1,1.25,.6));H.add(ball(.009,new THREE.MeshBasicMaterial({color:0xffffff}),s*.066+.01,.013,.2));
-    H.add(ball(.032,new THREE.MeshBasicMaterial({color:0xff8f80,transparent:true,opacity:.45}),s*.11,-.06,.165,1,.6,.4));
-    const br=new THREE.Mesh(new THREE.BoxGeometry(.06,.012,.01),M3(o.old?0x9a958e:o.hc));br.position.set(s*.068,.055,.188);br.rotation.z=-s*.12;H.add(br);}
-  H.add(ball(.018,M3(o.skin2),0,-.04,.198));
-  const mouth=new THREE.Mesh(new THREE.TorusGeometry(.035,.008,6,14,Math.PI),M3(0x7a2e28));mouth.rotation.z=Math.PI;mouth.position.set(0,-.085,.185);H.add(mouth);
-  if(o.glasses){for(const s of[-1,1]){const t=new THREE.Mesh(new THREE.TorusGeometry(.04,.007,6,18),M3(0x1d1a1f));t.position.set(s*.066,.0,.197);H.add(t);}const b=new THREE.Mesh(new THREE.BoxGeometry(.05,.008,.008),M3(0x1d1a1f));b.position.set(0,.01,.2);H.add(b);}
+  {const hull=new THREE.Mesh(new THREE.SphereGeometry(.2,28,20),new THREE.MeshBasicMaterial({color:0x1d1a1f,side:THREE.BackSide}));hull.scale.set(1.05,1.07,1.03);H.add(hull);}
+  for(const s of[-1,1]){H.add(ball(.04,SK,s*.195,-.01,0,.6,1,.8));const eh=new THREE.Mesh(new THREE.SphereGeometry(.04,12,10),new THREE.MeshBasicMaterial({color:0x1d1a1f,side:THREE.BackSide}));eh.position.set(s*.195,-.01,0);eh.scale.set(.66,1.08,.88);H.add(eh);}
+  {const fg=new THREE.SphereGeometry(.2035,40,30,Math.PI/2-.9,1.8,Math.PI/2-.75,1.5);const fm=new THREE.Mesh(fg,new THREE.MeshStandardMaterial({map:faceTex(o),transparent:true,roughness:.6,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-6,polygonOffsetUnits:-6}));fm.renderOrder=2;fm.scale.set(1,1.02,.98);H.add(fm);}
+  const mouth=new THREE.Mesh(new THREE.TorusGeometry(.035,.008,6,14,Math.PI),M3(0x7a2e28));mouth.rotation.z=Math.PI;mouth.position.set(0,-.085,.185);
   /* 머리카락 */
   const cap=(sc,y,tz)=>{const m=new THREE.Mesh(new THREE.SphereGeometry(.212,24,16,0,Math.PI*2,0,Math.PI*sc),HC);m.position.set(0,y||.01,tz||-.012);m.rotation.x=-.32;return m;};
   const hs=o.hair;
   if(hs==="curly"){H.add(cap(.5));for(let i=0;i<12;i++){const t=i/12*Math.PI*2;H.add(ball(.075,HC,Math.cos(t)*.17,.1+Math.sin(i*1.7)*.03,Math.sin(t)*.15-.02));}H.add(ball(.09,HC,0,.18,-.02));}
-  else if(hs==="long"||hs==="wave"){H.add(cap(.52));const bk=new THREE.Mesh(new THREE.CylinderGeometry(.2,.23,.42,20,1,true,Math.PI*.5,Math.PI),M3(o.hc,{side:THREE.DoubleSide}));bk.position.set(0,-.14,-.02);bk.rotation.y=Math.PI;H.add(bk);}
+  else if(hs==="long"||hs==="wave"){H.add(cap(.52));const bk=new THREE.Mesh(new THREE.CylinderGeometry(.2,.23,.42,20,1,true,Math.PI*.5,Math.PI),M3(o.hc,{side:THREE.DoubleSide}));bk.position.set(0,-.14,-.03);H.add(bk);for(const sd of[-1,1]){const lk=new THREE.Mesh(new THREE.BoxGeometry(.05,.26,.08),HC);lk.position.set(sd*.19,-.12,-.02);H.add(lk);}}
   else if(hs==="bun"){H.add(cap(.5));H.add(ball(.09,HC,0,.17,-.12));}
   else if(hs==="topknot"){H.add(cap(.48));H.add(ball(.055,HC,0,.23,-.02));const band=new THREE.Mesh(new THREE.TorusGeometry(.2,.014,6,28),M3(0x121010));band.rotation.x=Math.PI/2-.3;band.position.y=.07;H.add(band);}
   else if(hs==="wig"){H.add(cap(.5));for(const s of[-1,1]){const r=cylAt(.05,.05,.12,HC);r.rotation.x=Math.PI/2;r.position.set(s*.2,-.02,.05);H.add(r);}}
@@ -1304,9 +1457,11 @@ function figure(o){const F=new THREE.Group(),SK=M3(o.skin),OC=M3(o.oc),PANTS=M3(
   if(o.prop){const pm=propMesh(o.prop,o.acc);right.add(pm);if(pr==="raise"||pr==="conduct")pm.rotation.x=1.6;else if(pr==="hold"||pr==="write")pm.rotation.x=1.5;else pm.rotation.x=1.4;}
   if(o.prop2){const p2=propMesh(o.prop2,o.acc);left.add(p2);p2.rotation.x=1.4;}
   F.userData.head=H;return F;}
-function masterFigure(p,opt){const L=figLook(p);return figure(Object.assign({skin:L.skin,skin2:L.skin2,hc:L.hc,hair:L.hair,beard:L.beard,glasses:L.glasses,old:L.old,oc:L.oc,fit:L.fit,acc:L.acc,prop:L.prop,pose:L.pose,num:1+hashStr(p.name||"")%30,pants:L.fit==="toga"||L.fit==="hanbok"||L.fit==="robe"||L.fit==="dress"?L.oc:0x2a2d38},opt||{}));}
+function masterFigure(p,opt){const L=figLook(p);return figure(Object.assign({skin:L.skin,skin2:L.skin2,hc:L.hc,hair:L.hair,beard:L.beard,glasses:L.glasses,old:L.old,lash:L.g==="f",oc:L.oc,fit:L.fit,acc:L.acc,prop:L.prop,pose:L.pose,num:1+hashStr(p.name||"")%30,pants:L.fit==="toga"||L.fit==="hanbok"||L.fit==="robe"||L.fit==="dress"?L.oc:0x2a2d38},opt||{}));}
+function plaidTex(){return canvasTex("plaid",128,128,(x,w,hh)=>{x.fillStyle="#26365f";x.fillRect(0,0,w,hh);x.globalAlpha=.55;x.fillStyle="#3f6b52";x.fillRect(0,40,w,26);x.fillRect(40,0,26,hh);
+  x.globalAlpha=.8;x.fillStyle="#b3263a";x.fillRect(0,96,w,4);x.fillRect(96,0,4,hh);x.globalAlpha=.5;x.fillStyle="#e8e2d0";x.fillRect(0,20,w,2);x.fillRect(20,0,2,hh);x.globalAlpha=1;},[3,2]);}
 function studentFigure(opt){const C=ART_CATS[artCat({sub:S.field||"",emblem:""})]||ART_CATS.book;opt=opt||{};
-  return figure({skin:SKIN2[2][0],skin2:SKIN2[2][1],hc:HAIRC2[0],hair:"side",oc:FIT_COLOR.uniform,fit:"uniform",acc:C.acc,prop:opt.prop||"note",prop2:opt.prop2||null,pose:opt.pose||"write",poseL:opt.poseL,poseR:opt.poseR,pants:0x24304f,seated:opt.seated});}
+  return figure({skin:SKIN2[2][0],skin2:SKIN2[2][1],hc:HAIRC2[0],hair:"long",lash:true,oc:0x1f2d55,fit:"school",tie:"ribbon",skirt:true,acc:C.acc,prop:opt.prop||"note",prop2:opt.prop2||null,pose:opt.pose||"write",poseL:opt.poseL,poseR:opt.poseR,pants:0x262a38,seated:opt.seated});}
 function robotFigure(name,acc,ropt){const R2=new THREE.Group(),B=M3(0xf2f4f7,{roughness:.35}),A=M3(acc||0x59c2ff,{roughness:.4}),D=M3(0x1b2230,{roughness:.3});
   const body=new THREE.Mesh(new THREE.BoxGeometry(.46,.46,.34),B);body.position.y=.5;R2.add(body);
   const belly=new THREE.Mesh(new THREE.PlaneGeometry(.3,.18),new THREE.MeshBasicMaterial({map:canvasTex("rb"+name,256,160,(x,w,h)=>{x.fillStyle="#1b2230";x.fillRect(0,0,w,h);x.fillStyle="#7fe0ff";x.font="700 40px -apple-system,Noto Sans KR,sans-serif";x.textAlign="center";const n=String(name||"AI 동료");x.fillText(n.length>7?n.slice(0,7)+"…":n,w/2,h*.62);})}));
@@ -1631,6 +1786,7 @@ function buildPop(i){const P=[];liveCards={};lightPlan=[];const add=(o,type,d)=>
     add(put(duo,.45,0,-.15,-.2),"prop",300);
     add(put(laptop(),-.8,0,.55,.35),"prop",380);add(put(rocket(),1.25,0,.9),"prop",440);
     if(S.stamped) add(put(card(1.1,.55,stampDraw),.15,0,1.15),"card",800);}
+  if(i>=6&&i<=9)buildPop2(i,add,e);
   return P;}
 function collapse(pc){if(pc.type==="card"){pc.o.rotation.x=-Math.PI/2;}else if(pc.type==="fade"){setOpen(pc,0);}else{pc.o.scale.y=.015;}}
 function setOpen(pc,t){if(pc.type==="card"){pc.o.rotation.x=-Math.PI/2+(Math.PI/2-(pc.o.userData.lean||.06))*t;}
@@ -1757,44 +1913,47 @@ function refreshCardsText(){if(liveCards.q0)S.qs.forEach((q,k)=>liveCards["q"+k]
 const M=()=>S.mind||(S.mind={});
 const filled=(v,n)=>String(v||"").replace(/\s/g,"").length>=(n||6);
 function grow(el){const f=()=>{el.style.height="auto";el.style.height=Math.min(el.scrollHeight+2,360)+"px";};el.addEventListener("input",f);requestAnimationFrame(f);setTimeout(f,60);return el;}
-let _rc=0;function refreshCheck(){clearTimeout(_rc);_rc=setTimeout(()=>{const el=document.getElementById("thinklist");if(el)el.replaceWith(checklist());},350);}
-function mindTa(id,key,ph,rows,on){const el=h("textarea",{id,rows:rows||2,placeholder:ph,value:M()[key]||"",class:"mind-ta"});el.addEventListener("input",()=>{M()[key]=el.value;save();on&&on();refreshCheck();});return grow(el);}
+let _rc=0;function refreshCheck(){clearTimeout(_rc);_rc=setTimeout(()=>{const el=document.getElementById("thinklist");if(el)el.replaceWith(checklist());const e2=document.getElementById("thinklist2");if(e2)e2.replaceWith(checklist2());},350);}
+const MIN={think:6,whyField:6,mySubs:4,whyPerson:6,hypoTime:2,hypoAI:2,hypoHuman:2,timeTask:6,humanJudge:6,verify:6,whyAI:6,whyMe:6,risk:6,weak:6,reflect:6,first:4,extra:6,change:6};
+const cnt=v=>String(v||"").replace(/\s/g,"").length;
+function lack(list){return list.filter(([,v,n])=>cnt(v)<(n||6)).map(([t,v,n])=>`${t} (${cnt(v)}/${n||6}자)`);}
+function counter(get,n){const c=h("span",{class:"cnt"});const up=()=>{const k=cnt(get());c.className="cnt "+(k>=n?"ok":k?"lack":"");c.textContent=k>=n?`✓ ${k}자`:`${k}/${n}자`;};up();return [c,up];}
+function mindTa(id,key,ph,rows,on){const el=h("textarea",{id,rows:rows||2,placeholder:ph,value:M()[key]||"",class:"mind-ta"});const [c,up]=counter(()=>M()[key],MIN[key]||6);
+  el.addEventListener("input",()=>{M()[key]=el.value;save();up();on&&on();refreshCheck();});const f=document.createDocumentFragment();f.append(grow(el),c);return f;}
 function lab(id,t,el){return h("label",{class:"f",for:id},t,el);}
 function thinkBox(title,sub,...kids){return h("div",{class:"think"},h("div",{class:"think-h"},h("span",{class:"think-tag"},"내 생각"),h("b",null,title)),sub?h("p",{class:"note",style:"margin:0"},sub):null,...kids);}
 const validQs=()=>S.qs.map(q=>String(q||"").trim()).filter(q=>filled(q,8)&&!q.includes("___"));
 const QCHK=["모두 그 사람의 '일'에 관한 질문이다","예/아니오로 끝나지 않는 열린 질문이다","대답을 들으면 일을 덜어 줄 방법을 찾는 데 쓸 수 있다"];
 function ownTurns(){const sug=new Set([...(S.follow||[]),...FOLLOW]);return S.chat.filter(m=>m.role==="user"&&!m.hidden&&!sug.has(m.content.trim())).length;}
-function gateField(){const m=[];if(!filled(S.field,2))m.push("관심 분야");if(!filled(M().whyField))m.push("끌리는 이유");if(!filled(M().mySubs,4))m.push("내가 나눠 본 세부 분야");return m;}
-function gateTalk(){const m=[];if(!E())m.push(["인터뷰할 선배 고르기",1]);else if(!filled(M().whyPerson))m.push(["이 사람을 고른 이유",1]);
+function gateField(){return lack([["관심 분야",S.field,2],["끌리는 이유",M().whyField,6]]);}
+function gateTalk(){const m=[];if(!E())m.push(["인터뷰할 선배 고르기",1]);else lack([["이 사람을 고른 이유",M().whyPerson,6]]).forEach(t=>m.push([t,1]));
   gateAsk().forEach(t=>m.push([t,2]));return m;}
 function memoPack(){const m=M();return [...S.memos.map(x=>x.text+(filled(x.note,2)?` (학생 해석: ${x.note.trim()})`:"")),
   `[학생이 쓴 이유] AI에게 맡기는 이유: ${m.whyAI||"-"} / 내가 맡는 이유: ${m.whyMe||"-"} / AI가 틀릴 때 대비: ${m.risk||"-"} / 스스로 찾은 약점: ${m.weak||"-"}`];}
 function gateFeedback(){const m=M(),g=[];
-  if(S.memos.length&&!S.memos.some(x=>filled(x.note,4)))g.push("메모 해석 1개 이상");
-  if(!S.prob.who.trim()||!S.prob.because.trim()||!S.prob.need.trim())g.push("문제 정의 세 칸");
-  if(!S.agent.ai.trim()||!S.agent.me.trim())g.push("일 나누기 두 칸");
-  if(!filled(m.whyAI))g.push("AI에게 맡기는 이유");if(!filled(m.whyMe))g.push("내가 맡는 이유");
-  if(!filled(m.risk))g.push("AI 동료가 틀릴 때");if(!filled(m.weak))g.push("내 기획의 약점");return g;}
-function thinkList(){const m=M(),live=S.mode==="live";return [
-  {ch:0,t:"오늘을 시작하는 내 마음",ok:!!m.mood&&filled(S.think,6)},
-  {ch:1,t:"분야에 끌리는 이유와 내가 나눈 세부 분야",ok:filled(m.whyField)&&filled(m.mySubs,4)},
-  ...(S.sugg.length?[{ch:1,t:"AI의 분류와 내 분류 비교",ok:filled(m.compare)}]:[]),
-  {ch:1,t:"이 사람을 고른 이유",ok:filled(m.whyPerson)},
-  {ch:2,t:"미래의 내 일 떠올리기",ok:filled(m.hypoTime,2)&&filled(m.hypoAI,2)&&filled(m.hypoHuman,2)},
-  {ch:2,t:"내가 쓴 질문 3개 이상",ok:validQs().length>=3},
-  {ch:2,t:"질문 점검",ok:(m.chk||[]).slice(0,QCHK.length).filter(Boolean).length>=QCHK.length},
-  {ch:3,t:live?"내 말로 직접 물어본 질문 2개 이상":"인터뷰 메모",ok:live?ownTurns()>=2:filled(S.gnotes,10)},
-  {ch:3,t:"인터뷰 정리 (시간을 쓴 일·사람의 판단)",ok:filled(m.timeTask)&&filled(m.humanJudge)},
-  {ch:3,t:"사실 하나 직접 확인하기",ok:filled(m.verify)},
-  {ch:4,t:"메모에 내 해석 달기",ok:!S.memos.length||S.memos.some(x=>filled(x.note,4))},
-  {ch:4,t:"문제 정의와 일 나누기, 그 이유",ok:gateFeedback().filter(x=>x!=="내 기획의 약점").length===0},
-  {ch:4,t:"내 기획의 약점 스스로 찾기",ok:filled(m.weak)},
-  ...(S.fb?[{ch:4,t:"피드백에서 받아들일 점·받아들이지 않을 점",ok:filled(m.reflect)}]:[]),
-  {ch:5,t:"첫 번째로 만들 기능과 내가 정한 조건",ok:filled(m.first,4)&&filled(m.extra)},
-  {ch:5,t:"오늘 바뀐 내 생각",ok:filled(m.change)}];}
+  if(S.memos.length&&!S.memos.some(x=>filled(x.note,4)))g.push("메모 해석 1개 (4자 이상)");
+  [["문제 정의 · 누가",S.prob.who],["문제 정의 · 어떤 어려움",S.prob.because],["문제 정의 · 무엇이 필요한가",S.prob.need],["AI 동료가 하면 좋을 일",S.agent.ai],["내가 할 일",S.agent.me]].forEach(([t,v])=>{if(!String(v||"").trim())g.push(t+" (비어 있음)");});
+  g.push(...lack([["왜 AI에게 맡기나요",m.whyAI,6],["왜 끝까지 내가 하나요",m.whyMe,6],["AI 동료가 틀린다면",m.risk,6],["내 기획의 약점",m.weak,6]]));return g;}
+function thinkList(){const m=M(),live=S.mode==="live",it=(ch,t,miss)=>({ch,t,miss,ok:!miss.length});
+  const vq=validQs().length,fb=gateFeedback();
+  return [
+  it(0,"오늘을 시작하는 내 마음",[...(m.mood?[]:["마음 하나 고르기"]),...lack([["그런 마음이 드는 이유",S.think,6]])]),
+  it(1,"분야에 끌리는 이유",lack([["끌리는 이유",m.whyField,6]])),
+  it(1,"이 사람을 고른 이유",E()?lack([["고른 이유",m.whyPerson,6]]):["인물 고르기"]),
+  it(2,"미래의 내 일 떠올리기",lack([["시간이 가장 많이 걸릴 것 같은 일",m.hypoTime,2]])),
+  it(2,"내가 쓴 질문 3개 이상",vq>=3?[]:[`완성한 질문 ${vq}/3개 (질문마다 8자 이상)`]),
+  it(3,live?"내 말로 직접 물어본 질문 2개 이상":"인터뷰 메모",live?(ownTurns()>=2?[]:[`내 말로 한 질문 ${ownTurns()}/2개`]):lack([["인터뷰 메모",S.gnotes,10]])),
+  it(3,"인터뷰 정리 (시간을 쓴 일·사람의 판단)",lack([["시간을 가장 많이 쓴 일",m.timeTask,6],["꼭 사람이 해야 하는 일",m.humanJudge,6]])),
+  it(3,"사실 하나 직접 확인하기",lack([["직접 확인한 사실",m.verify,6]])),
+  it(4,"메모에 내 해석 달기",fb.filter(x=>x.startsWith("메모"))),
+  it(4,"문제 정의와 AI 동료가 하면 좋을 일, 그 이유",fb.filter(x=>!x.startsWith("메모")&&!x.startsWith("내 기획의 약점"))),
+  it(4,"내 기획의 약점 스스로 찾기",lack([["내 기획의 약점",m.weak,6]])),
+  ...(S.fb?[it(4,"피드백에서 받아들일 점·받아들이지 않을 점",lack([["받아들일 점·안 받아들일 점",m.reflect,6]]))]:[]),
+  it(5,"첫 번째로 만들 기능과 내가 정한 조건",lack([["가장 먼저 만들 기능",m.first,4],["꼭 지키라고 할 조건",m.extra,6]])),
+  it(5,"오늘 바뀐 내 생각",lack([["바뀐 점과 이유",m.change,6]]))];}
 function mindText(){const m=M(),L=(k,v)=>v&&String(v).trim()?`[${k}] ${String(v).trim()}`:"";const w=S.warm||{};
-  return [L("워밍업 분류",Object.keys(w).filter(k=>w[k]).map(k=>`${k}→${WSAY[w[k]]}`).join(", ")),L("시작하는 마음",[m.mood,S.think].filter(x=>x&&String(x).trim()).join(" — ")),L("예상: 시간이 드는 일",m.hypoTime),L("예상: AI에게 맡길 일",m.hypoAI),L("예상: 사람이 할 일",m.hypoHuman),
-    L("분야에 끌리는 이유",m.whyField),L("내가 나눈 세부 분야",m.mySubs),L("AI 분류와 비교",m.compare),L("인물을 고른 이유",m.whyPerson),L("질문 자가 점검",(m.chk||[]).map((v,i)=>v?QCHK[i]:"").filter(Boolean).join(" / ")),
+  return [L("워밍업 분류",Object.keys(w).filter(k=>w[k]).map(k=>`${k}→${WSAY[w[k]]}`).join(", ")),L("시작하는 마음",[m.mood,S.think].filter(x=>x&&String(x).trim()).join(" — ")),L("예상: 시간이 드는 일",m.hypoTime),
+    L("분야에 끌리는 이유",m.whyField),L("인물을 고른 이유",m.whyPerson),
     L("시간을 많이 쓴 일",m.timeTask),L("사람이 해야 할 판단",m.humanJudge),L("사실 확인",m.verify),L("메모 해석",S.memos.filter(x=>filled(x.note,2)).map(x=>x.note.trim()).join(" / ")),
     L("AI에게 맡기는 이유",m.whyAI),L("내가 맡는 이유",m.whyMe),L("AI가 틀릴 때",m.risk),L("스스로 찾은 약점",m.weak),L("피드백 반영",m.reflect),
     L("첫 기능",m.first),L("내가 정한 조건",m.extra),L("바뀐 생각",m.change)].filter(Boolean).join("\n");}
@@ -1804,11 +1963,11 @@ function gateCard(list){return h("div",{class:"think lockcard"},h("div",{class:"
 function checklist(){const items=thinkList(),done=items.filter(x=>x.ok).length;
   return h("div",{class:"think",id:"thinklist"},h("div",{class:"think-h"},h("span",{class:"think-tag"},`${done}/${items.length}`),h("b",null,"내 생각 기록")),
     h("p",{class:"note",style:"margin:0"},"모두 채워야 선생님께 제출할 수 있어요. AI가 대신 써 준 답이 아니라 내 생각이어야 해요."),
-    h("ul",{class:"todo"},items.map(x=>h("li",{class:x.ok?"ok":null},h("span",null,(x.ok?"✓ ":"○ ")+x.t),x.ok?null:h("button",{class:"btn sm",type:"button",onclick:()=>goChapter(x.ch)},`Chapter ${x.ch+1}`)))));}
+    h("ul",{class:"todo"},items.map(x=>h("li",{class:x.ok?"ok":null},h("span",null,(x.ok?"✓ ":"○ ")+x.t,x.ok?null:h("span",{class:"miss-d"},"  — "+x.miss.join(", "))),x.ok?null:h("button",{class:"btn sm",type:"button",onclick:()=>goChapter(x.ch)},`Chapter ${x.ch+1}`)))));}
 function talkWrap(){const hp=(k)=>filled(M()[k],2)?` (내 예상은 '${M()[k].trim()}'였어요)`:"";
   return thinkBox("인터뷰를 마치고, 내 말로 정리해요","친구에게 들려주듯 짧게 써 보세요.",
   lab("f-tt","이분이 일하면서 시간을 가장 많이 쓴 일은 뭐였나요?"+hp("hypoTime"),mindTa("f-tt","timeTask","예: 환자 기록을 정리하는 데 하루 두 시간을 쓴대요")),
-  lab("f-hj","이분이 '이건 꼭 사람이 해야 해'라고 한 일은 뭐였나요?"+hp("hypoHuman"),mindTa("f-hj","humanJudge","예: 수술을 할지 말지 정하는 건 사람이 해야 한대요")),
+  lab("f-hj","이분이 '이건 꼭 사람이 해야 해'라고 한 일은 뭐였나요?",mindTa("f-hj","humanJudge","예: 수술을 할지 말지 정하는 건 사람이 해야 한대요")),
   lab("f-vf","'정말일까?' 싶었던 이야기 하나를 직접 찾아봤나요? 어디서 찾았고, 어땠나요?",mindTa("f-vf","verify","예: '외상센터를 만들었다' → 뉴스에서 찾아보니 사실이었어요")),
   h("p",{class:"note",style:"margin:0;font-size:12.5px"},"AI는 기록에 없는 부분을 상상해서 말하기도 해요. 그래서 하나는 꼭 직접 확인해요."));}
 function lookParse(v){const a=String(v||"").toLowerCase().split(/[,\s/]+/);return {g:a.includes("f")?"f":a.includes("m")?"m":"",age:a.find(x=>["young","mid","old"].includes(x))||"",tone:a.find(x=>/^[1-4]$/.test(x))||""};}
@@ -1823,8 +1982,8 @@ function masterBtn(m){const on=E()&&E().name===m.name;return h("button",{class:"
   h("span",{class:"meta"},h("b",null,m.name),h("span",{class:"role"},m.role)));}
 function sField(){let fupd=()=>{};const fi=input("f-field",S,"field","예: 간호, 건축, 게임, 법, 심리, 우주",()=>fupd());
   const msg=h("span",{class:"note"});const btn=h("button",{class:"btn primary",type:"button"},"세부 분야와 인물 추천받기");
-  const whyF=mindTa("f-wfield","whyField","예: 아픈 사람 곁에서 직접 힘이 되는 일을 하고 싶어서",2,()=>fupd()),subsF=mindTa("f-subs","mySubs","예: 응급실 간호 / 학교 보건 / 간호 연구 — 아는 만큼 먼저 나눠 보세요",2,()=>fupd());
-  const lockF=h("p",{class:"lock"});fupd=()=>{const g=gateField();btn.disabled=g.length>0;lockF.textContent=g.length?"먼저 써야 추천이 열려요: "+g.join(", "):"좋아요. 이제 AI가 나눈 세부 분야와 내 생각을 비교해 보세요.";lockF.classList.toggle("ok",!g.length);};fupd();
+  const whyF=mindTa("f-wfield","whyField","예: 아픈 사람 곁에서 직접 힘이 되는 일을 하고 싶어서",2,()=>fupd());
+  const lockF=h("p",{class:"lock"});fupd=()=>{const g=gateField();btn.disabled=g.length>0;lockF.textContent=g.length?"먼저 써야 추천이 열려요: "+g.join(", "):"좋아요. 이제 추천을 받거나 아래에서 바로 골라 보세요.";lockF.classList.toggle("ok",!g.length);};fupd();
   btn.onclick=async()=>{const f=S.field.trim();if(gateField().length){fupd();return;}
     btn.disabled=true;msg.className="note";msg.textContent="도서관 서가를 뒤지는 중… (10~30초)";
     try{const txt=await callAI("suggest",{field:f});const arr=parseJSONList(txt);
@@ -1841,11 +2000,10 @@ function sField(){let fupd=()=>{};const fi=input("f-field",S,"field","예: 간�
     catch(e){nmsg.className="err";nmsg.textContent=errCopy(e);}finally{nbtn.disabled=false;}};
   nbtn.onclick=tryName;nameIn.addEventListener("keydown",ev=>{if(ev.key==="Enter"&&!ev.isComposing){ev.preventDefault();tryName();}});
   return [...head(1),
-    thinkBox("AI에게 묻기 전에, 내 생각부터","추천은 내 생각을 쓴 뒤에 열려요.",h("label",{class:"f",for:"f-field"},"나의 관심 분야",fi),lab("f-wfield","이 분야에 끌리는 이유",whyF),lab("f-subs","이 분야를 내가 먼저 나눠 보면 (세부 분야 2개 이상)",subsF),aiOn()?h("div",{class:"row"},btn,msg):null,lockF),
+    thinkBox("AI에게 묻기 전에, 내 생각부터","추천은 내 생각을 쓴 뒤에 열려요.",h("label",{class:"f",for:"f-field"},"나의 관심 분야",fi),lab("f-wfield","이 분야에 끌리는 이유",whyF),aiOn()?h("div",{class:"row"},btn,msg):null,lockF),
     aiOn()?h("div",{style:"display:grid;gap:8px"},h("label",{class:"f",for:"f-person"},"만나고 싶은 사람이 따로 있다면",nameIn),h("div",{class:"row"},nbtn,nmsg)):null,
     pendingPick?pickConfirmBar():null,
     S.sugg.length?h("div",{class:"shelf"},h("span",{class:"kicker"},`'${S.field}'의 세부 분야와 인물`),h("div",{class:"masters"},S.sugg.map(masterBtn))):null,
-    S.sugg.length?thinkBox("AI의 분류와 내 분류 비교하기","AI가 나눈 세부 분야와 내가 먼저 쓴 세부 분야를 견주어 보세요.",lab("f-cmp","내가 생각 못 한 분야, 또는 AI가 놓친 분야와 그 이유",mindTa("f-cmp","compare","예: AI는 '간호 정보학'을 넣었는데 나는 몰랐다. 반대로 학교 보건은 AI가 빠뜨렸다."))):null,
     h("div",{class:"shelf"},h("span",{class:"kicker"},S.sugg.length?"다른 분야의 선배":"바로 고르기"),h("div",{class:"masters"},PRESETS.map(masterBtn))),
     h("p",{class:"ill-note"},"인물 그림은 실제 얼굴이 아니라, 직업과 시대를 살려 새로 그린 캐릭터예요."),
     E()?thinkBox(`${E().name} 님을 고른 이유`,"이유를 써야 인터뷰실이 열려요.",lab("f-wperson","이 사람을 고른 이유와, 꼭 알아내고 싶은 것 하나",mindTa("f-wperson","whyPerson","예: 기록과 숫자로 병원을 바꾼 사람이라서. 그 많은 기록을 어떻게 해냈는지 알고 싶다."))):null,
@@ -1854,7 +2012,10 @@ function sField(){let fupd=()=>{};const fi=input("f-field",S,"field","예: 간�
 
 async function aiProfile(e){return parseJSONObj(await callAI("profile",{expert:e}));}
 async function aiCoach(e,q){return parseJSONObj(await callAI("coach",{expert:e,question:q}));}
-async function aiChat(msgs,onText,signal){return await callAI("chat",{expert:E(),field:S.field,messages:msgs},{signal,onText});}
+async function aiShapes(){return parseJSONObj(await callAI("shapes",{agent:S.agent,sentence:sentence(),field:S.field}));}
+async function aiRefCoach(c){return parseJSONObj(await callAI("refcoach",{card:{kind:c.kind,name:c.name,take:c.take,takeT:c.takeT,notT:c.notT},agent:S.agent}));}
+let lastPapers=null;
+async function aiChat(msgs,onText,signal){lastPapers=null;return await callAI("chat",{expert:E(),field:S.field,messages:msgs},{signal,onText,onPapers:p=>{lastPapers=p;}});}
 /* ===== 인물 노트 · 질문 촉매 · 바로 묻기 ===== */
 let qFocus=0,coachRes={},profLoading=false,pendingAsk=[];
 function cleanProfile(r){const s=(v,n)=>String(v==null?"":v).slice(0,n);const a=(v,k,n)=>Array.isArray(v)?v.slice(0,k).map(x=>s(x,n)).filter(Boolean):[];
@@ -1886,8 +2047,8 @@ function profileCard(e){const p=e.profile;
     return h("div",{class:"glass"},h("span",{class:"kicker"},"인물 노트"),h("p",{class:"note",style:"margin:0"},profLoading?`${e.name} 님을 만날 준비를 하고 있어요…`:"인물 노트를 아직 불러오지 못했어요."),
       profLoading?h("div",{class:"typing","aria-hidden":"true"},h("span"),h("span"),h("span")):h("button",{class:"btn sm",type:"button",onclick:()=>ensureProfile(true)},"인물 노트 불러오기"));}
   return h("div",{class:"glass note-card"},h("span",{class:"kicker"},`인물 노트 · ${e.name}`),p.temper?h("p",{class:"nc-lead"},p.temper):null,p.speech?h("p",{class:"note",style:"margin:0"},p.speech):null);}
-function gateAsk(){const m=M(),g=[];if(!filled(m.hypoTime,2)||!filled(m.hypoAI,2)||!filled(m.hypoHuman,2))g.push("미래의 내 일 세 칸");
-  if(validQs().length<3)g.push(`내 질문 3개 (지금 ${validQs().length}개)`);if((m.chk||[]).slice(0,QCHK.length).filter(Boolean).length<QCHK.length)g.push("질문 점검");return g;}
+function gateAsk(){const m=M(),g=lack([["미래의 내 일 · 시간이 가장 많이 걸릴 것 같은 일",m.hypoTime,2]]);
+  const vq=validQs().length;if(vq<3){const short=S.qs.map((q,i)=>[i,String(q||"").trim()]).filter(([,q])=>q&&!(filled(q,8)&&!q.includes("___"))).map(([i])=>"Q"+(i+1));g.push(`내 질문 3개 (완성 ${vq}개${short.length?` · ${short.join(", ")}는 8자 이상으로`:""})`);}return g;}
 function sAsk(){const e=E();
   if(!e) return [...head(2),h("p",{class:"err",style:"margin:0"},"먼저 Chapter 2에서 인터뷰할 인물을 골라 주세요."),h("div",{class:"navrow"},h("button",{class:"btn ink",type:"button",onclick:()=>goChapter(1)},"인물 고르러 가기"))];
   const job=(S.field||"").trim()||"내 진로";
@@ -1896,14 +2057,12 @@ function sAsk(){const e=E();
     lockN.textContent=g.length?"남은 것: "+g.join(", "):"준비 끝! 인터뷰실 문이 열렸어요.";lockN.classList.toggle("ok",!g.length);
     const qc=document.getElementById("qcount");if(qc)qc.textContent=`완성한 질문 ${validQs().length}개`;};
   const hyp=thinkBox(`10년 뒤, '${job}'의 내 일`,"짧게 써도 괜찮아요.",
-    lab("f-h1","시간이 가장 많이 걸릴 것 같은 일",mindTa("f-h1","hypoTime","예: 환자 상태 기록하기",1,()=>{renderMat();upNav();})),
-    lab("f-h2","AI가 덜어 줄 수 있을 것 같은 일",mindTa("f-h2","hypoAI","예: 검사 결과 정리하기",1,()=>{renderMat();upNav();})),
-    lab("f-h3","그래도 꼭 내가 해야 할 일",mindTa("f-h3","hypoHuman","예: 환자에게 결과 설명하기",1,()=>{renderMat();upNav();})));
+    lab("f-h1","시간이 가장 많이 걸릴 것 같은 일",mindTa("f-h1","hypoTime","예: 환자 상태 기록하기",1,()=>{renderMat();upNav();})));
   const matBox=h("div",{class:"mats"});
   const renderMat=()=>{matBox.replaceChildren(...materials().map(([n,t])=>h("button",{class:"mat",type:"button",onclick:()=>fillQ(t)},h("span",{class:"mat-h"},h("b",null,n)),h("span",{class:"mat-t"},t))));};renderMat();
   const rows=S.qs.map((q,k)=>{const cr=h("div",{class:"coach"});if(coachRes[k])cr.append(coachView(k,coachRes[k]));
     const inp=grow(h("textarea",{id:"f-q"+k,rows:2,class:"q-ta",placeholder:["예: 하루 중 가장 바쁠 때는 언제예요?","예: 제일 귀찮은 일은 뭐예요?","예: 그 일, 누가 대신해 주면 좋겠어요?"][k]||"그 사람의 일에 대해 묻고 싶은 것",value:S.qs[k]||""}));
-    inp.addEventListener("input",()=>{S.qs[k]=inp.value;save();liveCards["q"+k]&&liveCards["q"+k].userData.redraw(S.qs[k]);if(coachRes[k]){delete coachRes[k];cr.replaceChildren();}upNav();});
+    const [qc,qup]=counter(()=>S.qs[k],8);inp.addEventListener("input",()=>{S.qs[k]=inp.value;save();qup();liveCards["q"+k]&&liveCards["q"+k].userData.redraw(S.qs[k]);if(coachRes[k]){delete coachRes[k];cr.replaceChildren();}upNav();});
     inp.addEventListener("focus",()=>{qFocus=k;});
     const cb=h("button",{class:"btn sm",type:"button"},"코치에게 물어보기");
     cb.onclick=async()=>{const t=S.qs[k].trim();if(!filled(t,8)||t.includes("___")){toast("질문을 먼저 완성해 주세요");return;}cb.disabled=true;cr.replaceChildren(h("p",{class:"note",style:"margin:0"},"질문 코치가 읽는 중…"));
@@ -1911,11 +2070,7 @@ function sAsk(){const e=E();
       catch(err){cr.replaceChildren(h("p",{class:"err",style:"margin:0"},errCopy(err)));}finally{cb.disabled=false;}};
     const del=S.qs.length>3?h("button",{class:"btn sm",type:"button","aria-label":`질문 ${k+1} 지우기`,onclick:()=>{S.qs.splice(k,1);coachRes={};save();renderChapter(2);refreshPop();}},"지우기"):null;
     return h("div",{class:"q",style:`--qc:${PHONE_C[k%8]}`},h("span",null,"Q"+(k+1)),h("div",{class:"qbody"},h("div",{class:"qhead"},h("b",null,"Q"+(k+1)),h("span",null,`받는 사람 · ${e.name}`)),
-      h("label",{class:"sr",for:"f-q"+k},"질문 "+(k+1)),inp,h("div",{class:"row qact"},del,aiOn()?cb:null),cr));});
-  const chk=(M().chk||[]).slice(0,QCHK.length);
-  const self=thinkBox("질문 점검","모두 체크하면 인터뷰실이 열려요.",
-    h("div",{class:"checks"},QCHK.map((t,i)=>{const id="f-chk"+i;const cbx=h("input",{type:"checkbox",id});cbx.checked=!!chk[i];
-      cbx.addEventListener("change",()=>{const a=QCHK.map((_,j)=>!!(M().chk||[])[j]);a[i]=cbx.checked;M().chk=a;save();upNav();refreshCheck();});return h("label",{class:"chk",for:id},cbx,h("span",null,t));})),lockN);
+      h("label",{class:"sr",for:"f-q"+k},"질문 "+(k+1)),inp,qc,h("div",{class:"row qact"},del,aiOn()?cb:null),cr));});
   upNav();
   return [...head(2),
     h("p",{class:"purpose"},h("b",null,"오늘의 목표"),"  미래의 내 일 알아보기 → 그 일을 덜어 줄 방법 찾기"),
@@ -1925,7 +2080,7 @@ function sAsk(){const e=E();
     h("div",{class:"row"},S.qs.length<8?h("button",{class:"btn",type:"button",onclick:()=>{S.qs.push("");save();renderChapter(2);refreshPop();setTimeout(()=>{const el=document.getElementById("f-q"+(S.qs.length-1));el&&el.focus();},60);}},"+ 질문 추가"):null,
       h("span",{class:"note",id:"qcount"},`완성한 질문 ${validQs().length}개`)),
     h("details",{class:"matwrap",open:matOpen||null,ontoggle:ev=>{matOpen=ev.currentTarget.open;}},h("summary",null,"막힐 때 · 질문 재료 꺼내 보기 (선택)"),h("p",{class:"note",style:"margin:0"},"누르면 빈 질문 칸에 들어가요. 내 말로 고쳐 써도 좋아요."),matBox),
-    self,nav];}
+    lockN,nav];}
 function askNow(q){q=String(q||"").trim();if(!q)return;
   if(q.includes("___")){toast("___ 자리를 내 말로 먼저 채워 주세요");const k=S.qs.findIndex(x=>x.trim()===q);const el=k>=0&&document.getElementById("f-q"+k);if(el){el.focus();const p=q.indexOf("___");el.setSelectionRange(p,p+3);}return;}
   if(!S.chat.length&&gateTalk().length){toast("인터뷰 전에 내가 할 일이 남았어요");renderChapter(3);goChapter(3);return;}
@@ -1985,9 +2140,9 @@ function paintChips(){if(!T||!T.chips)return;const asked=new Set(S.chat.filter(m
   const mineChip=q=>h("button",{class:"chip"+(asked.has(q)?" used":""),type:"button",title:"내가 쓴 질문 — 누르면 바로 물어봐요",onclick:()=>askNow(q)},q);
   const sugChip=q=>h("button",{class:"chip sug",type:"button",title:"누르면 입력칸에 들어가요. 내 말로 고친 뒤 보내세요",onclick:()=>{T.box.value=q;T.box.focus();T.box.dispatchEvent(new Event("input"));}},q);
   const mine=validQs();const fol=(S.follow&&S.follow.length)?S.follow:FOLLOW;
-  T.chips.replaceChildren(
+  T.chips.replaceChildren(...[
     mine.length?h("div",{class:"chips"},h("span",{class:"kicker",style:"align-self:center"},"내 질문"),mine.map(mineChip)):null,
-    h("div",{class:"chips"},h("span",{class:"kicker",style:"align-self:center"},"힌트 — 눌러서 내 말로 고친 뒤 보내기"),fol.map(sugChip)));}
+    h("div",{class:"chips"},h("span",{class:"kicker",style:"align-self:center"},"힌트 — 눌러서 내 말로 고친 뒤 보내기"),fol.map(sugChip))].filter(Boolean));}
 function paintTr(pending){if(!T)return;const tr=T.tr;tr.replaceChildren();const e=E()||{};
   const ini=(ename()||"?").trim().charAt(0);
   if(!S.chat.length){tr.append(h("div",{class:"start"},portraitThumb(e),
@@ -1996,7 +2151,7 @@ function paintTr(pending){if(!T)return;const tr=T.tr;tr.replaceChildren();const 
       h("button",{class:"btn ink",type:"button",onclick:()=>{startInterview();}},"인사 나누기")));return;}
   S.chat.forEach((m,idx)=>{if(m.hidden)return;const isM=m.role==="assistant";const memoOn=S.memos.some(x=>x.src===idx);
     tr.append(h("div",{class:"ln "+(isM?"m-line":"s-line")},isM?h("span",{class:"av","aria-hidden":"true"},ini):null,
-      h("div",{class:"bub"},h("span",{class:"sr"},(isM?spkName():"나")+": "),h("div",{class:"txt"},m.content),
+      h("div",{class:"bub"},h("span",{class:"sr"},(isM?spkName():"나")+": "),h("div",{class:"txt"},m.content),isM&&m.papers?paperBox(m.papers):null,
         isM?h("button",{class:"memo-btn",type:"button","aria-pressed":memoOn?"true":"false",onclick:()=>{if(memoOn)S.memos=S.memos.filter(x=>x.src!==idx);else S.memos.push({src:idx,text:m.content});save();paintTr();toast(memoOn?"메모를 뺐어요":"메모했어요");}},memoOn?"★ 메모됨":"☆ 메모"):null)));});
   if(pending!=null) tr.append(h("div",{class:"ln m-line"},h("span",{class:"av","aria-hidden":"true"},ini),
     h("div",{class:"bub"},pending?h("div",{class:"txt"},pending):h("div",{class:"typing",role:"status","aria-label":`${spkName()}이(가) 말을 고르는 중`},h("span"),h("span"),h("span")))));
@@ -2009,11 +2164,17 @@ async function runChat(){if(!aiOn()||busy)return;const gen=chatGen;busy=true;cha
   let reply=null,fail=null;
   try{reply=await aiChat(msgs,text=>{if(gen===chatGen)paintTr(tidy(text));},ctl.signal);}catch(e){fail=e;}
   if(gen!==chatGen)return;
-  if(reply!=null){const sp=splitFollow(reply);S.chat.push({role:"assistant",content:tidy(sp.text)});if(sp.follow.length)S.follow=sp.follow;save();}
+  if(reply!=null){const sp=splitFollow(reply);const msg={role:"assistant",content:tidy(sp.text)};if(lastPapers&&Array.isArray(lastPapers.items)&&lastPapers.items.length)msg.papers={items:lastPapers.items.slice(0,3),ko:String(lastPapers.ko||"")};S.chat.push(msg);if(sp.follow.length)S.follow=sp.follow;save();}
   else{if(fail&&fail.text){S.chat.push({role:"assistant",content:tidy(splitFollow(fail.text).text)});save();}chatErr=errCopy(fail);}
   busy=false;talking=false;if(ai==="blocked"){renderSheet();return;}
   if(T){T.send.disabled=false;T.stop.hidden=true;T.err.textContent=chatErr;}paintTr();paintChips();
   if(!chatErr&&pendingAsk.length){const q=pendingAsk.shift();S.chat.push({role:"user",content:q});save();runChat();}}
+function paperBox(pp){const items=(pp.items||[]).filter(x=>x&&x.title);if(!items.length)return null;
+  const dq=String(pp.ko||"").trim();const safe=u=>/^https:\/\//.test(String(u||""))?String(u):null;
+  return h("details",{class:"papers"},h("summary",null,`📄 이 대답에 참고한 논문 초록 ${items.length}편`),
+    h("ul",null,items.map(x=>h("li",null,safe(x.link)?h("a",{href:safe(x.link),target:"_blank",rel:"noopener noreferrer"},x.title):h("b",null,x.title),
+      h("span",{class:"pmeta"},[x.authors,x.year,x.journal].filter(Boolean).join(" · ")),x.abstract?h("span",{class:"pabs"},x.abstract.length>260?x.abstract.slice(0,260)+"…":x.abstract):null))),
+    h("p",{class:"pnote"},"AI는 초록만 참고했어요. 전체 내용은 DBpia에서 직접 찾아 읽어 보세요. ",dq?h("a",{href:"https://www.dbpia.co.kr/search/topSearch?searchOption=all&query="+encodeURIComponent(dq),target:"_blank",rel:"noopener noreferrer"},`DBpia에서 '${dq}' 찾기 →`):null));}
 function geminiUI(){const pr=rules(true);const ta=h("textarea",{id:"f-gn",rows:5,placeholder:"인터뷰 중 인상 깊었던 답을 한 줄에 하나씩 옮겨 적으세요.",value:S.gnotes});
   ta.addEventListener("input",()=>{S.gnotes=ta.value;S.memos=S.gnotes.split("\n").map(s=>s.trim()).filter(Boolean).map(t=>({src:-1,text:t}));save();});
   return h("div",{style:"display:grid;gap:12px"},h("p",{class:"note",style:"margin:0"},`아래 역할 프롬프트를 복사해 제미나이 새 대화에 붙여 넣으면 ${ename()} 님이 직접 인사를 건네요. 3장에서 만든 질문으로 대화를 시작해 보세요.`),
@@ -2040,19 +2201,18 @@ function stimuli(){const card=(tag,big,text,src,href)=>h("div",{class:"stim"},h(
 const MOODS=["기대돼요","걱정돼요","궁금해요","아직 잘 모르겠어요"];
 function sIntro(){const m=M();
   const ta=grow(h("textarea",{id:"f-think",rows:2,class:"mind-ta",placeholder:"예: 걱정돼요. 내가 하고 싶은 일을 AI가 다 해 버리면 나는 무엇을 해야 할지 모르겠어서.",value:S.think}));
-  ta.addEventListener("input",()=>{S.think=ta.value;save();refreshCheck();});
+  const [tc,tup]=counter(()=>S.think,6);ta.addEventListener("input",()=>{S.think=ta.value;save();tup();refreshCheck();});
   const moods=h("div",{class:"chips",role:"group","aria-label":"지금의 마음"});
   const pm=()=>moods.replaceChildren(...MOODS.map(t=>h("button",{class:"chip mood"+(M().mood===t?" on":""),type:"button","aria-pressed":M().mood===t?"true":"false",onclick:()=>{M().mood=t;save();pm();refreshCheck();}},t)));pm();
   const cpt=(t,d)=>h("div",{class:"cpt"},h("b",null,t),h("span",null,d));
-  return [...head(0),h("p",{class:"big-q"},"10년 뒤의 나의 일터에서 AI가 해야 할 일과 내가 할 일은 어떻게 나누어질까?"),warmUp(),stimuli(),
+  return [...head(0),(typeof codeGate==="function")?codeGate():null,h("p",{class:"big-q"},"10년 뒤의 나의 일터에서 AI가 해야 할 일과 내가 할 일은 어떻게 나누어질까?"),warmUp(),stimuli(),
     thinkBox("오늘을 시작하는 내 마음","AI 동료와 함께 일할 10년 뒤를 떠올리면, 지금 어떤 마음이 드나요? 오늘 수업 마지막에 이 마음을 다시 꺼내 볼 거예요.",
-      moods,lab("f-think","그런 마음이 드는 이유",ta)),
+      moods,h("label",{class:"f",for:"f-think"},"그런 마음이 드는 이유",ta,tc)),
     h("div",{class:"concepts"},
       cpt("AI 동료 (에이전트)","목표를 주면 정해진 일을 스스로 처리하고 결과를 알려 주는 AI 프로그램이에요."),
       cpt("co-work","AI는 반복·정리·초안을, 사람은 판단·공감·책임을 맡아 함께 일하는 방식이에요."),
       cpt("바이브코딩","만들고 싶은 기능을 말로 설명하면 AI가 코드를 쓰고, 나는 실행하며 검증하고 다듬어요.")),
     journey(),
-    (typeof codeBox==="function"&&aiOn())?codeBox():null,
     navRow()];}
 function agentLine(){const a=S.agent;return `${a.name.trim()||"이름 미정"} — ${a.ai.split("\n").map(x=>x.trim()).filter(Boolean).join(", ")||"맡을 일 미정"}`;}
 function sDefine(){const e=E();const a=S.agent;const sent=h("p",{class:"sentence",id:"sent"});
@@ -2083,9 +2243,9 @@ function sDefine(){const e=E();const a=S.agent;const sent=h("p",{class:"sentence
       h("div",{class:"grid3"},h("label",{class:"f",for:"f-who"},"누가 (오늘날, 미래의 나)",input("f-who",S.prob,"who","예: 요양원의 간호사",paint)),
         h("label",{class:"f",for:"f-bec"},"어떤 어려움을 겪나요 ('~다'로 끝나게)",input("f-bec",S.prob,"because","예: 환자 기록을 손으로 옮겨 적느라 환자 곁에 있을 시간이 부족하다",paint)),
         h("label",{class:"f",for:"f-need"},"무엇이 필요한가",input("f-need",S.prob,"need","예: 기록 정리를 대신해 줄 AI 동료",paint)))),
-    step("2","일 나누기 — co-work","반복되고 규칙이 있는 일은 AI 동료에게, 판단·공감·책임은 나에게. 한 줄에 하나씩 적어요.",
-      h("div",{class:"split"},h("label",{class:"f split-ai",for:"f-aai"},"AI 동료가 맡을 일",ta("f-aai","ai","예: 환자별 기록을 날짜순으로 정리\n예: 이상 수치가 나오면 알림")),
-        h("label",{class:"f split-me",for:"f-ame"},"내가 맡을 일",ta("f-ame","me","예: 알림을 보고 환자 상태를 직접 확인\n예: 보호자에게 설명하기"))),
+    step("2","AI 동료가 하면 좋을 일","반복되고 규칙이 있는 일은 AI 동료에게, 판단·공감·책임은 나에게. 한 줄에 하나씩 적어요.",
+      h("div",{class:"split"},h("label",{class:"f split-ai",for:"f-aai"},"AI 동료가 하면 좋을 일",ta("f-aai","ai","예: 환자별 기록을 날짜순으로 정리\n예: 이상 수치가 나오면 알림")),
+        h("label",{class:"f split-me",for:"f-ame"},"내가 할 일",ta("f-ame","me","예: 알림을 보고 환자 상태를 직접 확인\n예: 보호자에게 설명하기"))),
       h("div",{class:"split"},lab("f-wai","왜 AI에게 맡기나요?",mindTa("f-wai","whyAI","예: 매일 같은 형식이라 규칙으로 처리할 수 있어서")),lab("f-wme","왜 끝까지 내가 하나요?",mindTa("f-wme","whyMe","예: 표정을 보고 판단하는 건 기록만으로 알 수 없어서")))),
     step("3","AI 동료 카드","3차시 바이브코딩의 설계도가 됩니다.",
       h("label",{class:"f",for:"f-aname"},"AI 동료 이름",input("f-aname",a,"name","예: 기록 도우미 나이팅",redrawAgent)),
@@ -2098,17 +2258,17 @@ function sDefine(){const e=E();const a=S.agent;const sent=h("p",{class:"sentence
     S.fb?thinkBox("반응을 읽고","모든 말을 따를 필요는 없어요. 받아들일 점과 받아들이지 않을 점을 이유와 함께 써요.",lab("f-refl","받아들일 점 / 받아들이지 않을 점과 이유",mindTa("f-refl","reflect","예: 기능을 하나로 줄이라는 말은 받아들인다. 알림을 없애라는 말은 안전 때문에 받아들이지 않는다.",3))):null,
     navRow()];}
 function starterPrompt(){const e=E(),a=S.agent,L=s=>String(s||"").split("\n").map(x=>x.trim()).filter(Boolean).join(", ");
-  return `너는 나와 함께 'AI 동료' 프로그램을 만드는 코딩 파트너야. 나는 고등학생이고 ${S.field||(e&&e.sub)||"내 진로"} 분야에서 일하고 싶어.
+  return `너는 나와 함께 'AI 동료' 웹앱을 만드는 코딩 파트너야. 나는 고등학생이고 ${S.field||(e&&e.sub)||"내 진로"} 분야에서 일하고 싶어.
 [만들 AI 동료] ${a.name||"(이름 미정)"}
 [해결할 문제] ${sentence()}
-[AI 동료가 맡을 일] ${L(a.ai)||"(미정)"}
-[사람인 내가 맡을 일] ${L(a.me)||"(미정)"}
+[AI 동료가 하면 좋을 일] ${L(a.ai)||"(미정)"}
+[내가 할 일] ${L(a.me)||"(미정)"}
 [입력 → 처리 → 출력] ${a.i||"?"} → ${a.p||"?"} → ${a.o||"?"}
-[요청]
-1. 구글 코랩에서 실행할 수 있는 파이썬으로, 외부 API 키 없이 동작하는 첫 버전을 만들자. 나중에 AI 모델을 연결할 수 있게 구조를 잡아 줘.
-2. 전체 구조를 먼저 짧게 설명하고, 기능을 하나씩 단계별로 만들어 줘. 한 번에 전체 코드를 주지 마.
-3. AI 동료가 결과를 내면 사람이 확인하고 고칠 수 있는 단계를 꼭 넣어 줘.
-4. 코드마다 고등학생이 이해할 수 있는 주석을 달아 줘.
+${typeof refLines==="function"?refLines():""}[요청]
+1. 제미나이 캔버스에서 바로 실행되는 웹앱(HTML 한 파일)으로, 외부 API 키나 로그인 없이 동작하는 첫 버전을 만들어 줘. 진짜 AI 대신 규칙이나 예시 데이터로 흉내 내도 괜찮아.
+2. 만들기 전에 화면 구성과 기능을 5줄 이내로 정리해 보여 주고, 바로 첫 버전을 만들어 줘.
+3. AI 동료가 결과를 내면 사람이 확인하고 고칠 수 있는 버튼이나 칸을 꼭 넣어 줘.
+4. 코드에 고등학생이 이해할 수 있는 짧은 주석을 달아 줘.
 [내가 정한 조건] ${String(M().extra||"").trim()||"(없음)"}
 [AI 동료가 틀릴 때 대비] ${String(M().risk||"").trim()||"(미정)"}
 ${filled(M().first,4)?`먼저 '${M().first.trim()}' 기능부터 시작하자.`:"먼저 첫 번째 기능부터 시작하자."}`;}
@@ -2117,8 +2277,8 @@ function summaryText(){const e=E(),a=S.agent;return `[나의 AI 동료 기획서
 인상 깊은 말:
 ${S.memos.slice(0,2).map(m=>"- "+(m.text.length>140?m.text.slice(0,140)+"…":m.text)).join("\n")||"- (없음)"}
 해결할 문제: ${sentence()}
-AI 동료가 맡을 일: ${a.ai.split("\n").map(x=>x.trim()).filter(Boolean).join(", ")||"(미정)"}
-내가 맡을 일: ${a.me.split("\n").map(x=>x.trim()).filter(Boolean).join(", ")||"(미정)"}
+AI 동료가 하면 좋을 일: ${a.ai.split("\n").map(x=>x.trim()).filter(Boolean).join(", ")||"(미정)"}
+내가 할 일: ${a.me.split("\n").map(x=>x.trim()).filter(Boolean).join(", ")||"(미정)"}
 입력 → 처리 → 출력: ${a.i||"?"} → ${a.p||"?"} → ${a.o||"?"}
 
 [바이브코딩 시작 프롬프트]
@@ -2138,7 +2298,7 @@ function sShare(){const e=E(),a=S.agent;const L=s=>String(s||"").split("\n").map
         h("dt",null,"인터뷰한 사람"),h("dd",null,e?`${e.name} · ${e.alive?"현재 활동 중":e.years} · ${e.sub}`:"…"),
         h("dt",null,"인상 깊은 말"),h("dd",null,S.memos.length?S.memos.slice(0,2).map(m=>h("blockquote",null,m.text.length>150?m.text.slice(0,150)+"…":m.text)):h("span",{class:"note"},"메모한 대답이 없어요.")),
         h("dt",null,"해결할 문제"),h("dd",{style:"font-weight:700"},sentence()),
-        h("dt",null,"일 나누기"),h("dd",null,h("div",{class:"split mini"},h("div",null,h("span",{class:"kicker",style:"color:var(--accent)"},"AI 동료"),list(L(a.ai),"미정")),h("div",null,h("span",{class:"kicker",style:"color:var(--amber)"},"나"),list(L(a.me),"미정")))),
+        h("dt",null,"AI 동료와 나"),h("dd",null,h("div",{class:"split mini"},h("div",null,h("span",{class:"kicker",style:"color:var(--accent)"},"AI 동료"),list(L(a.ai),"미정")),h("div",null,h("span",{class:"kicker",style:"color:var(--amber)"},"나"),list(L(a.me),"미정")))),
         h("dt",null,"입력 → 처리 → 출력"),h("dd",null,`${a.i||"?"} → ${a.p||"?"} → ${a.o||"?"}`))),
     thinkBox("3차시 준비 — 프롬프트는 내가 완성해요","두 칸을 채우면 내 생각이 들어간 시작 프롬프트가 만들어져요.",
       lab("f-first","가장 먼저 만들 기능 하나 (작게!)",mindTa("f-first","first","예: 체온을 입력하면 기준을 벗어난 값에 표시하기",2,()=>upP())),
@@ -2147,16 +2307,67 @@ function sShare(){const e=E(),a=S.agent;const L=s=>String(s||"").split("\n").map
     thinkBox("오늘 바뀐 내 생각","Chapter 1에서 고른 마음과 비교해 보세요. 오늘 인터뷰와 설계를 마친 지금, 마음이 어떻게 바뀌었나요? 왜 바뀌었나요?",h("p",{class:"note",style:"margin:0"},"처음 마음: "+([M().mood,S.think.trim()].filter(Boolean).join(" — ")||"(아직 안 씀)")),lab("f-change","바뀐 점과 이유",mindTa("f-change","change","예: 처음엔 걱정됐는데, 사람이 꼭 해야 하는 판단이 분명히 남는다는 걸 알고 조금 기대가 생겼다.",3))),
     checklist(),submitPanel(),teacherPanel(),
     journey(),
-    h("p",{class:"note",style:"margin:0"},"이 화면은 다음 시간에도 그대로 열려요. 2차시에는 짝과 기획서를 바꿔 읽고 자동화 적합성, 사람의 역할, 구현 가능성을 기준으로 서로 질문해 고칩니다."),
+    h("p",{class:"note",style:"margin:0"},"다음 시간에는 짝과 기획서를 바꿔 읽고 고친 뒤, 레퍼런스를 찾아 프롬프트를 완성해요."),
     reset];}
 
 let dlNs=null;
 async function submitRecord(rec){if(!API_URL)throw {code:"network",message:"선생님이 아직 서버 주소를 넣지 않았어요."};if(!classCode)throw {code:"bad_code"};
-  let res;try{res=await fetch(API_URL,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({code:classCode,task:"submit",record:rec})});}catch(e){throw {code:"network"};}
+  let res;try{res=await fetch(API_URL,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({code:classCode,task:"submit",record:rec,images:rec.status==="2차시 제출"?recImages():undefined})});}catch(e){throw {code:"network"};}
   let j={};try{j=await res.json();}catch(e){}
   if(!res.ok||!j.ok)throw {code:res.status===401?"bad_code":"upstream",message:j.error||"제출하지 못했어요. 잠시 뒤 다시 눌러 주세요."};}
 function submitErr(e){const c=e&&e.code;if(c==="bad_code")return "반 코드가 맞지 않아요. 첫 챕터에서 반 코드를 다시 넣어 주세요.";if(c==="network")return (e&&e.message)||"인터넷 연결을 확인해 주세요.";return (e&&e.message)||"제출하지 못했어요. 잠시 뒤 다시 눌러 주세요.";}
 function teacherPanel(){return null;}
+const VAULT_NEEDS_ID=true;
+async function postAPI(body){if(!API_URL)throw {code:"network",message:"선생님이 아직 서버 주소를 넣지 않았어요."};if(!classCode)throw {code:"bad_code"};
+  let res;try{res=await fetch(API_URL,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(Object.assign({code:classCode},body))});}catch(e){throw {code:"network"};}
+  let j={};try{j=await res.json();}catch(e){}
+  if(!res.ok||!j.ok)throw {code:res.status===401?"bad_code":"upstream",message:j.error||"잠시 뒤 다시 눌러 주세요."};return j;}
+async function vaultSave(rec,state){await postAPI({task:"submit",record:rec,state,sid:S.sid,sname:S.sname,pin:S.pin,images:rec.status==="2차시 제출"?recImages():undefined});}
+async function vaultLoad(){const j=await postAPI({task:"load",sid:S.sid,sname:S.sname,pin:S.pin});if(!j.state)return null;let st=j.state;if(typeof st==="string"){try{st=JSON.parse(st);}catch(e){return null;}}st.__savedAt=j.savedAt;return st;}
+function vaultErr(e){return submitErr(e);}
+async function finalSubmit(rec){if(pinOk(S.pin))await vaultSave(rec,snapState());else await submitRecord(rec);}
+/* ===== 중간 저장 · 다른 기기에서 불러오기 ===== */
+function snapState(){const c=JSON.parse(JSON.stringify(S));delete c.pin;c.page=S.page||0;return c;}
+function applyState(st){if(!st||typeof st!=="object")return false;const keep={mode:S.mode,sid:S.sid,sname:S.sname,pin:S.pin};
+  try{stopChat();}catch(e){}S=Object.assign(blank(),st,{mode:keep.mode||st.mode||"",sid:keep.sid||st.sid||"",sname:keep.sname||st.sname||"",pin:keep.pin});
+  save();renderAll();try{redrawPages();refreshPop();}catch(e){}return true;}
+const pinOk=p=>/^\d{4}$/.test(String(p||""));
+let vaultEl=null;
+function openVault(){if(vaultEl){vaultEl.remove();vaultEl=null;}
+  const msg=h("p",{class:"note",role:"status",style:"margin:0"});
+  const say=(t,err)=>{msg.className=err?"err":"note";msg.textContent=t;};
+  const close=()=>{if(vaultEl){vaultEl.remove();vaultEl=null;}document.removeEventListener("keydown",esc);};
+  const esc=ev=>{if(ev.key==="Escape")close();};document.addEventListener("keydown",esc);
+  const fields=VAULT_NEEDS_ID?h("div",{style:"display:grid;gap:10px"},
+      h("div",{class:"split"},h("label",{class:"f",for:"v-sid"},"학번",input("v-sid",S,"sid","예: 10305")),h("label",{class:"f",for:"v-sname"},"이름",input("v-sname",S,"sname","예: 김부흥"))),
+      h("label",{class:"f",for:"v-pin"},"비밀번호 숫자 4자리 (다른 기기에서 불러올 때 필요해요. 잊지 않게 적어 두세요)",(()=>{const el=h("input",{id:"v-pin",type:"password",inputmode:"numeric",maxlength:"4",autocomplete:"off",placeholder:"예: 0427",value:S.pin||""});el.addEventListener("input",()=>{el.value=el.value.replace(/\D/g,"").slice(0,4);S.pin=el.value;save();});return el;})()),
+      typeof codeBox==="function"&&!classCode?codeBox():null):
+    h("p",{class:"note",style:"margin:0"},"지금 로그인한 계정으로 저장하고 불러와요.");
+  const need=()=>{if(!VAULT_NEEDS_ID)return true;if(!String(S.sid||"").trim()||!String(S.sname||"").trim()){say("학번과 이름을 적어 주세요.",true);return false;}
+    if(!pinOk(S.pin)){say("비밀번호 숫자 4자리를 적어 주세요.",true);return false;}if(typeof classCode!=="undefined"&&!classCode){say("반 입장 코드를 먼저 저장해 주세요.",true);return false;}return true;};
+  const sv=h("button",{class:"btn primary",type:"button"},"지금까지 저장하기");
+  sv.onclick=async()=>{if(!need())return;sv.disabled=true;say("저장하는 중…");
+    try{await vaultSave(Object.assign(buildRecord(),{status:"중간 저장"}),snapState());S.savedAt=new Date().toISOString();save();say(`${fmtTime(S.savedAt)}에 저장했어요. 선생님께도 '중간 저장'으로 전달됐어요.`);toast("저장했어요");}
+    catch(e){say(vaultErr(e),true);}finally{sv.disabled=false;}};
+  const ld=h("button",{class:"btn",type:"button"},"내 기록 불러오기");
+  const conf=h("div",{class:"confirm",hidden:true});
+  ld.onclick=async()=>{if(!need())return;ld.disabled=true;say("불러오는 중…");
+    try{const st=await vaultLoad();if(!st){say("저장된 기록이 없어요.",true);return;}
+      const when=st.__savedAt?fmtTime(st.__savedAt):"";say("");conf.hidden=false;
+      conf.replaceChildren(h("p",{style:"margin:0"},h("b",null,`${when?when+"에 ":""}저장한 기록을 찾았어요.`)," 불러오면 이 기기에 있던 내용은 저장된 기록으로 바뀌어요."),
+        h("div",{class:"row"},h("button",{class:"btn primary",type:"button",onclick:()=>{delete st.__savedAt;applyState(st);close();toast("기록을 불러왔어요");}},"불러오기"),h("button",{class:"btn",type:"button",onclick:()=>{conf.hidden=true;}},"취소")));}
+    catch(e){say(vaultErr(e),true);}finally{ld.disabled=false;}};
+  vaultEl=h("div",{class:"vault",role:"dialog","aria-modal":"true","aria-label":"저장과 불러오기"},
+    h("div",{class:"vault-card glass"},h("div",{class:"row",style:"justify-content:space-between"},h("b",{style:"font-size:19px"},"저장 · 불러오기"),h("button",{class:"btn sm",type:"button",onclick:close},"닫기")),
+      h("p",{class:"note",style:"margin:0"},"수업이 끝나기 전에 꼭 저장하세요. 다음 시간에 다른 기기를 써도 이어서 할 수 있어요."),
+      fields,h("div",{class:"row"},sv,ld),msg,conf));
+  vaultEl.addEventListener("click",ev=>{if(ev.target===vaultEl)close();});document.body.append(vaultEl);
+  setTimeout(()=>{const f=vaultEl&&vaultEl.querySelector("input,button.btn.primary");f&&f.focus();},30);}
+(function(){const btn=document.getElementById("resetAll");if(!btn||document.getElementById("vaultBtn"))return;
+  const v=h("button",{class:"bar-btn",id:"vaultBtn",type:"button",onclick:openVault},"저장·불러오기");btn.before(v);
+  if(API_URL&&!document.getElementById("codeChip")){v.before(h("button",{class:"bar-btn",id:"codeChip",type:"button",onclick:focusCode}));updCodeChip();
+    if(classCode)setTimeout(()=>pingCode(classCode).then(r=>{if(r==="bad"){codeOk=false;classCode="";try{localStorage.removeItem(CODE_KEY);}catch(e){}renderAll();updCodeChip();toast("저장된 반 코드가 맞지 않아요. 다시 넣어 주세요.");}}),800);}})();
+
 /* ===== 인물 바꾸기·초기화 ===== */
 let chatGen=0,pendingPick=null;
 function hasWork(){return S.chat.length>0||S.qs.some(q=>q.trim())||S.memos.length>0||S.prob.who.trim()||S.prob.because.trim()||S.agent.ai.trim()||S.agent.me.trim();}
@@ -2187,7 +2398,7 @@ function splitFollow(t){t=String(t||"");const m=t.match(/\[\[\s*꼬리\s*질문\
   return {text:t.replace(/\[\[[\s\S]*$/,"").trim(),follow};}
 
 /* ===== 제출과 취합 ===== */
-const REC_COLS=[["submittedAt","제출 시각"],["sid","학번"],["sname","이름"],["field","진로 분야"],["think","생각 열기"],["person","인터뷰 인물"],["personInfo","인물 정보"],["questions","질문"],["transcript","인터뷰 대화"],["memos","메모"],["problem","문제 정의"],["agentName","AI 동료 이름"],["agentAI","AI 동료가 맡을 일"],["agentMe","내가 맡을 일"],["agentIn","입력"],["agentProc","처리"],["agentOut","출력"],["feedback","인물의 반응·점검"],["prompt","바이브코딩 시작 프롬프트"],["mind","생각 기록"]];
+const REC_COLS=[["submittedAt","제출 시각"],["sid","학번"],["sname","이름"],["field","진로 분야"],["think","생각 열기"],["person","인터뷰 인물"],["personInfo","인물 정보"],["questions","질문"],["transcript","인터뷰 대화"],["memos","메모"],["problem","문제 정의"],["agentName","AI 동료 이름"],["agentAI","AI 동료가 맡을 일"],["agentMe","내가 맡을 일"],["agentIn","입력"],["agentProc","처리"],["agentOut","출력"],["feedback","인물의 반응·점검"],["prompt","바이브코딩 시작 프롬프트"],["mind","생각 기록"],["status","상태"],["review","짝 검토"],["revise","1차 수정"],["refs","레퍼런스"]];
 function buildRecord(){const e=E()||{},a=S.agent,cap=(s,n)=>String(s||"").slice(0,n);
   return {submittedAt:new Date().toISOString(),sid:cap(S.sid,20),sname:cap(S.sname,30),field:cap(S.field,60),think:cap(S.think,600),
     person:e.name||"",personInfo:[e.alive?"현재 활동 중":e.years,e.sub,e.alive?"현존 인물·가상 인터뷰":""].filter(Boolean).join(" · "),
@@ -2195,51 +2406,435 @@ function buildRecord(){const e=E()||{},a=S.agent,cap=(s,n)=>String(s||"").slice(
     transcript:cap(S.chat.filter(m=>!m.hidden).map(m=>(m.role==="user"?"학생: ":e.name+": ")+m.content).join("\n"),40000),
     memos:cap(S.memos.map(m=>m.text).join("\n"),8000),problem:sentence(),
     agentName:cap(a.name,60),agentAI:cap(a.ai,1000),agentMe:cap(a.me,1000),agentIn:cap(a.i,200),agentProc:cap(a.p,200),agentOut:cap(a.o,200),
-    feedback:cap(S.fb,3000),prompt:starterPrompt(),mind:cap(mindText(),8000)};}
+    feedback:cap(S.fb,3000),prompt:starterPrompt(),mind:cap(mindText(),8000),review:cap(peerText(),3000),revise:cap(reviseText(),2000),refs:cap(refsText(),4000)};}
 function toCSV(rows){const q=v=>{let s=String(v==null?"":v);if(/^[=+\-@]/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"';};
   return "﻿"+[REC_COLS.map(c=>q(c[1])).join(","),...rows.map(r=>REC_COLS.map(c=>q(c[0]==="submittedAt"?fmtTime(r[c[0]]):r[c[0]])).join(","))].join("\r\n");}
 function fmtTime(iso){if(!iso)return "";const d=new Date(iso);if(isNaN(d))return String(iso);const p=n=>String(n).padStart(2,"0");return `${d.getMonth()+1}/${d.getDate()} ${p(d.getHours())}:${p(d.getMinutes())}`;}
 function today(){const d=new Date(),p=n=>String(n).padStart(2,"0");return `${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}`;}
-function submitPanel(){const missBox=h("div",{class:"missing"});const msg=h("span",{class:"note",role:"status"},S.submittedAt?`${fmtTime(S.submittedAt)}에 제출했어요. 고친 뒤 다시 제출해도 돼요.`:"");
-  const btn=h("button",{class:"btn primary",type:"button"},S.submittedAt?"다시 제출하기":"선생님께 제출하기");
+let submitting=false;
+function recSig(r){const c=Object.assign({},r);delete c.submittedAt;delete c.status;const t=JSON.stringify(c);let x=0;for(let i=0;i<t.length;i++)x=(x*31+t.charCodeAt(i))|0;return x+":"+t.length;}
+function submitPanel(o){o=Object.assign({list:thinkList,status:"최종 제출",ch:5,at:"submittedAt",sig:"submitSig"},o||{});const sfx=o.ch===5?"":"2";
+  const missBox=h("div",{class:"missing"}),done=S[o.at];const msg=h("span",{class:"note",role:"status"},done?`${fmtTime(done)}에 제출했어요.`:"");
+  const btn=h("button",{class:"btn primary",type:"button"},done?"고친 내용으로 다시 제출":"선생님께 제출하기");
   btn.onclick=async()=>{if(!String(S.sid||"").trim()||!String(S.sname||"").trim()){msg.className="err";msg.textContent="학번과 이름을 적어 주세요.";return;}
-    if(!E()){msg.className="err";msg.textContent="인터뷰할 인물을 먼저 골라 주세요.";return;}
-    {const miss=thinkList().filter(t=>!t.ok);missBox.replaceChildren();if(miss.length){msg.className="err";msg.textContent=`아직 비어 있는 칸이 ${miss.length}개 있어요. 눌러서 바로 가 볼까요?`;missBox.replaceChildren(...miss.map(t=>h("button",{class:"btn sm",type:"button",onclick:()=>goChapter(t.ch)},`${t.t} · Ch ${t.ch+1}`)));return;}}
-    btn.disabled=true;msg.className="note";msg.textContent="제출하는 중…";
-    try{await submitRecord(buildRecord());S.submittedAt=new Date().toISOString();save();toast("선생님께 제출했어요");renderChapter(5);return;}
-    catch(e){msg.className="err";msg.textContent=submitErr(e);}finally{btn.disabled=false;}};
-  const dl=dlNs?h("button",{class:"btn",type:"button",onclick:()=>saveCSV([buildRecord()],`내_인터뷰_기록_${today()}.csv`)},"내 기록 파일로 저장"):null;
+    if(o.ch===5&&!E()){msg.className="err";msg.textContent="인터뷰할 인물을 먼저 골라 주세요.";return;}
+    {const miss=o.list().filter(t=>!t.ok);missBox.replaceChildren();if(miss.length){msg.className="err";msg.textContent=`덜 채운 곳이 ${miss.length}군데 있어요.`;missBox.replaceChildren(...miss.map(t=>h("button",{class:"btn sm",type:"button",onclick:()=>goChapter(t.ch)},`Ch ${t.ch+1} · ${t.miss.join(", ")}`)));return;}}
+    const rec=Object.assign(buildRecord(),{status:o.status}),sig=recSig(rec);
+    if(done&&S[o.sig]===sig){msg.className="note";msg.textContent=`${fmtTime(done)}에 이미 제출했어요. 바뀐 내용이 없어요.`;return;}
+    if(submitting)return;submitting=true;btn.disabled=true;msg.className="note";msg.textContent="제출하는 중…";
+    try{await finalSubmit(rec);S[o.at]=new Date().toISOString();S[o.sig]=sig;save();toast("선생님께 제출했어요");submitting=false;renderChapter(o.ch);return;}
+    catch(e){msg.className="err";msg.textContent=submitErr(e);}finally{submitting=false;btn.disabled=false;}};
+  const dl=dlNs?h("button",{class:"btn",type:"button",onclick:()=>saveCSV([buildRecord()],`내_기록_${today()}.csv`)},"내 기록 파일로 저장"):null;
   return h("div",{class:"glass"},h("span",{class:"kicker"},"선생님께 제출"),
-    h("p",{class:"note",style:"margin:0"},"학번과 이름은 제출할 때만 쓰이고 AI에게는 보내지 않아요. 질문, 인터뷰 대화, 메모, AI 동료 기획서, 시작 프롬프트가 함께 제출돼요."),
-    h("div",{class:"split"},h("label",{class:"f",for:"f-sid"},"학번",input("f-sid",S,"sid","예: 10305")),h("label",{class:"f",for:"f-sname"},"이름",input("f-sname",S,"sname","예: 김부흥"))),
-    h("div",{class:"row"},btn,dl),msg,missBox);}
+    h("div",{class:"split"},h("label",{class:"f",for:"f-sid"+sfx},"학번",input("f-sid"+sfx,S,"sid","예: 10305")),h("label",{class:"f",for:"f-sname"+sfx},"이름",input("f-sname"+sfx,S,"sname","예: 김부흥"))),
+    h("p",{class:"note",style:"margin:0"},"학번·이름은 AI에게 보내지 않아요."),
+    h("div",{class:"row"},btn,h("button",{class:"btn",type:"button",onclick:openVault},"중간 저장"),dl),msg,missBox);}
 async function saveCSV(rows,name){if(!dlNs){toast("이 화면에서는 파일로 저장할 수 없어요");return;}
   try{await dlNs.save({filename:name,data:toCSV(rows)});}catch(e){if(e&&e.code!=="declined")toast("파일을 저장하지 못했어요");}}
+
+/* ===================== 2차시 (Chapter 7~11) ===================== */
+const Lst=v=>String(v||"").split("\n").map(x=>x.trim()).filter(Boolean).join(", ")||"(미정)";
+const PEER=[
+  {k:"prob",t:"해결할 문제",q:"이 문제, 정말 있을 것 같나요? 쓰는 사람으로서 공감되나요?",get:()=>sentence(),ph:["예: 교대 시간이 정말 바쁠 것 같아 공감돼","예: 누가 겪는 문제인지 더 분명하면 좋겠어"]},
+  {k:"ai",t:"AI 동료가 하면 좋을 일",q:"AI 동료가 맡으면 사람이 할 때보다 무엇이 좋아지나요?",get:()=>`AI 동료: ${Lst(S.agent.ai)}  /  나: ${Lst(S.agent.me)}`,must:6,ph:["예: 서른 명 체온을 몇 초 만에 비교하고 빠뜨리지 않아","예: 요약까지 맡기면 틀려도 모를 것 같아"]},
+  {k:"io",t:"입력 → 처리 → 출력",q:"무엇을 넣으면 무엇이 나오는지 화면이 그려지나요?",get:()=>`${S.agent.i||"?"} → ${S.agent.p||"?"} → ${S.agent.o||"?"}`,ph:["예: 넣을 것과 나올 것이 딱 보여","예: 병상 번호도 넣으면 누구 값인지 알겠어"]},
+  {k:"first",t:"첫 기능 · 조건",q:"첫 기능만 있어도 써 보고 싶나요? 조건은 지켜질까요?",get:()=>`${String(M().first||"").trim()||"(미정)"}  ·  ${String(M().extra||"").trim()||"(조건 없음)"}`,ph:["예: 빨간 표시만 있어도 바로 쓸 것 같아","예: 기준 숫자가 있어야 표시가 맞는지 알겠어"]}];
+const SHAPES=[["대시보드","dashboard"],["표","data table"],["체크리스트","checklist"],["기록장","tracker"],["카드 목록","card list"],["칸반 보드","kanban board"],["달력","calendar"],["타임라인","timeline"],["채팅","chat"],["입력 양식","form"],["단계별 안내","step wizard"],["지도","map"]];
+const TAKES=["배치","색","글자 크기","사용 흐름","기능"];
+const blankRef=kind=>({kind,name:"",url:"",take:[],takeT:"",notT:"",coach:null,img:""});
+function S2(){const d={amb:"",v1:null,peer:{name:"",c:[0,0,0,0],t:["","","",""],first:-1},rev:"",kw:{ko:"",en:""},shape:null,shapeOpts:[],feats:[],feat:"",refs:[blankRef("program"),blankRef("design")],screen:"",ex:[{in:"",out:""},{in:"",out:""},{in:"",out:""}],rule:"",ok:[{do:"",see:""},{do:"",see:""},{do:"",see:""}],skip:""};
+  if(!S.s2||typeof S.s2!=="object")S.s2={};const s=S.s2,fill=(o,b)=>{for(const k in b)if(o[k]==null)o[k]=b[k];};fill(s,d);
+  if(typeof s.peer!=="object")s.peer=d.peer;fill(s.peer,d.peer);if(typeof s.kw!=="object")s.kw={ko:"",en:""};if(typeof s.shape!=="object")s.shape=null;if(!Array.isArray(s.shapeOpts))s.shapeOpts=[];if(!Array.isArray(s.feats))s.feats=[];
+  if(!Array.isArray(s.refs)||!s.refs.length)s.refs=d.refs;s.refs.forEach(r=>fill(r,blankRef(r.kind||"program")));
+  ["program","design"].forEach(k=>{if(!s.refs.some(r=>r.kind===k))s.refs.push(blankRef(k));});return s;}
+const hasPlan=()=>!!(S.agent.ai.trim()||S.agent.name.trim()||S.prob.because.trim());
+function planSnap(){const m=M();return {name:S.agent.name,ai:S.agent.ai,me:S.agent.me,i:S.agent.i,p:S.agent.p,o:S.agent.o,first:m.first||"",extra:m.extra||"",risk:m.risk||"",prob:sentence()};}
+const PLANF=[["name","AI 동료 이름"],["ai","AI 동료가 하면 좋을 일"],["me","내가 할 일"],["i","입력"],["p","처리"],["o","출력"],["first","가장 먼저 만들 기능"],["extra","꼭 지킬 조건"],["risk","AI 동료가 틀릴 때"],["prob","해결할 문제"]];
+function changedFields(){const s=S2();if(!s.v1)return [];const now=planSnap();return PLANF.filter(([k])=>String(now[k]||"").trim()!==String(s.v1[k]||"").trim());}
+
+/* 1차시 프롬프트(또는 기획서 복사본) 붙여 넣기 → 칸 채우기 */
+function parseV1(t){t=String(t||"");const g=(...res)=>{for(const re of res){const m=t.match(re);if(m)return m[1].trim();}return "";};
+  const nil=v=>/^\(?(미정|없음|이름 미정)\)?$/.test(v)||v==="?"?"":v;
+  const r={field:g(/나는 고등학생이고 (.+?) 분야에서/,/나는 (.+?) 분야에서 일하고 싶은/),name:g(/\[만들 AI 동료\]\s*(.+)/,/\[나의 AI 동료 기획서\]\s*(.+)/,/\[만들 것\]\s*(.+?)\s+—/),
+    prob:g(/\[해결할 문제\]\s*(.+)/,/해결할 문제:\s*(.+)/),ai:g(/\[AI 동료가 하면 좋을 일\]\s*(.+)/,/\[AI 동료가 맡을 일\]\s*(.+)/,/AI 동료가 맡을 일:\s*(.+)/),me:g(/\[내가 할 일\]\s*(.+)/,/\[사람인 내가 맡을 일\]\s*(.+)/,/내가 맡을 일:\s*(.+)/),
+    io:g(/\[입력 → 처리 → 출력\]\s*(.+)/,/입력 → 처리 → 출력:\s*(.+)/),extra:g(/\[내가 정한 조건\]\s*(.+)/,/\[꼭 지킬 조건\]\s*(.+)/),risk:g(/\[AI 동료가 틀릴 때 대비\]\s*(.+)/,/\[AI 동료가 틀릴 때\]\s*(.+)/),first:g(/먼저 '(.+?)' 기능부터/,/첫 버전에서는 '(.+?)'이/)};
+  for(const k in r)r[k]=nil(r[k]);if(!r.name&&!r.ai&&!r.prob)return null;return r;}
+function applyV1(r){const lines=v=>v.split(/,\s*/).map(x=>x.trim()).filter(Boolean).join("\n");
+  if(r.field&&!S.field.trim())S.field=r.field;if(r.name)S.agent.name=r.name;if(r.ai)S.agent.ai=lines(r.ai);if(r.me)S.agent.me=lines(r.me);
+  if(r.io){const [i,p,o]=r.io.split("→").map(x=>x.trim().replace(/^\?$/,""));S.agent.i=i||"";S.agent.p=p||"";S.agent.o=o||"";}
+  if(r.prob){const m=r.prob.match(/^(.+?)[은는]\s+(.+?)\s*그래서\s+(.+?)[이가]\s+필요하다\.?$/);if(m)S.prob={who:m[1].trim(),because:m[2].trim().replace(/\.$/,""),need:m[3].trim()};else S.prob={who:"",because:r.prob,need:""};}
+  const m=M();if(r.extra)m.extra=r.extra;if(r.risk)m.risk=r.risk;if(r.first)m.first=r.first;S2().v1=planSnap();save();}
+/* 입력 도우미 */
+function ta2(id,obj,key,ph,rows,min,on){const el=grow(h("textarea",{id,rows:rows||2,placeholder:ph,value:obj[key]||"",class:"mind-ta"}));const [c,up]=min?counter(()=>obj[key],min):[null,()=>{}];
+  el.addEventListener("input",()=>{obj[key]=el.value;save();up();on&&on();refreshCheck();});const f=document.createDocumentFragment();f.append(el);if(c)f.append(c);return f;}
+function in2(id,obj,key,ph,on){const el=h("input",{id,type:"text",placeholder:ph,value:obj[key]||""});el.addEventListener("input",()=>{obj[key]=el.value;save();on&&on();refreshCheck();});return el;}
+function gateNav(i,miss){const nav=h("div",{class:"navrow"}),note=h("p",{class:"lock"});
+  const up=()=>{const g=miss();note.textContent=g.length?"남은 것: "+g.join(", "):"";note.classList.toggle("ok",!g.length);
+    nav.replaceChildren(i<PAGES.length-1?h("button",{class:"btn ink",type:"button",disabled:g.length>0,onclick:()=>{if(!miss().length)goChapter(i+1);}},g.length?"다 채우면 열려요":"다음 챕터 ↓"):null);};
+  up();return {el:h("div",{style:"display:grid;gap:8px"},note,nav),up};}
+/* 2차시 점검 목록 */
+function peerMiss(){const p=S2().peer,g=[];if(cnt(p.name)<2)g.push("피드백한 짝 이름");
+  PEER.forEach((x,k)=>{if(!p.c[k]){g.push(`${x.t}: 좋아요/아쉬워요`);return;}const need=x.must||(p.c[k]===2?4:0);if(need&&cnt(p.t[k])<need)g.push(`${x.t}: 한 줄 (${cnt(p.t[k])}/${need}자)`);});
+  if(p.c.includes(2)&&(p.first<0||p.c[p.first]!==2))g.push("가장 먼저 고칠 것");return g;}
+const refOk=r=>cnt(r.name)>=2&&r.take.length>0&&cnt(r.takeT)>=6&&cnt(r.notT)>=4;
+function refMiss(){const s=S2(),g=[];if(!s.shape)g.push("화면 모양 고르기");["program","design"].forEach(k=>{if(!s.refs.some(r=>r.kind===k&&refOk(r)))g.push(k==="program"?"기능 레퍼런스":"디자인 레퍼런스");});
+  const cnts={program:0,design:0};s.refs.forEach(r=>{const n=++cnts[r.kind];if(cnt(r.name)||cnt(r.takeT)||cnt(r.notT)){const m=[];if(cnt(r.name)<2)m.push("이름");if(!r.take.length)m.push("가져올 것 고르기");if(cnt(r.takeT)<6)m.push(`가져올 점 (${cnt(r.takeT)}/6자)`);if(cnt(r.notT)<4)m.push(`가져오지 않을 점 (${cnt(r.notT)}/4자)`);if(m.length)g.push(`${r.kind==="design"?"디자인":"기능"} ${n}: `+m.join(", "));}});return g;}
+function v2Miss(){const s=S2(),g=lack([["첫 화면",s.screen,6]]);if(!s.ex.some(x=>cnt(x.in)>=2&&cnt(x.out)>=2))g.push("예시 데이터 1줄");
+  s.ok.forEach((o,k)=>{if(cnt(o.do)<4||cnt(o.see)<4)g.push(`성공 기준 ${k+1} (두 칸 모두 4자 이상)`);});g.push(...lack([["이번에 만들지 않을 것",s.skip,2]]));return g;}
+function thinkList2(){const s=S2(),it=(ch,t,miss)=>({ch,t,miss,ok:!miss.length});
+  return [it(6,"더 구체적으로 적을 것",hasPlan()?lack([["더 구체적으로 적을 것",s.amb,4]]):["1차시 기획서 불러오기"]),it(7,"짝 피드백",peerMiss()),
+    it(8,"1차 수정",lack([["받아들인 것과 이유",s.rev,6]])),it(9,"레퍼런스",refMiss())];}
+
+function checklist2(){const items=thinkList2(),done=items.filter(x=>x.ok).length;
+  return h("div",{class:"think",id:"thinklist2"},h("div",{class:"think-h"},h("span",{class:"think-tag"},`${done}/${items.length}`),h("b",null,"2차시 기록")),
+    h("ul",{class:"todo"},items.map(x=>h("li",{class:x.ok?"ok":null},h("span",null,(x.ok?"✓ ":"○ ")+x.t,x.ok?null:h("span",{class:"miss-d"},"  — "+x.miss.join(", "))),x.ok?null:h("button",{class:"btn sm",type:"button",onclick:()=>goChapter(x.ch)},`Chapter ${x.ch+1}`)))));}
+function planCard(){const a=S.agent,L=v=>String(v||"").split("\n").map(x=>x.trim()).filter(Boolean).join(", ")||"(미정)",m=M();
+  return h("div",{class:"plan"},h("div",{class:"plan-h"},h("span",{class:"kicker"},"AI 동료 기획서"),h("b",null,a.name.trim()||"이름 미정 AI 동료")),
+    h("dl",{class:"summary"},h("dt",null,"해결할 문제"),h("dd",{style:"font-weight:700"},sentence()),
+      h("dt",null,"AI 동료가 하면 좋을 일"),h("dd",null,L(a.ai)),h("dt",null,"내가 할 일"),h("dd",null,L(a.me)),
+      h("dt",null,"입력 → 처리 → 출력"),h("dd",null,`${a.i||"?"} → ${a.p||"?"} → ${a.o||"?"}`),
+      h("dt",null,"첫 기능 · 조건"),h("dd",null,`${String(m.first||"").trim()||"(미정)"} · ${String(m.extra||"").trim()||"(없음)"}`)));}
+/* ---------- Chapter 7 다시 열기 ---------- */
+function restoreBox(){const ta=h("textarea",{id:"f-v1paste",rows:4,placeholder:"선생님께 받은 1차시 프롬프트를 붙여 넣으세요"});const msg=h("span",{class:"note",role:"status"});
+  const go=h("button",{class:"btn primary",type:"button",onclick:()=>{const r=parseV1(ta.value);if(!r){msg.className="err";msg.textContent="프롬프트를 찾지 못했어요. 처음부터 끝까지 그대로 붙여 넣어 주세요.";return;}applyV1(r);toast("기획서를 다시 채웠어요");renderAll();refreshPop();}},"기획서 채우기");
+  return h("div",{class:"glass"},h("span",{class:"kicker"},"1차시 기록 가져오기"),
+    h("div",{class:"row"},h("button",{class:"btn",type:"button",onclick:openVault},"저장한 기록 불러오기")),
+    h("label",{class:"f",for:"f-v1paste"},"또는 1차시 프롬프트 붙여 넣기",ta),h("div",{class:"row"},go,msg));}
+function sReopen(){const s=S2();if(hasPlan()&&!s.v1){s.v1=planSnap();save();}
+  if(!hasPlan())return [...head(6),restoreBox(),navRow()];
+  const g=gateNav(6,()=>lack([["더 구체적으로 적을 것",s.amb,4]]));
+  return [...head(6),planCard(),
+    h("details",{class:"matwrap"},h("summary",null,"1차시 프롬프트 보기"),h("pre",{class:"prompt",tabindex:"0"},starterPrompt())),
+    thinkBox("내가 이 앱을 쓴다면?","어떤 걸 더 구체적으로 적을 수 있을까요? 직접 쓴다면 무엇이 더 필요할까요?",lab("f-amb","더 구체적으로 적을 것, 또는 더 필요한 것",ta2("f-amb",s,"amb","예: '표로 정리' → 병상·체온·맥박 칸이 있는 표 / 기준값을 바꿀 수 있으면 좋겠다",2,4,()=>{g.up();liveCards.amb&&liveCards.amb.userData.redraw(s.amb);}))),
+    h("details",{class:"matwrap"},h("summary",null,"다른 기록 가져오기"),restoreBox()),g.el];}
+/* ---------- Chapter 8 짝 피드백 ---------- */
+function sPeer(){const s=S2(),p=s.peer;if(!hasPlan())return [...head(7),h("p",{class:"lock"},"Chapter 7에서 기획서를 먼저 불러와 주세요."),navRow()];
+  const g=gateNav(7,peerMiss);let firstBox;
+  const paintFirst=()=>{const opts=PEER.map((x,k)=>[x.t,k]).filter(([,k])=>p.c[k]===2);
+    firstBox.replaceChildren(...(opts.length?[h("span",{class:"kicker"},"가장 먼저 고칠 것"),h("div",{class:"chips",role:"radiogroup"},opts.map(([t,k])=>h("button",{class:"chip mood"+(p.first===k?" on":""),type:"button","aria-pressed":p.first===k?"true":"false",onclick:()=>{p.first=k;save();paintFirst();g.up();refreshCheck();}},t)))]:[]));};
+  const rows=PEER.map((x,k)=>{const wrap=h("div",{class:"peer-row"});
+    const paint=()=>{const seg=h("div",{class:"seg",role:"group","aria-label":x.t},[["좋아요",1],["아쉬워요",2]].map(([l,v])=>h("button",{type:"button","aria-pressed":p.c[k]===v?"true":"false",onclick:()=>{p.c[k]=v;if(v===1&&p.first===k)p.first=-1;save();paint();paintFirst();g.up();refreshCheck();refreshPop();}},l)));
+      const need=x.must||(p.c[k]===2?4:0);
+      const lbl=x.k==="ai"?(p.c[k]===2?"아쉬운 점, 이러면 더 좋겠어요":"AI 동료가 하면 더 좋은 점"):(p.c[k]===2?"이러면 더 좋겠어요":"좋은 점 (선택)");
+      wrap.replaceChildren(h("span",{class:"kicker"},`${k+1}. ${x.t}`),h("p",{class:"peer-q"},x.get()),h("b",{class:"peer-ask"},x.q),seg,
+        p.c[k]?lab("f-pt"+k,lbl,ta2("f-pt"+k,p.t,k,x.ph[p.c[k]===2?1:0],1,need,g.up)):null);};
+    paint();return wrap;});
+  firstBox=h("div",{style:"display:grid;gap:8px"});paintFirst();
+  return [...head(7),
+    h("div",{class:"glass"},h("span",{class:"kicker"},"피드백하는 사람"),lab("f-pname","짝 이름",in2("f-pname",p,"name","예: 이부흥",g.up))),
+    h("div",{class:"plan-name"},h("span",{class:"kicker"},"AI 동료"),h("b",null,S.agent.name.trim()||"이름 미정")),
+    thinkBox("쓰는 사람이 되어 피드백하기","이 앱을 매일 쓸 사람이라고 생각하고 답해요.",...rows,firstBox),
+    h("details",{class:"matwrap"},h("summary",null,"프롬프트 전체 보기"),h("pre",{class:"prompt",tabindex:"0"},starterPrompt())),g.el];}
+/* ---------- Chapter 9 1차 수정 ---------- */
+function sRevise(){const s=S2(),p=s.peer;if(!hasPlan())return [...head(8),h("p",{class:"lock"},"Chapter 7에서 기획서를 먼저 불러와 주세요."),navRow()];
+  const g=gateNav(8,()=>lack([["받아들인 것과 이유",s.rev,6]]));const diff=h("p",{class:"note",id:"revdiff",style:"margin:0"});
+  const upd=()=>{const c=changedFields();diff.textContent=c.length?"고친 칸: "+c.map(x=>x[1]).join(", "):"아직 고친 칸이 없어요.";};
+  const fb=PEER.map((x,k)=>p.c[k]?h("li",{class:p.c[k]===2?"need":"ok"},h("b",null,(p.c[k]===2?"아쉬워요 · ":"좋아요 · ")+x.t+(p.first===k?" ★":"")),p.t[k]&&String(p.t[k]).trim()?" — "+String(p.t[k]).trim():""):null).filter(Boolean);
+  const ta=(id,key,ph)=>{const el=grow(h("textarea",{id,rows:2,placeholder:ph,value:S.agent[key]||""}));el.addEventListener("input",()=>{S.agent[key]=el.value;save();upd();});el.addEventListener("change",()=>refreshPop());return el;};
+  const mi=(id,key,ph)=>{const el=grow(h("textarea",{id,rows:1,placeholder:ph,value:M()[key]||""}));el.addEventListener("input",()=>{M()[key]=el.value;save();upd();refreshCheck();});el.addEventListener("change",()=>refreshPop());return el;};
+  const before=s.v1?h("details",{class:"matwrap"},h("summary",null,"고치기 전 기획 보기"),h("ul",{class:"memos"},PLANF.map(([k,t])=>h("li",null,h("span",null,`${t}: ${String(s.v1[k]||"").replace(/\n/g,", ")||"(비어 있음)"}`))))):null;
+  upd();
+  return [...head(8),
+    h("div",{class:"glass"},h("span",{class:"kicker"},`${p.name||"짝"}의 피드백`),fb.length?h("ul",{class:"peerfb"},fb):h("p",{class:"note",style:"margin:0"},"짝 피드백이 아직 없어요.")),
+    thinkBox("받아들일 것 고르기","모든 의견을 따를 필요는 없어요.",lab("f-rev","받아들인 것과 받아들이지 않은 것, 그 이유",ta2("f-rev",s,"rev","예: 기준 숫자를 적으라는 말은 받아들였다. 요약을 빼라는 말은 인계 때 꼭 필요해서 받아들이지 않았다.",3,6,g.up))),
+    h("div",{class:"glass"},h("span",{class:"kicker"},"기획서 고치기"),
+      h("div",{class:"split"},lab("f-r-ai","AI 동료가 하면 좋을 일",ta("f-r-ai","ai","한 줄에 하나")),lab("f-r-me","내가 할 일",ta("f-r-me","me","한 줄에 하나"))),
+      h("div",{class:"grid3"},lab("f-r-i","입력",ta("f-r-i","i","")),lab("f-r-p","처리",ta("f-r-p","p","")),lab("f-r-o","출력",ta("f-r-o","o",""))),
+      lab("f-r-first","가장 먼저 만들 기능",mi("f-r-first","first","")),lab("f-r-extra","꼭 지킬 조건",mi("f-r-extra","extra","")),lab("f-r-risk","AI 동료가 틀릴 때",mi("f-r-risk","risk","")),diff),
+    before,g.el];}
+/* ---------- Chapter 10 레퍼런스 ---------- */
+const enc=encodeURIComponent;
+const PLACES={program:[["구글",q=>`https://www.google.com/search?q=${enc(q.feat+" 앱")}`],["네이버",q=>`https://search.naver.com/search.naver?query=${enc(q.feat+" 앱")}`],["유튜브",q=>`https://www.youtube.com/results?search_query=${enc(q.feat+" 앱")}`]],
+  design:[["Dribbble",q=>`https://dribbble.com/search/${enc(q.en.replace(/\s+/g,"-"))}`],["Behance",q=>`https://www.behance.net/search/projects/${enc(q.en+" ui")}`],["Figma 커뮤니티",q=>`https://www.figma.com/community/search?resource_type=mixed&sort_by=relevancy&query=${enc(q.en)}`],
+    ["Lapa Ninja · 웹",q=>`https://www.lapa.ninja/search/?q=${enc(q.enKw)}`],["Land-book · 웹",q=>`https://land-book.com/search?q=${enc(q.enKw)}`],["핀터레스트 · 로그인",q=>`https://kr.pinterest.com/search/pins/?q=${enc(q.en+" ui")}`]]};
+function refQuery(){const s=S2(),k=String(s.kw.ko||"").trim(),e=String(s.kw.en||"").trim(),sh=s.shape||{};
+  const q={kw:k,feat:String(s.feat||"").trim()||k,enKw:e||k,ko:[k,sh.ko].filter(Boolean).join(" "),en:[e,sh.en].filter(Boolean).join(" ")};if(!e)q.en=q.ko;return q;}
+async function shrinkImg(blob){const url=URL.createObjectURL(blob);try{const im=await new Promise((res,rej)=>{const i=new Image();i.onload=()=>res(i);i.onerror=rej;i.src=url;});
+  const W=Math.min(960,im.naturalWidth),H=Math.round(im.naturalHeight*W/im.naturalWidth),c=document.createElement("canvas");c.width=W;c.height=H;const x=c.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,W,H);x.drawImage(im,0,0,W,H);
+  let q=.8,d=c.toDataURL("image/jpeg",q);while(d.length>200000&&q>.35){q-=.1;d=c.toDataURL("image/jpeg",q);}return d;}finally{URL.revokeObjectURL(url);}}
+async function copyImg(d){try{const bin=atob(d.split(",")[1]),u=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);
+  const bmp=await createImageBitmap(new Blob([u],{type:"image/jpeg"})),c=document.createElement("canvas");c.width=bmp.width;c.height=bmp.height;c.getContext("2d").drawImage(bmp,0,0);
+  const png=await new Promise(r=>c.toBlob(r,"image/png"));await navigator.clipboard.write([new ClipboardItem({"image/png":png})]);toast("복사했어요. 제미나이 입력창에 Ctrl+V");}
+  catch(e){toast("복사가 안 되면 그림을 마우스 오른쪽으로 눌러 복사해 주세요");}}
+function imgZone(r,onChange){const z=h("div",{class:"shot",tabindex:"0",role:"button","aria-label":"캡처 붙여 넣기"});
+  const fi=h("input",{type:"file",accept:"image/*",hidden:true});
+  const take=async blob=>{try{r.img=await shrinkImg(blob);save();paint();onChange();toast("캡처를 붙였어요");}catch(e){toast("그림을 읽지 못했어요");}};
+  fi.addEventListener("change",()=>{const f=fi.files&&fi.files[0];if(f)take(f);fi.value="";});
+  const paint=()=>{z.classList.toggle("has",!!r.img);z.replaceChildren(...(r.img?[h("img",{src:r.img,alt:"붙여 넣은 캡처"}),h("div",{class:"row shot-act"},
+      h("button",{class:"btn sm",type:"button",onclick:ev=>{ev.stopPropagation();copyImg(r.img);}},"그림 복사"),h("button",{class:"btn sm",type:"button",onclick:ev=>{ev.stopPropagation();r.img="";save();paint();onChange();}},"지우기"))]
+    :[h("b",null,"캡처 붙여 넣기"),h("span",{class:"note"},"여기를 누르고 Ctrl+V"),h("button",{class:"btn sm",type:"button",onclick:ev=>{ev.stopPropagation();fi.click();}},"파일에서 고르기")]));};
+  z.addEventListener("paste",ev=>{const it=[...((ev.clipboardData&&ev.clipboardData.items)||[])].find(x=>x.type.startsWith("image/"));if(it){ev.preventDefault();take(it.getAsFile());}else toast("복사된 그림이 없어요. 먼저 캡처해 주세요");});
+  z.addEventListener("click",()=>z.focus());z.addEventListener("dragover",ev=>ev.preventDefault());
+  z.addEventListener("drop",ev=>{ev.preventDefault();const f=[...ev.dataTransfer.files].find(x=>x.type.startsWith("image/"));if(f)take(f);});
+  paint();return h("div",null,z,fi);}
+function captureGuide(open){const k=t=>h("kbd",null,t);
+  return h("details",{class:"matwrap guide",open:open||null},h("summary",null,"캡처하는 법"),
+    h("ol",null,
+      h("li",null,k("Win"),"+",k("Shift"),"+",k("S")," → 마음에 드는 부분만 드래그해요. 화면 전체보다 닮고 싶은 부분만."),
+      h("li",null,"카드의 '캡처 붙여 넣기'를 누르고 ",k("Ctrl"),"+",k("V"),". 저장하면 다음 시간에도 남아요."),
+      h("li",null,"3차시에 카드의 '그림 복사' → 제미나이 입력창에 ",k("Ctrl"),"+",k("V"),". 그림 1, 그림 2 순서대로 올려요.")));}
+function refCard(r,n,g,repaint){const isD=r.kind==="design",id=(isD?"d":"p")+n;const reset=()=>{if(r.coach){r.coach=null;save();}};
+  const takes=h("div",{class:"chips"},TAKES.map(t=>h("button",{class:"chip mood"+(r.take.includes(t)?" on":""),type:"button","aria-pressed":r.take.includes(t)?"true":"false",onclick:()=>{r.take=r.take.includes(t)?r.take.filter(x=>x!==t):[...r.take,t];save();repaint();g.up();refreshCheck();}},t)));
+  const cr=h("div",{class:"coach"});if(r.coach)cr.append(h("div",{class:"coach-box"},h("span",{class:"ctag "+(r.coach.good?"ok":"try")},r.coach.good?"구체적이에요":"조금 더 구체적으로"),h("p",{style:"margin:0;font-weight:600"},"→ "+String(r.coach.ask||""))));
+  const cb=aiOn()?h("button",{class:"btn sm",type:"button",onclick:async()=>{if(!refOk(r)){toast("카드를 먼저 채워 주세요");return;}cb.disabled=true;cr.replaceChildren(h("p",{class:"note",style:"margin:0"},"읽는 중…"));
+    try{const c=await aiRefCoach(r);if(c&&typeof c==="object"){r.coach={good:!!c.good,ask:String(c.ask||"").slice(0,200)};save();repaint();}else cr.replaceChildren(h("p",{class:"note",style:"margin:0"},"한 번 더 눌러 주세요."));}
+    catch(e){cr.replaceChildren(h("p",{class:"err",style:"margin:0"},errCopy(e)));}finally{cb.disabled=false;}}},"코치에게 물어보기"):null;
+  const del=n>0?h("button",{class:"btn sm",type:"button",onclick:()=>{const a=S2().refs;a.splice(a.indexOf(r),1);save();repaint();g.up();refreshCheck();refreshPop();}},"지우기"):null;
+  return h("div",{class:"refcard"+(isD?" d":"")},h("div",{class:"row",style:"justify-content:space-between"},h("b",null,isD?`디자인 ${n+1} · 그림 ${n+1}`:`기능 ${n+1}`),del),
+    h("div",{class:"split",onchange:()=>refreshPop()},lab("f-rn"+id,"이름",in2("f-rn"+id,r,"name",isD?"예: Dribbble 'patient vitals dashboard'":"예: 체온 기록 앱 이름",()=>{reset();g.up();})),lab("f-ru"+id,"링크",in2("f-ru"+id,r,"url","https://…"))),
+    imgZone(r,()=>{g.up();refreshPop();}),
+    h("span",{class:"kicker"},"가져올 것"),takes,lab("f-rt"+id,"무엇을 가져오나요?",ta2("f-rt"+id,r,"takeT",isD?"예: 환자별 카드 배치, 정상=초록·주의=빨강 배지":"예: 숫자를 넣자마자 위험도가 색으로 보인다",1,6,()=>{reset();g.up();})),
+    lab("f-rx"+id,"가져오지 않을 것",ta2("f-rx"+id,r,"notT",isD?"예: 어두운 배경, 그래프":"예: 복잡한 점수 계산",1,4,()=>{reset();g.up();})),
+    cb?h("div",{class:"row"},cb):null,cr);}
+function sRefs(){const s=S2();if(!hasPlan())return [...head(9),h("p",{class:"lock"},"Chapter 7에서 기획서를 먼저 불러와 주세요."),navRow()];
+  const g0=gateNav(9,refMiss),pre3=h("pre",{class:"prompt",tabindex:"0"}),upP=()=>{pre3.textContent=starterPrompt();},g={el:g0.el,up:()=>{g0.up();upP();}};upP();const shapeBox=h("div",{style:"display:grid;gap:10px"}),msg=h("span",{class:"note",role:"status"});
+  const progLinks=h("div",{class:"row places"}),desLinks=h("div",{class:"row places"});
+  const linkBtn=([n,f],q)=>{const ok=!!q.kw;return h("a",{class:"btn sm"+(ok?"":" off"),href:ok?f(q):"#",target:"_blank",rel:"noopener noreferrer",onclick:ev=>{if(!ok){ev.preventDefault();toast("검색어를 먼저 정해 주세요");}}},n);};
+  const paintLinks=()=>{const q=refQuery();progLinks.replaceChildren(...PLACES.program.map(p=>linkBtn(p,q)));desLinks.replaceChildren(...PLACES.design.map(p=>linkBtn(p,q)));};
+  const kwKo=in2("f-kwko",s.kw,"ko","예: 체온 기록",paintLinks),kwEn=in2("f-kwen",s.kw,"en","예: patient vitals",paintLinks);
+  const pick=o=>{s.shape=o;save();paintShapes();paintLinks();refreshCheck();g.up();};
+  const paintShapes=()=>{const opts=s.shapeOpts||[],cur=s.shape,on=o=>!!cur&&cur.ko===o.ko;
+    shapeBox.replaceChildren(
+      opts.length?h("div",{class:"shapes"},opts.map(o=>h("button",{class:"shape"+(on(o)?" on":""),type:"button","aria-pressed":on(o)?"true":"false",onclick:()=>pick(o)},h("b",null,o.ko),h("span",{class:"en"},o.en),o.why?h("span",{class:"why"},o.why):null))):null,
+      h("details",{class:"matwrap",open:(!opts.length&&!aiOn())||null},h("summary",null,opts.length?"다른 모양 직접 고르기":"직접 고르기"),
+        h("div",{class:"chips"},SHAPES.map(([k,e2])=>h("button",{class:"chip mood"+(cur&&cur.ko===k?" on":""),type:"button",onclick:()=>pick({ko:k,en:e2,why:""})},k)))));};
+  const recBtn=aiOn()?h("button",{class:"btn primary",type:"button"},s.shapeOpts.length?"다시 추천받기":"AI에게 추천받기"):null;
+  if(recBtn)recBtn.onclick=async()=>{recBtn.disabled=true;msg.className="note";msg.textContent="기획을 읽는 중…";
+    try{const r=await aiShapes();if(r&&Array.isArray(r.shapes)&&r.shapes.length){s.shapeOpts=r.shapes.slice(0,3).map(x=>({ko:String(x.ko||"").slice(0,20),en:String(x.en||"").slice(0,30),why:String(x.why||"").slice(0,90)})).filter(x=>x.ko);
+        if(r.kw&&typeof r.kw==="object"){if(!String(s.kw.ko).trim())s.kw.ko=String(r.kw.ko||"").slice(0,30);if(!String(s.kw.en).trim())s.kw.en=String(r.kw.en||"").slice(0,40);kwKo.value=s.kw.ko;kwEn.value=s.kw.en;}
+        if(Array.isArray(r.feats))s.feats=r.feats.slice(0,4).map(x=>({ko:String((x&&x.ko)||x||"").slice(0,30),why:String((x&&x.why)||"").slice(0,90)})).filter(x=>x.ko);
+        save();msg.textContent="";paintShapes();paintFeats();paintLinks();recBtn.textContent="다시 추천받기";}else msg.textContent="한 번 더 눌러 주세요.";}
+    catch(e){msg.className="err";msg.textContent=errCopy(e);}finally{recBtn.disabled=false;}};
+  const featBox=h("div",{style:"display:grid;gap:8px"}),featIn=in2("f-feat",s,"feat","예: 체온 이상값 알림",paintLinks);
+  const paintFeats=()=>{const fs=s.feats||[],cur=String(s.feat||"").trim();featBox.replaceChildren(fs.length?h("div",{class:"shapes"},fs.map(o=>h("button",{class:"shape"+(cur===o.ko?" on":""),type:"button","aria-pressed":cur===o.ko?"true":"false",onclick:()=>{s.feat=o.ko;featIn.value=o.ko;save();paintFeats();paintLinks();}},h("b",null,o.ko),o.why?h("span",{class:"why"},o.why):null))):null);};
+  paintFeats();
+  const progCards=h("div",{class:"refs"}),desCards=h("div",{class:"refs"});
+  const paintCards=()=>{const P=s.refs.filter(r=>r.kind==="program"),D=s.refs.filter(r=>r.kind==="design");
+    progCards.replaceChildren(...P.map((r,n)=>refCard(r,n,g,paintCards)));desCards.replaceChildren(...D.map((r,n)=>refCard(r,n,g,paintCards)));};
+  paintShapes();paintLinks();paintCards();
+  const add=k=>{s.refs.push(blankRef(k));save();paintCards();refreshPop();setTimeout(()=>{const c=(k==="design"?desCards:progCards).lastElementChild;c&&c.scrollIntoView({block:"center",behavior:reduceMotion()?"auto":"smooth"});},50);};
+  const k=t=>h("kbd",null,t);
+  return [...head(9),captureGuide(true),
+    thinkBox("① 화면 모양 정하기",aiOn()?"내 기획을 읽고 AI가 화면 모양과 찾아볼 기능을 추천해요. 하나씩 골라요.":"내 기획에 어울리는 모양을 하나 골라요.",recBtn?h("div",{class:"row"},recBtn,msg):null,shapeBox,
+      h("div",{class:"split"},lab("f-kwko","검색어",kwKo),lab("f-kwen","영어 검색어",kwEn))),
+    h("section",{class:"refstep p"},h("div",{class:"refstep-h"},h("span",{class:"num"},"2"),h("b",null,"비슷한 기능 찾기")),h("p",{class:"note",style:"margin:0"},"어떤 기능을 찾아볼까요?"),featBox,lab("f-feat","찾아볼 기능",featIn),progLinks,progCards),
+    h("section",{class:"refstep d"},h("div",{class:"refstep-h"},h("span",{class:"num"},"3"),h("b",null,"마음에 드는 디자인 찾기")),h("p",{class:"note",style:"margin:0"},"UI 디자인이 모여 있는 곳이에요. 많이 둘러보고 가장 마음에 드는 화면을 골라요."),desLinks,
+      h("p",{class:"note",style:"margin:0"},"캡처 ",k("Win"),"+",k("Shift"),"+",k("S")," → 카드를 누르고 ",k("Ctrl"),"+",k("V")),desCards),
+    h("section",{class:"refstep"},h("div",{class:"refstep-h"},h("span",{class:"num"},"+"),h("b",null,"더 모으기 (선택)")),
+      h("div",{class:"row"},h("button",{class:"btn",type:"button",onclick:()=>add("program")},"+ 기능 레퍼런스"),h("button",{class:"btn",type:"button",onclick:()=>add("design")},"+ 디자인 레퍼런스"))),
+    g.el,
+    h("div",{class:"glass"},h("span",{class:"kicker"},"3차시에 쓸 프롬프트"),h("p",{class:"note",style:"margin:0"},"고친 기획서에 화면 모양과 레퍼런스가 자동으로 들어갔어요."),
+      pre3,h("div",{class:"row"},h("button",{class:"btn primary",type:"button",onclick:()=>copyText(starterPrompt())},"프롬프트 복사"))),
+    checklist2(),submitPanel({list:thinkList2,status:"2차시 제출",ch:9,at:"submittedAt2",sig:"submitSig2"})];}
+
+const NEW_TAGS=["[화면 모양]","[내가 정한 기준]","[예시 데이터]","[참고할 프로그램","[참고할 디자인]"," - ","[첫 화면]","[이번에 만들지 않을 것]","[성공 기준]"," 1)"," 2)"," 3)"," 로고,"];
+function prompt2(){const a=S.agent,s=S2(),m=M(),e=E(),L=v=>String(v||"").split("\n").map(x=>x.trim()).filter(Boolean).join(", ");
+  const job=String(S.field||(e&&e.sub)||"내 진로").trim(),t=v=>String(v||"").trim();
+  const ex=s.ex.filter(x=>t(x.in)&&t(x.out)).map(x=>`${t(x.in)} → ${t(x.out)}`).join(" / ");
+  const progs=s.refs.filter(r=>r.kind==="program"&&t(r.name)),des=s.refs.filter(r=>r.kind==="design"&&t(r.name));
+  const take=r=>[r.take.join("·"),t(r.takeT)].filter(Boolean).join(" — ");const I=t(a.i)||"?",O=t(a.o)||"?";
+  return [`너는 나와 함께 'AI 동료' 웹앱을 만드는 코딩 파트너야. 나는 ${job} 분야에서 일하고 싶은 고등학생이고 코딩은 잘 몰라. 결과를 화면으로 보면서 하나씩 고쳐 나갈 거야.`,``,
+    `[만들 것] ${t(a.name)||"(이름 미정)"} — ${I}${josa(I,"을","를")} 넣으면 ${O}${josa(O,"을","를")} 보여 주는 웹앱`,
+    `[해결할 문제] ${sentence()}`,`[AI 동료가 하면 좋을 일] ${L(a.ai)||"(미정)"}`,`[내가 할 일] ${L(a.me)||"(미정)"}`,s.shape&&s.shape.ko?`[화면 모양] ${s.shape.ko}${s.shape.en?" ("+s.shape.en+")":""}`:null,`[입력 → 처리 → 출력] ${I} → ${t(a.p)||"?"} → ${O}`,
+    t(s.rule)?`[내가 정한 기준] ${t(s.rule)}`:null,`[예시 데이터] ${ex||"(없음)"}`,
+    ...progs.map((r,k)=>`[참고할 프로그램${progs.length>1?" "+(k+1):""}] ${t(r.name)}${t(r.url)?" ("+t(r.url)+")":""}\n - 닮고 싶은 점: ${take(r)}\n - 다르게 할 점: ${t(r.notT)}`),
+    ...des.map((r,k)=>`[참고할 디자인] 첨부한 그림 ${k+1} (${t(r.name)})\n - 이것만 참고: ${take(r)}\n - 따라 하지 말 것: ${t(r.notT)}`),
+    progs.length||des.length?` 로고, 이름, 그림, 문구는 가져오지 말고 내 앱에 맞게 새로 만들어 줘.`:null,
+    `[첫 화면] ${t(s.screen)||"(미정)"}`,`[꼭 지킬 조건] ${t(m.extra)||"(없음)"}`,`[이번에 만들지 않을 것] ${t(s.skip)||"(없음)"}`,
+    `[성공 기준] 이렇게 하면 → 이게 보여야 해`,...s.ok.map((o,k)=>` ${k+1}) ${t(o.do)||"?"} → ${t(o.see)||"?"}`),
+    `[AI 동료가 틀릴 때] ${t(m.risk)||"(미정)"}`,`[만드는 방법]`,
+    `1. 하나의 HTML 파일로, 외부 API 키나 로그인 없이 바로 실행되게 만들어 줘. 진짜 AI 대신 규칙이나 예시 데이터로 흉내 내도 괜찮아. 나중에 AI를 연결할 자리는 주석으로 표시해 줘.`,
+    `2. 만들기 전에 화면 구성과 기능을 5줄 이내로 정리해 보여 주고, 바로 첫 버전을 만들어 줘.`,
+    `3. 첫 버전에서는 '${t(m.first)||"가장 중요한 기능"}' 기능이 확실히 되게 하고, 나머지는 버튼만 두고 '준비 중'으로 표시해 줘.`,
+    `4. 다 만들면 성공 기준 3가지를 내가 직접 확인하는 방법을 순서대로 알려 줘.`,`5. 코드에 고등학생이 이해할 수 있는 짧은 주석을 달아 줘.`].filter(x=>x!=null).join("\n");}
+function okText(){return S2().ok.filter(o=>String(o.do).trim()||String(o.see).trim()).map((o,k)=>`${k+1}) ${String(o.do).trim()} → ${String(o.see).trim()}`).join("\n")||"이렇게 하면 → 이게 보여야 해";}
+function promptView(){const lines=prompt2().split("\n");
+  return h("pre",{class:"prompt p2",tabindex:"0"},lines.map(l=>h("span",{class:NEW_TAGS.some(tg=>l.startsWith(tg))?"new":null},l+"\n")));}
+function sPrompt2(){const s=S2();if(!hasPlan())return [...head(10),h("p",{class:"lock"},"Chapter 7에서 기획서를 먼저 불러와 주세요."),navRow()];
+  const box=h("div",{class:"glass"}),miss=h("p",{class:"lock"});
+  const up=()=>{const g=v2Miss();liveCards.v2&&liveCards.v2.userData.redraw(okText());miss.textContent=g.length?"남은 것: "+g.join(", "):"";
+    box.replaceChildren(h("span",{class:"kicker"},"프롬프트 v2 — 노란 줄이 새로 생긴 부분"),promptView(),
+      h("div",{class:"row"},h("button",{class:"btn primary",type:"button",disabled:g.length>0,onclick:()=>copyText(prompt2())},"프롬프트 복사"),miss));};
+  const exRows=s.ex.map((x,k)=>h("div",{class:"pair"},in2("f-exi"+k,x,"in",k?"":"예: 301호-2, 38.2, 110",up),h("span",{class:"arrow","aria-hidden":"true"},"→"),in2("f-exo"+k,x,"out",k?"":"예: 체온·맥박 빨간 표시",up)));
+  const okRows=s.ok.map((o,k)=>h("div",{class:"pair"},h("b",{class:"pn"},k+1),in2("f-okd"+k,o,"do",k?"이렇게 하면":"예: 예시 3줄을 넣으면",up),h("span",{class:"arrow","aria-hidden":"true"},"→"),in2("f-oks"+k,o,"see",k?"이게 보여야":"예: 2·3번째 줄만 빨갛게 표시",up)));
+  up();
+  return [...head(10),
+    thinkBox("첫 화면",null,lab("f-screen","화면에 무엇이 어디에 보이나요?",ta2("f-screen",s,"screen","예: 위 - 앱 이름과 기준값 / 가운데 - 입력 칸 / 아래 - 결과 표",2,6,up))),
+    thinkBox("예시 데이터","입력 → 기대하는 결과. 지어낸 값으로 써요.",...exRows),
+    thinkBox("내가 정한 기준 (선택)",null,ta2("f-rule",s,"rule","예: 체온 36.0~37.5℃를 벗어나면 확인 필요",1,0,up)),
+    thinkBox("성공 기준 3개","이렇게 하면 → 이게 보여야 해요.",...okRows),
+    thinkBox("이번에 만들지 않을 것",null,ta2("f-skip",s,"skip","예: 인계 요약, 그래프",1,2,up)),
+    box,checklist2(),submitPanel({list:thinkList2,status:"2차시 제출",ch:10,at:"submittedAt2",sig:"submitSig2"})];}
+/* ---------- 기록 ---------- */
+/* ---------- 기록 ---------- */
+function peerText(){const p=S2().peer;if(!p.name&&!p.c.some(Boolean))return "";
+  return [`피드백: ${p.name||"-"}`,...PEER.map((x,k)=>`${x.t}: ${p.c[k]===1?"좋아요":p.c[k]===2?"아쉬워요":"-"}${String(p.t[k]||"").trim()?" — "+String(p.t[k]).trim():""}${p.first===k?" (먼저 고칠 것)":""}`)].join("\n");}
+function reviseText(){const s=S2();const c=changedFields().map(x=>x[1]);return [String(s.rev||"").trim(),c.length?"고친 칸: "+c.join(", "):"",s.amb?"더 구체적으로: "+String(s.amb).trim():""].filter(Boolean).join("\n");}
+function refsText(){const s=S2(),sh=s.shape?`화면 모양: ${s.shape.ko}\n`:"";return sh+s.refs.filter(r=>String(r.name).trim()).map(r=>`[${r.kind==="design"?"디자인":"기능"}] ${r.name.trim()} ${String(r.url||"").trim()}${r.img?" (캡처 있음)":""}\n 가져올 것: ${r.take.join("·")} — ${String(r.takeT||"").trim()}\n 가져오지 않을 것: ${String(r.notT||"").trim()}`).join("\n");}
+function refLines(){if(!S.s2)return "";const s=S2(),t=v=>String(v||"").trim(),out=[];
+  if(s.shape&&s.shape.ko)out.push(`[화면 모양] ${s.shape.ko}${s.shape.en?" ("+s.shape.en+")":""}`);
+  const take=r=>[r.take.join("·"),t(r.takeT)].filter(Boolean).join(" — ");let pn=0,dn=0;
+  s.refs.forEach(r=>{if(!refOk(r))return;if(r.kind==="program"){pn++;out.push(`[참고할 기능 ${pn}] ${t(r.name)}${t(r.url)?" ("+t(r.url)+")":""} — 닮고 싶은 점: ${take(r)} / 다르게 할 점: ${t(r.notT)}`);}
+    else{dn++;out.push(`[참고할 디자인 ${dn}] ${t(r.name)}${r.img?` — 첨부한 그림 ${dn}`:""} — 이것만 참고: ${take(r)} / 따라 하지 말 것: ${t(r.notT)}`);}});
+  if(pn||dn)out.push("레퍼런스의 로고, 이름, 그림, 문구는 가져오지 말고 내 앱에 맞게 새로 만들어 줘.");return out.length?out.join("\n")+"\n":"";}
+function recImages(){const c={program:0,design:0};return S2().refs.filter(r=>r.img).map(r=>({kind:r.kind,n:++c[r.kind],data:r.img})).slice(0,6);}
+
+/* ---------- 3D 장면 (Chapter 7~11) ---------- */
+const FONT3=`-apple-system,"Noto Sans KR",sans-serif`;
+function rr(x,a,b,w,hh,r){x.beginPath();x.roundRect?x.roundRect(a,b,w,hh,r):x.rect(a,b,w,hh);}
+function partnerFigure(opt){opt=opt||{};return figure({skin:SKIN2[1][0],skin2:SKIN2[1][1],hc:HAIRC2[1],hair:"short",oc:0xf7f6f2,fit:"vest",vest:0xd8c7a3,tie:"tie",acc:"#f07a2b",prop:opt.prop||"note",pose:opt.pose||"write",poseL:opt.poseL,poseR:opt.poseR,pants:0x5b6170,seated:opt.seated});}
+function woodDesk(w,d){const W2=smat(0xffffff,{map:woodTex(),roughness:.5}),D=smat(0x3a2618,{roughness:.6}),g=new THREE.Group();g.add(sbox(w,.07,d,W2,0,.68,0));
+  [[-1,-1],[1,-1],[-1,1],[1,1]].forEach(([a,b])=>g.add(sbox(.07,.68,.07,D,a*(w/2-.08),0,b*(d/2-.08))));g.add(sbox(w-.2,.12,.05,W2,0,.52,-d/2+.1));return g;}
+function magnifier(){const g=new THREE.Group(),G=smat(0xd9b45a,{metalness:.8,roughness:.3});
+  const ring=new THREE.Mesh(new THREE.TorusGeometry(.3,.035,14,48),G);g.add(ring);
+  const glass=new THREE.Mesh(new THREE.CircleGeometry(.29,40),new THREE.MeshStandardMaterial({color:0xcfeaff,transparent:true,opacity:.28,roughness:.05,metalness:.1}));g.add(glass);
+  const hd=new THREE.Mesh(new THREE.CylinderGeometry(.045,.055,.42,16),smat(0x3b2416,{roughness:.45}));hd.position.set(0,-.53,0);g.add(hd);
+  const nk=new THREE.Mesh(new THREE.CylinderGeometry(.035,.035,.08,12),G);nk.position.set(0,-.33,0);g.add(nk);return g;}
+function bigPencil(){const g=new THREE.Group();const body=new THREE.Mesh(new THREE.CylinderGeometry(.06,.06,1.0,6),smat(0xf6c445,{roughness:.5}));g.add(body);
+  const wood=new THREE.Mesh(new THREE.ConeGeometry(.06,.16,6),smat(0xe8c79a,{roughness:.7}));wood.position.y=.58;g.add(wood);
+  const tip=new THREE.Mesh(new THREE.ConeGeometry(.022,.06,12),smat(0x2b2b30,{roughness:.4}));tip.position.y=.65;g.add(tip);
+  const band=new THREE.Mesh(new THREE.CylinderGeometry(.064,.064,.08,16),smat(0xc0c4cc,{metalness:.8,roughness:.3}));band.position.y=-.54;g.add(band);
+  const er=new THREE.Mesh(new THREE.CylinderGeometry(.062,.062,.1,16),smat(0xf28aa0,{roughness:.6}));er.position.y=-.63;g.add(er);return g;}
+function arcArrow(a,b,hgt,color){const M=smat(color,{roughness:.35,emissive:color,emissiveIntensity:.25}),mid=new THREE.Vector3((a.x+b.x)/2,Math.max(a.y,b.y)+hgt,(a.z+b.z)/2);
+  const curve=new THREE.QuadraticBezierCurve3(a,mid,b),g=new THREE.Group();g.add(new THREE.Mesh(new THREE.TubeGeometry(curve,40,.045,10,false),M));
+  const head=new THREE.Mesh(new THREE.ConeGeometry(.12,.26,18),M);head.position.copy(b);const t=curve.getTangent(1);head.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),t.normalize());g.add(head);return g;}
+function cameraProp(){const g=new THREE.Group(),B=smat(0x23252b,{roughness:.4}),S2m=smat(0xc9ccd3,{metalness:.7,roughness:.3});g.add(sbox(.46,.28,.18,B,0,0,0));g.add(sbox(.46,.05,.18,S2m,0,.28,0));
+  const lens=new THREE.Mesh(new THREE.CylinderGeometry(.1,.11,.16,28),B);lens.rotation.x=Math.PI/2;lens.position.set(.04,.14,.16);g.add(lens);
+  const gl=new THREE.Mesh(new THREE.CircleGeometry(.075,28),smat(0x3a6fb0,{metalness:.6,roughness:.1}));gl.position.set(.04,.14,.241);g.add(gl);
+  g.add(sbox(.07,.04,.06,S2m,-.15,.33,0));g.add(sbox(.1,.06,.02,smat(0xfff3c4,{emissive:0xfff3c4,emissiveIntensity:.4}),.15,.2,.1));return g;}
+/* 그림 그리기: 메모 보드, 문서, 말풍선, 폴라로이드, 코르크 보드 */
+function noteBoardDraw(x,cw,ch,text){x.fillStyle="#b98a5c";x.fillRect(0,0,cw,ch);const r=rng(17);for(let k=0;k<1600;k++){x.fillStyle=`rgba(${r()<.5?"70,40,15":"255,230,190"},${.1+r()*.16})`;x.fillRect(r()*cw,r()*ch,2+r()*2,2+r()*2);}
+  x.strokeStyle="#5a3a22";x.lineWidth=cw*.035;x.strokeRect(0,0,cw,ch);const s=cw/600;
+  const note=(nx,ny,w,hh,c,rot,t,big)=>{x.save();x.translate(nx,ny);x.rotate(rot);x.fillStyle="rgba(0,0,0,.18)";x.fillRect(-w/2+5*s,-hh/2+7*s,w,hh);x.fillStyle=c;x.fillRect(-w/2,-hh/2,w,hh);
+    x.fillStyle="#c0392b";x.beginPath();x.arc(0,-hh/2+12*s,7*s,0,7);x.fill();x.fillStyle="#2a2620";x.textAlign="center";
+    if(big){x.font=`700 ${92*s}px ${HW_FONT}`;x.fillText(t,0,hh*.28);}else{x.font=`400 ${30*s}px ${HW_FONT}`;wrapText(x,t,w-30*s).slice(0,5).forEach((l,k)=>x.fillText(l,0,-hh/2+64*s+k*34*s));}x.restore();};
+  note(cw*.3,ch*.52,cw*.42,ch*.72,"#ffe27a",-.05,String(text||"").trim()||"더 구체적으로 적을 것은?",false);note(cw*.72,ch*.4,cw*.22,ch*.4,"#ff9fbf",.08,"?",true);note(cw*.76,ch*.78,cw*.24,ch*.3,"#9fe0ff",-.06,"내가 쓴다면?",false);}
+function docDraw(x,cw,ch,a){const s=cw/600,old=a.old;x.fillStyle=old?"#f1efe8":"#fffdf6";x.fillRect(0,0,cw,ch);x.fillStyle=old?"#9aa0a8":"#2f6fe0";x.fillRect(0,0,cw,70*s);
+  x.fillStyle="#fff";x.textAlign="left";x.font=`800 ${34*s}px ${FONT3}`;x.fillText(a.title,26*s,47*s);x.textAlign="right";x.font=`700 ${24*s}px ${FONT3}`;x.fillText(old?"v1":"v1.1",cw-26*s,46*s);x.textAlign="left";
+  let y=104*s;for(const [lb,t,chg] of a.lines){x.fillStyle=old?"#8d939b":"#6b7280";x.font=`700 ${20*s}px ${FONT3}`;x.fillText(lb,26*s,y);y+=8*s;
+    x.font=`600 ${23*s}px ${FONT3}`;const ls=wrapText(x,t||"—",cw-52*s).slice(0,2);
+    if(chg&&!old){x.fillStyle="rgba(255,214,10,.45)";x.fillRect(20*s,y+4*s,cw-40*s,ls.length*30*s+8*s);}
+    ls.forEach((l,k)=>{const ly=y+28*s+k*30*s;x.fillStyle=old?"#7a7f87":"#1d2433";x.fillText(l,26*s,ly);
+      if(chg&&old){x.strokeStyle="#e5383b";x.lineWidth=4*s;x.beginPath();x.moveTo(22*s,ly-8*s);x.lineTo(26*s+Math.min(cw-52*s,x.measureText(l).width)+6*s,ly-10*s);x.stroke();}});
+    y+=ls.length*30*s+30*s;if(y>ch-60*s)break;}
+  if(!old){x.save();x.translate(cw-92*s,ch-92*s);x.rotate(-.18);x.strokeStyle="#1f9e57";x.lineWidth=7*s;x.beginPath();x.arc(0,0,58*s,0,7);x.stroke();x.fillStyle="#1f9e57";x.font=`800 ${26*s}px ${FONT3}`;x.textAlign="center";x.fillText("수정",0,10*s);x.restore();}}
+function bubbleDraw3(x,cw,ch,a){const s=cw/600,st=a.state,col=st===1?"#1f9e57":st===2?"#f08c00":"#8e8e93";const bw=cw-20*s,bh=ch*.74;
+  x.fillStyle="rgba(0,0,0,.14)";rr(x,14*s,16*s,bw,bh,46*s);x.fill();x.fillStyle="#fff";rr(x,8*s,8*s,bw,bh,46*s);x.fill();x.strokeStyle=col;x.lineWidth=7*s;x.stroke();
+  x.beginPath();x.moveTo(a.tail*cw-30*s,8*s+bh-2*s);x.lineTo(a.tail*cw,ch-6*s);x.lineTo(a.tail*cw+26*s,8*s+bh-2*s);x.closePath();x.fillStyle="#fff";x.fill();x.stroke();
+  x.fillStyle="#fff";x.fillRect(a.tail*cw-26*s,8*s+bh-9*s,50*s,10*s);
+  x.fillStyle=col;x.beginPath();x.arc(64*s,8*s+bh/2,40*s,0,7);x.fill();x.fillStyle="#fff";x.font=`800 ${44*s}px ${FONT3}`;x.textAlign="center";x.fillText(st===1?"✓":st===2?"!":"?",64*s,8*s+bh/2+15*s);
+  x.textAlign="left";x.fillStyle="#1d2433";x.font=`800 ${34*s}px ${FONT3}`;x.fillText(a.label,122*s,8*s+bh/2-6*s);
+  x.fillStyle=col;x.font=`700 ${26*s}px ${FONT3}`;x.fillText(st===1?"좋아요":st===2?"아쉬워요":"피드백 기다리는 중",122*s,8*s+bh/2+30*s);}
+function polaroidDraw(x,cw,ch,a){const s=cw/500,col=a.kind==="design"?"#d6336c":"#1f9e89";x.fillStyle="#fffefa";x.fillRect(0,0,cw,ch);
+  const m=24*s,iw=cw-2*m,ih=iw*.78;x.fillStyle="#e9eaee";x.fillRect(m,m,iw,ih);
+  if(a.im&&a.im.complete&&a.im.naturalWidth){const r=Math.max(iw/a.im.naturalWidth,ih/a.im.naturalHeight),dw=a.im.naturalWidth*r,dh=a.im.naturalHeight*r;x.save();x.beginPath();x.rect(m,m,iw,ih);x.clip();x.drawImage(a.im,m+(iw-dw)/2,m+(ih-dh)/2,dw,dh);x.restore();}
+  else{x.fillStyle=col;x.globalAlpha=.16;x.fillRect(m,m,iw,ih);x.globalAlpha=1;x.strokeStyle=col;x.lineWidth=4*s;rr(x,m+iw*.3,m+ih*.12,iw*.4,ih*.76,18*s);x.stroke();
+    x.fillStyle=col;[.3,.45,.6].forEach((f,k)=>x.fillRect(m+iw*.36,m+ih*f,iw*(k===1?.2:.28),10*s));x.fillStyle="#6b7280";x.font=`700 ${22*s}px ${FONT3}`;x.textAlign="center";x.fillText("캡처를 붙여 보세요",cw/2,m+ih-18*s);}
+  x.textAlign="left";x.fillStyle=col;x.font=`800 ${22*s}px ${FONT3}`;x.fillText(a.tag,m,m+ih+40*s);
+  x.fillStyle="#1d2433";x.font=`400 ${34*s}px ${HW_FONT}`;x.fillText(wrapText(x,a.name||"레퍼런스",iw)[0]||"",m,m+ih+82*s);}
+function emptySlotDraw(x,cw,ch){x.clearRect(0,0,cw,ch);x.fillStyle="#c9a072";x.fillRect(0,0,cw,ch);const s=cw/400;x.strokeStyle="rgba(255,250,240,.85)";x.lineWidth=5*s;x.setLineDash([16*s,12*s]);x.strokeRect(14*s,14*s,cw-28*s,ch-28*s);x.setLineDash([]);
+  x.fillStyle="rgba(255,250,240,.9)";x.textAlign="center";x.font=`300 ${120*s}px ${FONT3}`;x.fillText("+",cw/2,ch*.52);x.font=`400 ${34*s}px ${HW_FONT}`;x.fillText("하나 더!",cw/2,ch*.72);}
+function corkDraw(x,cw,ch){x.fillStyle="#b88a5a";x.fillRect(0,0,cw,ch);const r=rng(5);for(let k=0;k<3200;k++){x.fillStyle=`rgba(${r()<.5?"70,40,15":"255,230,190"},${.1+r()*.18})`;x.fillRect(r()*cw,r()*ch,2+r()*3,2+r()*3);}
+  x.strokeStyle="#5a3a22";x.lineWidth=cw*.022;x.strokeRect(0,0,cw,ch);
+  [[.08,.85,"#ffd23f"],[.93,.12,"#7bd3ff"],[.06,.2,"#ff8fb1"],[.95,.86,"#9be37b"]].forEach(([a,b,c],k)=>{x.save();x.translate(cw*a,ch*b);x.rotate(k%2?.1:-.08);x.fillStyle=c;x.fillRect(-cw*.035,-ch*.07,cw*.07,ch*.14);x.restore();});}
+const _refImg=new Map();
+function refImage(d){if(!d)return null;if(_refImg.has(d))return _refImg.get(d);const im=new Image();im.src=d;_refImg.set(d,im);if(_refImg.size>12)_refImg.delete(_refImg.keys().next().value);return im;}
+function buildPop2(i,add,e){const acc=ART_CATS[artCat(e||{})].acc,s=S2();
+  if(i===6){/* 다시 읽기: 책상 위 기획서, 돋보기, 메모 보드 */
+    add(grp(roundRug(1.75,0x34466b),blob(2.4,1.2,-.1,-.6),blob(.9,.8,1.25,.5),blob(.9,.8,-1.5,.95)),"fade",40);
+    add(put(woodDesk(2.5,1.05),-.15,0,-.85),"prop",80);
+    const nb=card(1.35,.86,noteBoardDraw,s.amb,{edge:false,res:768});nb.userData.lean=.2;liveCards.amb=nb;add(put(nb,.62,.75,-1.25),"card",200);
+    const pl=card(1.32,.95,planDraw,null,{edge:false,res:1024});pl.userData.lean=1.05;liveCards.plan=pl;add(put(pl,-.62,.755,-.75,.08),"card",260);
+    const mg=magnifier();mg.rotation.set(-.85,.25,.45);add(put(mg,-.35,1.25,-.38),"prop",420);
+    const dl=deskLamp();dl.scale.setScalar(1.6);add(put(dl,-1.25,.75,-1.12,.5),"prop",340);lightPlan.push(["warm",-1.1,1.55,-.95,1.25]);
+    const sf=studentFigure({seated:false,pose:"chin",prop:"note"});sf.scale.setScalar(1.18);add(put(sf,1.25,.7,.45,-.75),"prop",480);
+    const bs=bookStack();bs.scale.setScalar(1.5);add(put(bs,-1.5,0,.95,.5),"prop",540);add(put(plant(),1.65,0,-1.55),"prop",600);}
+  if(i===7){/* 짝 피드백: 쓰는 사람의 말풍선 */
+    add(grp(roundRug(1.75,0x2d5d8a),blob(1.4,1.2,-1.0,.45),blob(1.4,1.2,1.0,.45)),"fade",40);
+    const a=armchair();{const f=studentFigure({seated:true,pose:"write"});f.scale.setScalar(1.25);a.add(put(f,0,.53,-.1));}a.scale.setScalar(1.05);add(put(a,-1.1,0,.45,1.0),"prop",140);
+    const b=armchair();{const f=partnerFigure({seated:true,pose:"hold",prop:"tablet"});f.scale.setScalar(1.25);b.add(put(f,0,.53,-.1));}b.scale.setScalar(1.05);add(put(b,1.1,0,.45,-1.0),"prop",200);
+    add(put(sideTable(),0,0,.3),"prop",260);const pc=card(.6,.44,planDraw,null,{edge:false,res:512});pc.userData.lean=1.3;add(put(pc,0,.6,.3,.1),"card",320);
+    const P=[[-.74,1.95,-1.25,.82],[.74,1.95,-1.25,.82],[-.74,1.18,-1.0,.82],[.74,1.18,-1.0,.82]];
+    PEER.forEach((x,k)=>{const [px,py,pz,tail]=P[k];const c=cutout(1.36,.78,bubbleDraw3,{label:x.t,state:s.peer.c[k]||0,tail},{res:700});c.userData.lean=.1;add(put(c,px,py,pz,-px*.1),"card",380+k*110);});
+    add(put(plant(),-1.7,0,-1.6),"prop",700);lightPlan.push(["cool",1.2,1.6,.6,.6]);}
+  if(i===8){/* 1차 수정: 고치기 전 → 고친 뒤 */
+    add(grp(roundRug(1.75,0x5a3c63),blob(2.8,1.1,0,-.9),blob(1,.9,-.7,.7)),"fade",40);
+    add(put(woodDesk(3.1,1.05),0,0,-1.0),"prop",80);
+    const v1=s.v1||planSnap(),now=planSnap(),chg=new Set(changedFields().map(x=>x[0])),pick=["prob","ai","i","first"];
+    const lines=o=>pick.map(k=>[PLANF.find(f=>f[0]===k)[1],String(o[k]||"").replace(/\n/g,", "),chg.has(k)]);
+    const old=card(1.1,1.4,docDraw,{title:"1차시 기획",old:true,lines:lines(v1)},{edge:false,res:600});old.userData.lean=.9;add(put(old,-.82,.755,-.95,.12),"card",200);
+    const nw=card(1.1,1.4,docDraw,{title:"고친 기획",old:false,lines:lines(now)},{edge:false,res:600});nw.userData.lean=.9;liveCards.rev=nw;add(put(nw,.82,.755,-.95,-.12),"card",320);
+    add(arcArrow(new THREE.Vector3(-.45,1.45,-1.15),new THREE.Vector3(.45,1.45,-1.15),.55,0xffc83d),"fade",460);
+    const pn=bigPencil();pn.rotation.set(0,.5,Math.PI/2-.08);add(put(pn,.05,.81,-.55),"prop",520);
+    const sf=studentFigure({seated:false,pose:"write",prop:"note"});sf.scale.setScalar(1.18);add(put(sf,-.85,.7,.65,.35),"prop",600);
+    const rb=robotFigure(S.agent.name.trim()||"AI 동료",acc,{});rb.scale.setScalar(1.0);add(put(rb,1.1,0,.6,-.45),"prop",660);lightPlan.push(["warm",0,1.7,-.6,.9]);}
+  if(i===9){/* 레퍼런스: 무드 보드 */
+    add(grp(roundRug(1.75,0x1f6e6a),blob(1.2,.9,1.2,.75),blob(1.1,.9,-1.2,.7)),"fade",40);
+    const TH=.38,ZB=-1.55;const bd=card(4.0,2.15,corkDraw,null,{edge:false,res:1024});bd.userData.lean=TH;add(put(bd,0,0,ZB),"card",0);const at=(y,dz)=>[y*Math.cos(TH)+(dz||.04)*Math.sin(TH),ZB-y*Math.sin(TH)+(dz||.04)*Math.cos(TH)];
+    const list=s.refs.filter(r=>String(r.name).trim()||r.img).slice(0,6),show=[...list];while(show.length<6)show.push(null);const n=6,cols=3,rows=2,w=.86,hh=w*1.2;
+    const cnt2={program:0,design:0},pins=[];
+    show.forEach((r,k)=>{const c0=k%cols,r0=Math.floor(k/cols),x0=-((cols-1)/2)*(w+.3)+c0*(w+.3),y0=r0?.12:1.02;
+      if(!r){const e2=card(w,hh,emptySlotDraw,null,{edge:false,res:400});e2.userData.lean=TH;const [yy,zz]=at(y0);add(put(e2,x0,yy,zz),"card",200+k*90);return;}
+      const isD=r.kind==="design",nn=++cnt2[r.kind];
+      const arg={kind:r.kind,tag:isD?`디자인 · 그림 ${nn}`:`프로그램 ${nn}`,name:String(r.name||"").trim(),im:refImage(r.img)};
+      const c=card(w,hh,polaroidDraw,arg,{edge:false,res:500});c.userData.lean=.04;if(arg.im&&!arg.im.complete)arg.im.addEventListener("load",()=>c.userData.redraw(arg),{once:true});
+      c.userData.lean=TH;{const [yy,zz]=at(y0,.05);add(put(c,x0,yy,zz),"card",200+k*110);const [py,pz]=at(y0+hh-.06,.07);pins.push(new THREE.Vector3(x0,py,pz));}});
+    if(pins.length>1){const ln=new THREE.Line(new THREE.BufferGeometry().setFromPoints(pins),new THREE.LineBasicMaterial({color:0xd63a3a}));add(ln,"fade",300+n*110);}
+    add(put(sideTable(),1.2,0,.55),"prop",520);const lp=laptop();lp.scale.setScalar(.8);add(put(lp,1.2,.55,.55,-.5),"prop",580);const cm=cameraProp();add(put(cm,1.48,.55,.22,-.3),"prop",620);
+    const sf=studentFigure({seated:false,pose:"raise",prop:"note"});sf.scale.setScalar(1.18);add(put(sf,-.95,.7,.55,.55),"prop",680);
+    lightPlan.push(["cool",-.4,1.7,-1.3,.9]);}
+  if(i===10){add(grp(neonFloor(1.62,0xffd23f,0x29e0ff),blob(1.2,.6,-.55,-1.5)),"fade",40);
+    add(put(easel(),-.55,0,-1.8),"prop",0);const pc=card(1.95,1.42,phoneDraw("성공 기준","#7b4fd6","프롬프트 v2"),okText(),{edge:false,res:768});pc.userData.lean=.14;liveCards.v2=pc;add(put(pc,-.55,.66,-1.4),"card",200);
+    const duo=new THREE.Group();{const sf=studentFigure({seated:false,poseL:"shoulder",poseR:"wave",prop:"none"});sf.scale.setScalar(1.15);sf.position.set(0,.69,0);duo.add(sf);}
+    {const rb=robotFigure(S.agent.name.trim()||"AI 동료",acc,{hug:-1});rb.scale.setScalar(1.15);rb.position.set(.8,0,0);duo.add(rb);}add(put(duo,.45,0,-.15,-.2),"prop",300);
+    add(put(laptop(),-.8,0,.55,.35),"prop",380);add(put(rocket(),1.25,0,.9),"prop",440);}}
+
+Object.assign(LEFT_ART,{
+  reopen:(x,r,cx,gy,s)=>{wash(x,r,cx,gy+2*s,220*s,26*s,WC.blue,.2);sPerson(x,r,cx-110*s,gy,s,WC.orange,{arms:"hold"});
+    const bx=cx-10*s,by=gy-250*s;wash(x,r,bx+80*s,by+90*s,70*s,90*s,WC.yellow,.3);sStroke(x,r,3*s,()=>{x.rect(bx,by,160*s,190*s);for(let k=0;k<5;k++){x.moveTo(bx+20*s,by+(40+k*30)*s);x.lineTo(bx+(k===2?90:140)*s,by+(40+k*30)*s);}});
+    sStroke(x,r,3.4*s,()=>{x.ellipse(bx+120*s,by+100*s,26*s,14*s,0,0,Math.PI*2);});x.fillStyle=INKC;x.textAlign="center";x.font=`400 ${40*s}px ${HW_FONT}`;x.fillText("?",bx+190*s,by+60*s);},
+  peer:(x,r,cx,gy,s)=>{wash(x,r,cx,gy+2*s,230*s,26*s,WC.green,.2);sPerson(x,r,cx-130*s,gy,s,WC.purple,{arms:"hold"});sPerson(x,r,cx+130*s,gy,s,WC.orange,{arms:"hold"});
+    const bx=cx-55*s,by=gy-170*s;wash(x,r,cx,by+55*s,60*s,60*s,WC.yellow,.3);sStroke(x,r,3*s,()=>{x.rect(bx,by,110*s,120*s);});
+    x.fillStyle=INKC;x.textAlign="left";x.font=`400 ${26*s}px ${HW_FONT}`;["✓ 해결할 문제","✓ AI 동료","! 첫 기능"].forEach((t,k)=>x.fillText(t,bx+8*s,by+(34+k*34)*s));},
+  revise:(x,r,cx,gy,s)=>{wash(x,r,cx,gy+2*s,220*s,26*s,WC.pink,.2);sPerson(x,r,cx,gy,s,WC.blue,{arms:"hold"});
+    [[-170,WC.yellow,"전"],[120,WC.green,"후"]].forEach(([dx,c,t])=>{const bx=cx+dx*s,by=gy-240*s;wash(x,r,bx+25*s,by+45*s,40*s,50*s,c,.3);sStroke(x,r,2.8*s,()=>{x.rect(bx,by,60*s,90*s);});x.fillStyle=INKC;x.textAlign="center";x.font=`400 ${30*s}px ${HW_FONT}`;x.fillText(t,bx+30*s,by+56*s);});
+    sStroke(x,r,3*s,()=>{x.moveTo(cx-90*s,gy-195*s);x.quadraticCurveTo(cx-10*s,gy-250*s,cx+100*s,gy-200*s);x.lineTo(cx+86*s,gy-214*s);x.moveTo(cx+100*s,gy-200*s);x.lineTo(cx+80*s,gy-192*s);});},
+  refs:(x,r,cx,gy,s)=>{wash(x,r,cx,gy+2*s,220*s,26*s,WC.purple,.2);sPerson(x,r,cx-140*s,gy,s,WC.teal,{arms:"up"});
+    [[-40,-240,WC.pink],[60,-270,WC.blue],[160,-230,WC.yellow],[60,-170,WC.green]].forEach(([dx,dy,c])=>{const bx=cx+dx*s,by=gy+dy*s;wash(x,r,bx,by,30*s,24*s,c,.32);sStroke(x,r,2.6*s,()=>{x.rect(bx-36*s,by-28*s,72*s,56*s);});});
+    sStroke(x,r,3.4*s,()=>{x.arc(cx-60*s,gy-120*s,24*s,0,Math.PI*2);x.moveTo(cx-43*s,gy-103*s);x.lineTo(cx-20*s,gy-80*s);});},
+  prompt2:(x,r,cx,gy,s)=>LEFT_ART.share(x,r,cx,gy,s)});
+Object.assign(LEFT_CAP,{reopen:"처음 보는 사람의 눈으로",peer:"쓰는 사람의 눈으로",revise:"받아들일 것을 골라 고치다",refs:"닮고 싶은 것, 버릴 것",prompt2:"3차시로 가져갈 프롬프트"});
+
 
 /* ===== chapters: rendered together, revealed on scroll ===== */
 const chWrap=document.getElementById("chapters");let RI=0;
 PAGES.forEach((p,i)=>chWrap.append(h("section",{class:"ch gut",id:"ch-"+i,"aria-label":`챕터 ${i+1}`},h("div",{class:"in"}))));
 const chapters=[...chWrap.children];
-function head(i){const p=pageInfo(i);return [h("p",{class:"eyebrow-c"},`Chapter ${i+1} · ${p.min}분`),h("h2",null,p.title),h("p",{class:"lead"},p.lead)];}
+function head(i){const p=pageInfo(i);return [h("p",{class:"eyebrow-c"},`${PAGES[i].s===2?"2차시 · ":""}Chapter ${i+1}`),h("h2",null,p.title),h("p",{class:"lead"},p.lead)];}
 function navRow(){const i=RI;return i<PAGES.length-1?h("div",{class:"navrow"},h("button",{class:"btn ink",type:"button",onclick:()=>goChapter(i+1)},"다음 챕터 ↓")):null;}
 const reduceMotion=()=>matchMedia("(prefers-reduced-motion: reduce)").matches;
 function goChapter(i){const el=document.getElementById("ch-"+i);if(el)el.scrollIntoView({behavior:reduceMotion()?"auto":"smooth",block:"start"});}
+function chContent(i){const fns=[sIntro,sField,sAsk,sTalk,sDefine,sShare,sReopen,sPeer,sRevise,sRefs];
+  if(typeof needCode==="function"&&needCode()){RI=i;if(i===0)return [...head(0),codeGate()];
+    return [...head(i),h("div",{class:"think lockcard"},h("div",{class:"think-h"},h("span",{class:"think-tag"},"잠김"),h("b",null,"반 코드를 넣으면 열려요")),h("div",{class:"row"},h("button",{class:"btn primary",type:"button",onclick:focusCode},"반 코드 넣으러 가기")))];}
+  return fns[i]();}
+function focusCode(){goChapter(0);setTimeout(()=>{const el=document.getElementById("f-code");el&&el.focus({preventScroll:true});},500);}
 function renderSheet(){const wasFull=!!(T&&T.room&&T.room.classList.contains("full"));
   const ae=document.activeElement,aid=ae&&ae.id&&ae!==document.body?ae.id:null;let sel=null;try{if(aid&&ae.selectionStart!=null)sel=[ae.selectionStart,ae.selectionEnd];}catch(e){}
-  T=null;const fns=[sIntro,sField,sAsk,sTalk,sDefine,sShare];
-  fns.forEach((fn,i)=>{RI=i;const inner=chapters[i].querySelector(".in");inner.replaceChildren(...fn().filter(Boolean));
+  T=null;const fns=[sIntro,sField,sAsk,sTalk,sDefine,sShare,sReopen,sPeer,sRevise,sRefs];
+  fns.forEach((fn,i)=>{RI=i;const inner=chapters[i].querySelector(".in");inner.replaceChildren(...chContent(i).filter(Boolean));
     [...inner.children].forEach((c,k)=>{c.classList.add("rv");c.style.setProperty("--i",Math.min(k,8));});});
   if(wasFull){if(T&&T.room)openRoom(true);else{document.documentElement.style.overflow="";document.documentElement.classList.remove("room-open");}}
   if(aid){const n=document.getElementById(aid);if(n&&n!==document.activeElement){n.focus({preventScroll:true});if(sel&&n.setSelectionRange)try{n.setSelectionRange(sel[0],sel[1]);}catch(e){}}}}
 let inChapters=false,lastCur=-1;
-function renderChapter(i){if(i===3&&busy)return;const fns=[sIntro,sField,sAsk,sTalk,sDefine,sShare];const wasFull=i===3&&!!(T&&T.room&&T.room.classList.contains("full"));
+function renderChapter(i){if(i===3&&busy)return;const fns=[sIntro,sField,sAsk,sTalk,sDefine,sShare,sReopen,sPeer,sRevise,sRefs];const wasFull=i===3&&!!(T&&T.room&&T.room.classList.contains("full"));
   const ae=document.activeElement,aid=ae&&ae.id&&chapters[i].contains(ae)?ae.id:null;let sel=null;try{if(aid&&ae.selectionStart!=null)sel=[ae.selectionStart,ae.selectionEnd];}catch(e){}
-  RI=i;const inner=chapters[i].querySelector(".in");inner.replaceChildren(...fns[i]().filter(Boolean));
+  RI=i;const inner=chapters[i].querySelector(".in");inner.replaceChildren(...chContent(i).filter(Boolean));
   [...inner.children].forEach((c,k)=>{c.classList.add("rv");c.style.setProperty("--i",Math.min(k,8));});if(wasFull)openRoom(true);
   if(aid){const el=document.getElementById(aid);if(el){el.focus({preventScroll:true});try{if(sel)el.setSelectionRange(sel[0],sel[1]);}catch(e){}}}}
 function renderNav(){const d=document.getElementById("dots");
-  d.replaceChildren(...PAGES.map((p,i)=>h("button",{type:"button","aria-label":`챕터 ${i+1}: ${pageInfo(i).title}`,"aria-current":inChapters&&i===S.page?"step":null,onclick:()=>goChapter(i)})));
-  document.getElementById("now").textContent=inChapters?`Chapter ${S.page+1} · ${pageInfo(S.page).title}`:"진로 수업 · 50분";}
+  d.replaceChildren(...PAGES.map((p,i)=>h("button",{type:"button",class:i===6?"s2":null,"aria-label":`챕터 ${i+1}: ${pageInfo(i).title}`,"aria-current":inChapters&&i===S.page?"step":null,onclick:()=>goChapter(i)})));
+  document.getElementById("now").textContent=inChapters?`Chapter ${S.page+1} · ${pageInfo(S.page).title}`:"";}
 function renderAll(){renderSheet();renderNav();}
 const heroEl=document.getElementById("hero"),tEl=document.getElementById("heroTitle"),s1=document.getElementById("sub1"),s2=document.getElementById("sub2"),cue=document.getElementById("cue"),prog=document.getElementById("prog");
 let ticking=false;
