@@ -166,7 +166,9 @@ pre.prompt{white-space:pre-wrap;background:var(--panel-2);border:1px solid var(-
 .dots button:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
 @media (max-width:860px){.dots{display:none}}
 .end{min-height:40vh;display:grid;place-items:center;text-align:center;color:var(--fg-3);font-size:14px;padding-block:40px 80px}
+.cut-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:6px}.cut-row .note{font-size:12.5px;margin:0}
 .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:#000;padding:10px 18px;border-radius:999px;font-size:14px;font-weight:600;z-index:30}
+html.room-open .toast{top:calc(64px + env(safe-area-inset-top,0px));bottom:auto;z-index:60}
 /* question catalyst */
 .note-card .nc-lead{margin:0;font-size:17px;line-height:1.55;color:var(--fg);font-weight:500}
 .nc-sec{display:grid;gap:8px}
@@ -496,6 +498,8 @@ pre.prompt.p2 .new{background:rgba(255,214,10,.16);color:var(--fg)}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
+{const keep=x=>x!=null&&x!==false;for(const P of [Element.prototype,DocumentFragment.prototype])for(const m of ["replaceChildren","append","prepend"]){const f=P[m];if(f)P[m]=function(...k){return f.apply(this,k.filter(keep));};}}
+
 (function(){
 "use strict";
 /* ================= content ================= */
@@ -573,16 +577,20 @@ async function callAI(task,payload,opt={}){
   catch(e){throw {code:e&&e.name==="AbortError"?"cancelled":"network"};}
   if(!res.ok){let m="";try{m=(await res.json()).error||"";}catch(e){}
     throw {code:res.status===401?"bad_code":res.status===429?"rate_limited":"upstream",message:m};}
-  const rd=res.body.getReader(),dec=new TextDecoder();let buf="",text="";
+  const rd=res.body.getReader(),dec=new TextDecoder();let buf="",text="",cut=false,stopped=false;
   try{
     for(;;){const {done,value}=await rd.read();if(done)break;buf+=dec.decode(value,{stream:true});
       let k;while((k=buf.indexOf("\n\n"))>=0){const ev=buf.slice(0,k);buf=buf.slice(k+2);
         for(const line of ev.split("\n")){if(!line.startsWith("data:"))continue;const d=line.slice(5).trim();if(!d)continue;let j;try{j=JSON.parse(d);}catch(e){continue;}
           if(j.type==="content_block_delta"&&j.delta&&j.delta.type==="text_delta"){text+=j.delta.text;opt.onText&&opt.onText(text);}
+          else if(j.type==="cut"){cut=true;}
+          else if(j.type==="message_delta"&&j.delta&&j.delta.stop_reason==="max_tokens"){cut=true;}
+          else if(j.type==="message_stop"){stopped=true;}
           else if(j.type==="papers"){opt.onPapers&&opt.onPapers(j);}
           else if(j.type==="error"){throw {code:"upstream",message:"AI 서버에 문제가 생겼어요.",text};}}}}
   }catch(e){if(e&&e.code)throw e;throw {code:e&&e.name==="AbortError"?"cancelled":"network",text};}
   if(!text.trim()) throw {code:"empty"};
+  if((cut||!stopped)&&opt.onCut)opt.onCut();
   return text;}
 function parseJSONObj(t){const a=t.indexOf("{"),b=t.lastIndexOf("}");if(a<0||b<a)return null;try{return JSON.parse(t.slice(a,b+1));}catch(e){return null;}}
 function parseJSONList(t){const a=t.indexOf("["),b=t.lastIndexOf("]");if(a<0||b<a)return null;try{return JSON.parse(t.slice(a,b+1));}catch(e){return null;}}
@@ -809,6 +817,11 @@ ${tail}`;
 const normPerson=m=>({sub:String(m.sub||""),name:String(m.name||""),years:String(m.years||""),role:String(m.role||""),voice:String(m.voice||""),en:String(m.en||"").slice(0,40),...lookParse(m.look),alive:m.alive===true||m.alive==="true",emblem:EMBLEMS.includes(m.emblem)?m.emblem:"book"});
 const spkName=()=>ename();
 function tidy(t){return String(t).replace(/\[\[[\s\S]*$/,"").replace(/\*\*|__/g,"").replace(/^#+\s*/gm,"").replace(/^\s*[-•]\s+/gm,"").replace(new RegExp("^\\s*"+ename().replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+"\\s*[:：]\\s*"),"").replace(/^["“](.*)["”]$/s,"$1").trim();}
+let lastCut=false;
+const CONT_MSG="(방금 하던 이야기가 중간에 끊겼어요. 이미 한 말은 반복하지 말고, 이어지는 내용을 2~3문장으로 자연스럽게 마무리해 주세요.)";
+function trimSentence(t){t=String(t||"").trim();if(!t)return t;let end=-1;const re=/[.?!…。](?:["'”’)\]])?(?=\s|$)/g;let m;while((m=re.exec(t)))end=m.index+m[0].length;
+  return end>=Math.min(12,t.length*.2)?t.slice(0,end).trim():t+"…";}
+function contChat(){if(busy)return;const last=S.chat[S.chat.length-1];if(last)delete last.cut;S.chat.push({role:"user",content:CONT_MSG,hidden:true});save();runChat();}
 const START_MSG=()=>`(인터뷰가 시작되었습니다. 규칙에 따라 첫 인사와 소개를 해 주세요.)`;
 function josa(w,a,b){w=String(w||"").trim().replace(/[\s.,!?)"'’”]+$/,"");if(!w)return a+"("+b+")";const c=w.charCodeAt(w.length-1);
   if(c>=0xAC00&&c<=0xD7A3)return (c-0xAC00)%28?a:b;if(/[0-9]$/.test(w))return /[013678]$/.test(w)?a:b;if(/[a-zA-Z]$/.test(w))return /[lmnLMN]$/.test(w)?a:b;return a+"("+b+")";}
@@ -2018,7 +2031,7 @@ async function aiCoach(e,q){return parseJSONObj(await callAI("coach",{expert:e,q
 async function aiShapes(){return parseJSONObj(await callAI("shapes",{agent:S.agent,sentence:sentence(),field:S.field}));}
 async function aiRefCoach(c){return parseJSONObj(await callAI("refcoach",{card:{kind:c.kind,name:c.name,take:c.take,takeT:c.takeT,notT:c.notT},agent:S.agent}));}
 let lastPapers=null;
-async function aiChat(msgs,onText,signal){lastPapers=null;return await callAI("chat",{expert:E(),field:S.field,messages:msgs},{signal,onText,onPapers:p=>{lastPapers=p;}});}
+async function aiChat(msgs,onText,signal){lastPapers=null;lastCut=false;return await callAI("chat",{expert:E(),field:S.field,messages:msgs},{signal,onText,onPapers:p=>{lastPapers=p;},onCut:()=>{lastCut=true;}});}
 /* ===== 인물 노트 · 질문 촉매 · 바로 묻기 ===== */
 let qFocus=0,coachRes={},profLoading=false,pendingAsk=[];
 function cleanProfile(r){const s=(v,n)=>String(v==null?"":v).slice(0,n);const a=(v,k,n)=>Array.isArray(v)?v.slice(0,k).map(x=>s(x,n)).filter(Boolean):[];
@@ -2155,7 +2168,7 @@ function paintTr(pending){if(!T)return;const tr=T.tr;tr.replaceChildren();const 
   S.chat.forEach((m,idx)=>{if(m.hidden)return;const isM=m.role==="assistant";const memoOn=S.memos.some(x=>x.src===idx);
     tr.append(h("div",{class:"ln "+(isM?"m-line":"s-line")},isM?h("span",{class:"av","aria-hidden":"true"},ini):null,
       h("div",{class:"bub"},h("span",{class:"sr"},(isM?spkName():"나")+": "),h("div",{class:"txt"},m.content),isM&&m.papers?paperBox(m.papers):null,
-        isM?h("button",{class:"memo-btn",type:"button","aria-pressed":memoOn?"true":"false",onclick:()=>{if(memoOn)S.memos=S.memos.filter(x=>x.src!==idx);else S.memos.push({src:idx,text:m.content});save();paintTr();toast(memoOn?"메모를 뺐어요":"메모했어요");}},memoOn?"★ 메모됨":"☆ 메모"):null)));});
+        isM?h("button",{class:"memo-btn",type:"button","aria-pressed":memoOn?"true":"false",onclick:()=>{if(memoOn)S.memos=S.memos.filter(x=>x.src!==idx);else S.memos.push({src:idx,text:m.content});save();paintTr();toast(memoOn?"메모를 뺐어요":"메모했어요");}},memoOn?"★ 메모됨":"☆ 메모"):null,isM&&m.cut&&idx===S.chat.length-1&&!busy?h("div",{class:"cut-row"},h("span",{class:"note"},"말이 중간에 끊겼어요."),h("button",{class:"btn sm",type:"button",onclick:contChat},"이어서 듣기")):null)));});
   if(pending!=null) tr.append(h("div",{class:"ln m-line"},h("span",{class:"av","aria-hidden":"true"},ini),
     h("div",{class:"bub"},pending?h("div",{class:"txt"},pending):h("div",{class:"typing",role:"status","aria-label":`${spkName()}이(가) 말을 고르는 중`},h("span"),h("span"),h("span")))));
   const lastM=S.chat[S.chat.length-1];
@@ -2167,8 +2180,8 @@ async function runChat(){if(!aiOn()||busy)return;const gen=chatGen;busy=true;cha
   let reply=null,fail=null;
   try{reply=await aiChat(msgs,text=>{if(gen===chatGen)paintTr(tidy(text));},ctl.signal);}catch(e){fail=e;}
   if(gen!==chatGen)return;
-  if(reply!=null){const sp=splitFollow(reply);const msg={role:"assistant",content:tidy(sp.text)};if(lastPapers&&Array.isArray(lastPapers.items)&&lastPapers.items.length)msg.papers={items:lastPapers.items.slice(0,3),ko:String(lastPapers.ko||"")};S.chat.push(msg);if(sp.follow.length)S.follow=sp.follow;save();}
-  else{if(fail&&fail.text){S.chat.push({role:"assistant",content:tidy(splitFollow(fail.text).text)});save();}chatErr=errCopy(fail);}
+  if(reply!=null){const sp=splitFollow(reply);const msg={role:"assistant",content:tidy(sp.text)};if(lastCut){msg.content=trimSentence(msg.content);msg.cut=true;}if(lastPapers&&Array.isArray(lastPapers.items)&&lastPapers.items.length)msg.papers={items:lastPapers.items.slice(0,3),ko:String(lastPapers.ko||"")};S.chat.push(msg);if(sp.follow.length)S.follow=sp.follow;save();}
+  else{if(fail&&fail.text){const t=trimSentence(tidy(splitFollow(fail.text).text));if(t){S.chat.push({role:"assistant",content:t,cut:true});save();}}chatErr=errCopy(fail);}
   busy=false;talking=false;if(ai==="blocked"){renderSheet();return;}
   if(T){T.send.disabled=false;T.stop.hidden=true;T.err.textContent=chatErr;}paintTr();paintChips();
   if(!chatErr&&pendingAsk.length){const q=pendingAsk.shift();S.chat.push({role:"user",content:q});save();runChat();}}
