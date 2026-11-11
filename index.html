@@ -2382,7 +2382,9 @@ async function postAPI(body){if(!API_URL)throw {code:"network",message:"선생�
 async function vaultSave(rec,state){await postAPI({task:"submit",record:rec,state,sid:S.sid,sname:S.sname,pin:S.pin,images:rec.status==="2차시 제출"?recImages():rec.status==="3차시 제출"?recImages3():undefined});}
 async function vaultLoad(){const j=await postAPI({task:"load",sid:S.sid,sname:S.sname,pin:S.pin});if(!j.state)return null;let st=j.state;if(typeof st==="string"){try{st=JSON.parse(st);}catch(e){return null;}}st.__savedAt=j.savedAt;return st;}
 function vaultErr(e){return submitErr(e);}
-async function finalSubmit(rec){if(pinOk(S.pin))await vaultSave(rec,snapState());else await submitRecord(rec);}
+async function finalSubmit(rec){if(!pinOk(S.pin)){await submitRecord(rec);return false;}
+  try{await vaultSave(rec,snapState());S.savedAt=new Date().toISOString();return true;}
+  catch(e){if(!e||e.code==="network"||e.code==="bad_code")throw e;await submitRecord(rec);return false;}}
 /* ===== 중간 저장 · 다른 기기에서 불러오기 ===== */
 function snapState(){const c=JSON.parse(JSON.stringify(S));delete c.pin;c.page=S.page||0;return c;}
 function applyState(st){if(!st||typeof st!=="object")return false;const keep={mode:S.mode,sid:S.sid,sname:S.sname,pin:S.pin};
@@ -2471,20 +2473,22 @@ function today(){const d=new Date(),p=n=>String(n).padStart(2,"0");return `${d.g
 let submitting=false;
 function recSig(r){const c=Object.assign({},r);delete c.submittedAt;delete c.status;const t=JSON.stringify(c);let x=0;for(let i=0;i<t.length;i++)x=(x*31+t.charCodeAt(i))|0;return x+":"+t.length;}
 function submitPanel(o){o=Object.assign({list:thinkList,status:"최종 제출",ch:5,at:"submittedAt",sig:"submitSig"},o||{});const sfx=o.ch===5?"":o.ch===14?"3":"2";
-  const missBox=h("div",{class:"missing"}),done=S[o.at];const msg=h("span",{class:"note",role:"status"},done?`${fmtTime(done)}에 제출했어요.`:"");
+  const missBox=h("div",{class:"missing"}),done=S[o.at];const msg=h("span",{class:done&&S.keepFail?"err":"note",role:"status"},done?(S.keepFail?`${fmtTime(done)}에 제출했어요. 다만 비밀번호가 처음 정한 것과 달라서 불러오기용 저장은 안 됐어요. 선생님께 말해 주세요.`:`${fmtTime(done)}에 제출했어요. 기록도 저장돼서 다른 컴퓨터에서 불러올 수 있어요.`):"");
+  const pinF=VAULT_NEEDS_ID?(()=>{const el=h("input",{id:"f-pin"+sfx,type:"password",inputmode:"numeric",maxlength:"4",autocomplete:"off",placeholder:"숫자 4자리",value:S.pin||""});el.addEventListener("input",()=>{el.value=el.value.replace(/\D/g,"").slice(0,4);S.pin=el.value;save();});return h("label",{class:"f",for:"f-pin"+sfx},"비밀번호 (숫자 4자리)",el);})():null;
   const btn=h("button",{class:"btn primary",type:"button"},done?"고친 내용으로 다시 제출":"선생님께 제출하기");
   btn.onclick=async()=>{if(!String(S.sid||"").trim()||!String(S.sname||"").trim()){msg.className="err";msg.textContent="학번과 이름을 적어 주세요.";return;}
+    if(VAULT_NEEDS_ID&&!pinOk(S.pin)){msg.className="err";msg.textContent="비밀번호 숫자 4자리를 정해 주세요. 제출하면 기록도 함께 저장돼요.";const pe=document.getElementById("f-pin"+sfx);pe&&pe.focus();return;}
     if(o.ch===5&&!E()){msg.className="err";msg.textContent="인터뷰할 인물을 먼저 골라 주세요.";return;}
     {const miss=o.list().filter(t=>!t.ok);missBox.replaceChildren();if(miss.length){msg.className="err";msg.textContent=`덜 채운 곳이 ${miss.length}군데 있어요.`;missBox.replaceChildren(...miss.map(t=>h("button",{class:"btn sm",type:"button",onclick:()=>goChapter(t.ch)},`Ch ${t.ch+1} · ${t.miss.join(", ")}`)));return;}}
     const rec=Object.assign(buildRecord(),{status:o.status}),sig=recSig(rec);
     if(done&&S[o.sig]===sig){msg.className="note";msg.textContent=`${fmtTime(done)}에 이미 제출했어요. 바뀐 내용이 없어요.`;return;}
     if(submitting)return;submitting=true;btn.disabled=true;msg.className="note";msg.textContent="제출하는 중…";
-    try{await finalSubmit(rec);S[o.at]=new Date().toISOString();S[o.sig]=sig;save();toast("선생님께 제출했어요");submitting=false;renderChapter(o.ch);return;}
+    try{const kept=await finalSubmit(rec);S[o.at]=new Date().toISOString();S[o.sig]=sig;S.keepFail=!kept;save();toast(kept?"제출하고 저장했어요":"선생님께 제출했어요");submitting=false;renderChapter(o.ch);return;}
     catch(e){msg.className="err";msg.textContent=submitErr(e);}finally{submitting=false;btn.disabled=false;}};
   const dl=dlNs?h("button",{class:"btn",type:"button",onclick:()=>saveCSV([buildRecord()],`내_기록_${today()}.csv`)},"내 기록 파일로 저장"):null;
   return h("div",{class:"glass"},h("span",{class:"kicker"},"선생님께 제출"),
     h("div",{class:"split"},h("label",{class:"f",for:"f-sid"+sfx},"학번",input("f-sid"+sfx,S,"sid","예: 10305")),h("label",{class:"f",for:"f-sname"+sfx},"이름",input("f-sname"+sfx,S,"sname","예: 김부흥"))),
-    h("p",{class:"note",style:"margin:0"},"학번·이름은 AI에게 보내지 않아요."),
+    pinF,h("p",{class:"note",style:"margin:0"},VAULT_NEEDS_ID?"제출하면 기록도 함께 저장돼요. 다른 컴퓨터에서 불러올 때 이 비밀번호가 필요하니 꼭 기억해요. 학번·이름은 AI에게 보내지 않아요.":"학번·이름은 AI에게 보내지 않아요."),
     h("div",{class:"row"},btn,h("button",{class:"btn",type:"button",onclick:openVault},"중간 저장"),dl),msg,missBox);}
 async function saveCSV(rows,name){if(!dlNs){toast("이 화면에서는 파일로 저장할 수 없어요");return;}
   try{await dlNs.save({filename:name,data:toCSV(rows)});}catch(e){if(e&&e.code!=="declined")toast("파일을 저장하지 못했어요");}}
