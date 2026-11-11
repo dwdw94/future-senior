@@ -2369,7 +2369,7 @@ function sShare(){const e=E(),a=S.agent;const L=s=>String(s||"").split("\n").map
 
 let dlNs=null;
 async function submitRecord(rec){if(!API_URL)throw {code:"network",message:"선생님이 아직 서버 주소를 넣지 않았어요."};if(!classCode)throw {code:"bad_code"};
-  let res;try{res=await fetch(API_URL,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({code:classCode,task:"submit",record:rec,images:rec.status==="2차시 제출"?recImages():rec.status==="3차시 제출"?recImages3():undefined})});}catch(e){throw {code:"network"};}
+  let res;try{res=await fetch(API_URL,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({code:classCode,task:"submit",record:rec,images:rec.status==="2차시 제출"?recImages():rec.status==="3차시 제출"?recImages3():undefined,html:rec.status==="3차시 제출"?html3():undefined})});}catch(e){throw {code:"network"};}
   let j={};try{j=await res.json();}catch(e){}
   if(!res.ok||!j.ok)throw {code:res.status===401?"bad_code":"upstream",message:j.error||"제출하지 못했어요. 잠시 뒤 다시 눌러 주세요."};}
 function submitErr(e){const c=e&&e.code;if(c==="bad_code")return "반 코드가 맞지 않아요. 첫 챕터에서 반 코드를 다시 넣어 주세요.";if(c==="network")return (e&&e.message)||"인터넷 연결을 확인해 주세요.";return (e&&e.message)||"제출하지 못했어요. 잠시 뒤 다시 눌러 주세요.";}
@@ -2379,7 +2379,7 @@ async function postAPI(body){if(!API_URL)throw {code:"network",message:"선생�
   let res;try{res=await fetch(API_URL,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(Object.assign({code:classCode},body))});}catch(e){throw {code:"network"};}
   let j={};try{j=await res.json();}catch(e){}
   if(!res.ok||!j.ok)throw {code:res.status===401?"bad_code":"upstream",message:j.error||"잠시 뒤 다시 눌러 주세요."};return j;}
-async function vaultSave(rec,state){await postAPI({task:"submit",record:rec,state,sid:S.sid,sname:S.sname,pin:S.pin,images:rec.status==="2차시 제출"?recImages():rec.status==="3차시 제출"?recImages3():undefined});}
+async function vaultSave(rec,state){await postAPI({task:"submit",record:rec,state,sid:S.sid,sname:S.sname,pin:S.pin,images:rec.status==="2차시 제출"?recImages():rec.status==="3차시 제출"?recImages3():undefined,html:rec.status==="3차시 제출"?html3():undefined});}
 async function vaultLoad(){const j=await postAPI({task:"load",sid:S.sid,sname:S.sname,pin:S.pin});if(!j.state)return null;let st=j.state;if(typeof st==="string"){try{st=JSON.parse(st);}catch(e){return null;}}st.__savedAt=j.savedAt;return st;}
 function vaultErr(e){return submitErr(e);}
 async function finalSubmit(rec){if(!pinOk(S.pin)){await submitRecord(rec);return false;}
@@ -3005,7 +3005,7 @@ Object.assign(LEFT_CAP,{reopen:"처음 보는 사람의 눈으로",peer:"쓰는 
 const THEMES=[["블루","#2f6fe0"],["그린","#1f9d6a"],["틸","#138a8a"],["오렌지","#f07a2b"],["레드","#d64545"],["핑크","#e0508f"],["퍼플","#7b4fd6"],["차콜","#3b424c"]];
 const THEME_KEYS={blue:"블루",green:"그린",teal:"틸",orange:"오렌지",red:"레드",pink:"핑크",purple:"퍼플",charcoal:"차콜"};
 const blankFix=()=>({want:"",got:"",how:""});
-function S3(){const d={on:false,feats:[],fc:null,dq:null,da:["","",""],dirs:[],dir:-1,design:{mood:"",layout:"",first:""},theme:"",v1:{img:"",note:""},fixes:[blankFix(),blankFix()],link:"",intro:"",senior:"",fin:{img:""}};
+function S3(){const d={on:false,feats:[],fc:null,dq:null,da:["","",""],dirs:[],dir:-1,design:{mood:"",layout:"",first:""},theme:"",v1:{img:"",note:""},fixes:[blankFix(),blankFix()],link:"",intro:"",senior:"",fin:{img:""},html:"",htmlName:""};
   if(!S.s3||typeof S.s3!=="object")S.s3={};const s=S.s3,fill=(o,b)=>{for(const k in b)if(o[k]==null)o[k]=b[k];};fill(s,d);
   if(!Array.isArray(s.feats))s.feats=[];if(!s.design||typeof s.design!=="object")s.design=d.design;fill(s.design,d.design);if(!Array.isArray(s.da))s.da=["","",""];if(!Array.isArray(s.dirs))s.dirs=[];
   if(!s.v1||typeof s.v1!=="object")s.v1={img:"",note:""};fill(s.v1,{img:"",note:""});if(!Array.isArray(s.fixes)||!s.fixes.length)s.fixes=[blankFix()];s.fixes.forEach(f=>fill(f,blankFix()));
@@ -3029,7 +3029,8 @@ function designMiss(){const s=S3(),d=s.design,g=lack([["분위기",d.mood,2],["�
 const buildMiss=()=>lack([["첫 버전을 본 느낌",S3().v1.note,8]]);
 const fixOk=f=>cnt(f.want)>=4&&cnt(f.got)>=4&&cnt(f.how)>=4;
 function fixMiss(){const n=S3().fixes.filter(fixOk).length;return n>=2?[]:[`고친 기록 2개 (${n}/2)`];}
-function finMiss(){const s=S3(),g=lack([["AI 동료 소개",s.intro,15]]);if(!/^https?:\/\/\S+/.test(t3(s.link))&&!s.fin.img)g.push("앱 링크 또는 완성 화면 캡처");return g;}
+function finMiss(){const s=S3(),g=lack([["AI 동료 소개",s.intro,15]]);if(!/^https?:\/\/\S+/.test(t3(s.link))&&!s.html)g.push("앱 공유 링크 또는 HTML 코드");return g;}
+const HTML3_MAX=300000;function html3(){const s=S3();return s.html?{name:s.htmlName||"",text:s.html}:undefined;}
 function thinkList3(){const it=(ch,t,miss)=>({ch,t,miss,ok:!miss.length});
   return [it(10,"넣을 기능",hasPlan()?featMiss():["1·2차시 기록 불러오기"]),it(11,"디자인 방향",designMiss()),it(12,"첫 버전",buildMiss()),it(13,"고친 기록",fixMiss()),it(14,"소개와 완성한 앱",finMiss())];}
 function checklist3(){const items=thinkList3(),done=items.filter(x=>x.ok).length;
@@ -3159,6 +3160,16 @@ function sFix3(){if(!hasPlan())return lock3(13);const s=S3(),g=gateNav(13,fixMis
   paint();
   return [...head(13),thinkBox("직접 써 보며 찾기","예시로 체험하기 → 내 데이터 넣기 → 사람이 고치는 버튼 누르기. 생각과 다르게 나온 곳을 찾아요.",box),g.el];}
 
+function htmlZone3(up){const s=S3(),st=h("p",{class:"note",role:"status",style:"margin:0"}),fi=h("input",{type:"file",accept:".html,.htm,.txt,text/html",style:"display:none"});
+  const ta=h("textarea",{id:"f-h3",rows:2,class:"mind-ta",placeholder:"또는 여기에 코드 전체를 붙여 넣기 (Ctrl+V)","aria-label":"HTML 코드 붙여 넣기"});
+  const clr=h("button",{class:"btn sm",type:"button",onclick:()=>{s.html="";s.htmlName="";touch3();save();paint();up&&up();refreshCheck();}},"지우기");
+  const paint=()=>{st.className="note";st.replaceChildren(s.html?`✓ HTML 코드 ${s.html.length.toLocaleString()}자${s.htmlName?" ("+s.htmlName+")":""} `:"",s.html?clr:"");};
+  const take=(text,name)=>{text=String(text||"").trim();if(!text)return;if(!/<\s*(!doctype|html|body|div|script)/i.test(text)){st.className="err";st.textContent="HTML 코드가 아닌 것 같아요. 코드 전체를 다시 복사해 주세요.";return;}
+    if(text.length>HTML3_MAX){st.className="err";st.textContent=`코드가 너무 길어요 (${text.length.toLocaleString()}자). 선생님께 파일로 직접 내 주세요.`;return;}
+    s.html=text;s.htmlName=String(name||"").slice(0,60);touch3();save();paint();up&&up();refreshCheck();};
+  fi.addEventListener("change",()=>{const f=fi.files&&fi.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>take(rd.result,f.name);rd.readAsText(f);fi.value="";});
+  ta.addEventListener("input",()=>{const v=ta.value;ta.value="";take(v,"");});paint();
+  return h("div",{style:"display:grid;gap:8px"},h("span",{class:"kicker"},"HTML 코드"),h("p",{class:"note",style:"margin:0"},"내려받은 HTML 파일을 고르거나, 코드 보기에서 전체 복사해 붙여 넣어요."),h("div",{class:"row"},h("button",{class:"btn",type:"button",onclick:()=>fi.click()},"HTML 파일 고르기"),fi),ta,st);}
 /* ---------- Chapter 15 선배의 한마디 · 제출 ---------- */
 function sSenior3(){if(!hasPlan())return lock3(14);const s=S3(),e=E(),g=gateNav(14,finMiss);
   const out=h("div",{class:"say3"+(s.senior?" on":"")},...(s.senior?[h("b",null,ename()),h("p",null,s.senior)]:[h("p",{class:"note",style:"margin:0"},"소개를 쓰고 보여 주면 답해 줘요.")]));
@@ -3170,8 +3181,9 @@ function sSenior3(){if(!hasPlan())return lock3(14);const s=S3(),e=E(),g=gateNav(
     catch(err){msg.className="err";msg.textContent=errCopy(err);if(!s.senior)p.textContent="";}finally{btn.disabled=false;}};
   return [...head(14),
     thinkBox("내 AI 동료 소개",null,lab("f-i3","누구를 위한, 무엇을 하는 AI 동료인가요? 가장 자랑하고 싶은 점은?",ta3("f-i3",s,"intro","예: 병동 간호사를 위한 체온 지킴이. 체온을 넣으면 위험한 환자부터 빨갛게 보여 준다. 간호사가 확인을 눌러야 기록이 확정되는 게 자랑이다.",3,15,g.up))),
-    h("div",{class:"glass"},h("span",{class:"kicker"},"완성한 앱"),lab("f-l3","제미나이 공유 링크",in3("f-l3",s,"link","https://gemini.google.com/share/…",g.up)),
-      h("p",{class:"note",style:"margin:0"},"캔버스 오른쪽 위 '공유'에서 링크를 만들어 붙여 넣어요. 링크가 안 되면 완성 화면 캡처만 올려도 돼요."),imgZone(s.fin,()=>{touch3();g.up();refreshPop();})),
+    h("div",{class:"glass"},h("span",{class:"kicker"},"완성한 앱"),lab("f-l3","공유 링크 (제미나이)",in3("f-l3",s,"link","https://gemini.google.com/share/…",g.up)),
+      h("p",{class:"note",style:"margin:0"},"제미나이: 캔버스 오른쪽 위 '공유'에서 링크를 만들어 붙여 넣어요. 챗지피티처럼 링크가 없으면 아래에 HTML 코드를 내요."),
+      htmlZone3(g.up),h("span",{class:"kicker"},"완성 화면 캡처 (선택)"),imgZone(s.fin,()=>{touch3();g.up();refreshPop();})),
     h("div",{class:"glass"},h("span",{class:"kicker"},"선배의 한마디"),out,btn?h("div",{class:"row"},btn,msg):null),
     checklist3(),submitPanel({list:thinkList3,status:"3차시 제출",ch:14,at:"submittedAt3",sig:"submitSig3"})];}
 
